@@ -9,19 +9,14 @@
 import Foundation
 import SwiftyJSON
 
-struct QRCodeTicket {
-    private var matchId: String
-    let id: String
-    let mId: String
-    let key: String
+public struct CheckInContent {
+    let id: Int
+    let mId: Int
+    let key: Int
     
     init(_ jsonData: JSON) {
-        id = jsonData["id"].stringValue
-        mId = jsonData["m_id"].stringValue
-        key = jsonData["name"].stringValue
-    }
-    
-    mutating func setMatchId(matchId: String) {
-        self.matchId = matchId
+        id = jsonData["id"].intValue
+        mId = jsonData["m_id"].intValue
+        key = jsonData["key"].intValue
     }
 }

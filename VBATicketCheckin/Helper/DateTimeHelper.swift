@@ -14,7 +14,7 @@ extension Formatter {
         formatter.calendar = Calendar(identifier: .iso8601)
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         return formatter
     }()
 }
@@ -27,17 +27,12 @@ extension Date {
     }
     
     //Display
-    var dayMonthDateYear: String {
+    var matchTime: String {
         let dateFormatter = DateFormatter()
         
-        dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
-        
-        return dateFormatter.string(from: self)
-    }
-    
-    var dateMonthYear : String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.dateFormat = "MMM d, yyyy h:mm a"
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
         
         return dateFormatter.string(from: self)
     }

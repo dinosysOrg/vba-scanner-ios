@@ -12,8 +12,6 @@ import GoogleSignIn
 
 class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     
-    @IBOutlet weak var indicator: UIActivityIndicatorView!
-    
     let loginViewModel = LoginViewModel()
     
     var isGoogleButtonSetup = false
@@ -74,7 +72,8 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         
         // Getting the signin button and adding it to view
         let googleSignInButton = GIDSignInButton()
-        googleSignInButton.center = view.center
+        
+        googleSignInButton.center = CGPoint(x: view.center.x, y: (view.center.y + 120))
         
         view.addSubview(googleSignInButton)
         
