@@ -6,8 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,25 +21,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photoBg" translatesAutoresizingMaskIntoConstraints="NO" id="Ltc-xq-mTD">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="233.5"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vbaLogo" translatesAutoresizingMaskIntoConstraints="NO" id="r5s-sl-Tu5">
-                                <rect key="frame" x="112" y="258.5" width="150" height="150"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="r5s-sl-Tu5" secondAttribute="height" multiplier="1:1" id="qgH-Tn-fOL"/>
-                                    <constraint firstAttribute="width" constant="150" id="vqh-cn-mpa"/>
-                                </constraints>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="screen" translatesAutoresizingMaskIntoConstraints="NO" id="LVs-tT-G73">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="r5s-sl-Tu5" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="6Mk-U4-O6H"/>
-                            <constraint firstItem="Ltc-xq-mTD" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="7eF-Nw-0Iv"/>
-                            <constraint firstItem="Ltc-xq-mTD" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Dtj-2Z-JBx"/>
-                            <constraint firstItem="Ltc-xq-mTD" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.35" id="NLT-Ai-0ej"/>
-                            <constraint firstAttribute="trailing" secondItem="Ltc-xq-mTD" secondAttribute="trailing" id="g6c-lk-b6f"/>
-                            <constraint firstItem="r5s-sl-Tu5" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="rej-jc-Iuc"/>
+                            <constraint firstItem="LVs-tT-G73" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="9Lr-Pb-g8r"/>
+                            <constraint firstItem="LVs-tT-G73" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="JyN-e9-2JU"/>
+                            <constraint firstAttribute="bottom" secondItem="LVs-tT-G73" secondAttribute="bottom" id="PyC-6j-UNs"/>
+                            <constraint firstAttribute="trailing" secondItem="LVs-tT-G73" secondAttribute="trailing" id="UZU-S6-cb9"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -51,7 +40,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="photoBg" width="375" height="240"/>
-        <image name="vbaLogo" width="125" height="134"/>
+        <image name="screen" width="360" height="640"/>
     </resources>
 </document>

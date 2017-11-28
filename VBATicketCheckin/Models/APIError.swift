@@ -11,39 +11,27 @@ import SwiftyJSON
 
 public enum APIErrorType : Int {
     case ok = 200
-    case invalidTicked = 400
-    case tokenExpired = 403
+    case notFound = 404
     case unknown = 999
 }
 
 public struct APIError {
     let type: APIErrorType
     
-    private var _message: String? = "Lỗi không xác định."
-    
-    public var message: String? {
+    var message: String? {
         get {
             switch type {
-            case .invalidTicked:
-                return "Vé đã được sử dụng."
-            case .tokenExpired:
-                return "Phiên làm việc hết hạn. Vui lòng đăng nhập lại."
+            case .notFound:
+                return "Không thể kết nối đến Server"
             default:
-                return _message
+                return "Lỗi không xác định"
             }
         }
-        set {
-            _message = newValue
-        }
-    }
-    
-    init(){
-        type = APIErrorType.unknown
     }
     
     init(_ statusCode: Int) {
         if let errorType = APIErrorType(rawValue: statusCode) {
-            type = errorType
+            
         } else {
             type = APIErrorType.unknown
         }
