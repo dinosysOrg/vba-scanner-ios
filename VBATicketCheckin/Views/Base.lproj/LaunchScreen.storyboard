@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Uha-cw-Zsl"/>
+                        <viewControllerLayoutGuide type="bottom" id="DAq-xb-Ykz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photoBg" translatesAutoresizingMaskIntoConstraints="NO" id="Ltc-xq-mTD">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="233.5"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vbaLogo" translatesAutoresizingMaskIntoConstraints="NO" id="r5s-sl-Tu5">
+                                <rect key="frame" x="112" y="258.5" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="r5s-sl-Tu5" secondAttribute="height" multiplier="1:1" id="qgH-Tn-fOL"/>
+                                    <constraint firstAttribute="width" constant="150" id="vqh-cn-mpa"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="r5s-sl-Tu5" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="6Mk-U4-O6H"/>
+                            <constraint firstItem="Ltc-xq-mTD" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="7eF-Nw-0Iv"/>
+                            <constraint firstItem="Ltc-xq-mTD" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Dtj-2Z-JBx"/>
+                            <constraint firstItem="Ltc-xq-mTD" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.35" id="NLT-Ai-0ej"/>
+                            <constraint firstAttribute="trailing" secondItem="Ltc-xq-mTD" secondAttribute="trailing" id="g6c-lk-b6f"/>
+                            <constraint firstItem="r5s-sl-Tu5" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="rej-jc-Iuc"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="photoBg" width="375" height="240"/>
+        <image name="vbaLogo" width="125" height="134"/>
+    </resources>
+</document>
