@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hq1-Fl-euV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hq1-Fl-euV">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -79,7 +79,7 @@
                                         <rect key="frame" x="0.0" y="50" width="335" height="183"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="matchCell" rowHeight="84" id="QLa-zJ-9eV" customClass="MatchCell" customModule="VBATicketCheckin" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="matchCell" rowHeight="84" id="QLa-zJ-9eV" customClass="MatchCell" customModule="VBATicketCheckin" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="335" height="84"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QLa-zJ-9eV" id="mn5-Pe-ziC">
@@ -130,10 +130,19 @@
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="847-LD-CEv"/>
                                         </connections>
                                     </tableView>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="hPb-wK-I1m">
+                                        <rect key="frame" x="147" y="121.5" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="7iR-lX-FIY"/>
+                                            <constraint firstAttribute="width" constant="40" id="JZF-FU-r1X"/>
+                                        </constraints>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Wyl-wz-qc0" firstAttribute="top" secondItem="Pf1-fU-6gg" secondAttribute="top" id="1uL-NO-hW2"/>
+                                    <constraint firstItem="hPb-wK-I1m" firstAttribute="centerY" secondItem="gVO-jw-cGu" secondAttribute="centerY" id="2AX-20-mwx"/>
+                                    <constraint firstItem="hPb-wK-I1m" firstAttribute="centerX" secondItem="gVO-jw-cGu" secondAttribute="centerX" id="JUG-qO-aB1"/>
                                     <constraint firstAttribute="trailing" secondItem="Wyl-wz-qc0" secondAttribute="trailing" id="M6k-bK-m5a"/>
                                     <constraint firstAttribute="trailing" secondItem="gVO-jw-cGu" secondAttribute="trailing" id="NjA-OF-XeR"/>
                                     <constraint firstAttribute="bottom" secondItem="gVO-jw-cGu" secondAttribute="bottom" id="WfI-HF-vHf"/>
@@ -419,6 +428,7 @@
                         <outlet property="checkInButton" destination="bP9-GH-Lny" id="azt-qu-Q8a"/>
                         <outlet property="checkInView" destination="0WH-8o-KIP" id="Jsc-gR-2YV"/>
                         <outlet property="checkInViewContainer" destination="nk7-zh-0Dl" id="rcA-7f-dSl"/>
+                        <outlet property="loadingIndicator" destination="hPb-wK-I1m" id="Z2v-IX-S2o"/>
                         <outlet property="matchesContainerView" destination="Pf1-fU-6gg" id="NjR-0m-qon"/>
                         <outlet property="matchesHeaderView" destination="Wyl-wz-qc0" id="OcU-lv-cu8"/>
                         <outlet property="matchesLabel" destination="rqW-wt-dlf" id="miu-se-M9k"/>
@@ -462,6 +472,14 @@
                                     <constraint firstAttribute="height" constant="150" id="MJp-Ba-viU"/>
                                 </constraints>
                             </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="NE9-98-eFg">
+                                <rect key="frame" x="167" y="433.5" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="4oM-fH-Z83"/>
+                                    <constraint firstAttribute="height" constant="40" id="pBT-h5-wRE"/>
+                                </constraints>
+                                <color key="color" red="0.96862745100000003" green="0.58039215690000001" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -470,9 +488,14 @@
                             <constraint firstItem="oXi-wB-21K" firstAttribute="centerY" secondItem="7Hv-ce-hSN" secondAttribute="centerY" id="eoQ-xT-UbV"/>
                             <constraint firstAttribute="trailing" secondItem="eoJ-OE-zQs" secondAttribute="trailing" id="ffq-5m-Hsh"/>
                             <constraint firstItem="eoJ-OE-zQs" firstAttribute="height" secondItem="7Hv-ce-hSN" secondAttribute="height" multiplier="0.35" id="jlL-J4-FCO"/>
+                            <constraint firstItem="NE9-98-eFg" firstAttribute="centerX" secondItem="7Hv-ce-hSN" secondAttribute="centerX" id="kpX-eZ-n63"/>
+                            <constraint firstItem="NE9-98-eFg" firstAttribute="centerY" secondItem="7Hv-ce-hSN" secondAttribute="centerY" constant="120" id="w5b-aW-JsO"/>
                             <constraint firstItem="oXi-wB-21K" firstAttribute="centerX" secondItem="7Hv-ce-hSN" secondAttribute="centerX" id="zFb-0E-uen"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="loginIndicator" destination="NE9-98-eFg" id="lEX-HY-hgE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ir-OD-Ah5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -14,7 +14,11 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     
     let loginViewModel = LoginViewModel()
     
+    let googleSignInButton = GIDSignInButton()
+    
     var isGoogleButtonSetup = false
+    
+    @IBOutlet weak var loginIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,13 +75,12 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         GIDSignIn.sharedInstance().delegate = self
         
         // Getting the signin button and adding it to view
-        let googleSignInButton = GIDSignInButton()
+        self.googleSignInButton.center = CGPoint(x: view.center.x, y: (view.center.y + 120))
         
-        googleSignInButton.center = CGPoint(x: view.center.x, y: (view.center.y + 120))
-        
-        view.addSubview(googleSignInButton)
+        self.view.addSubview(self.googleSignInButton)
         
         self.isGoogleButtonSetup = true
+        self.loginIndicator.isHidden = false
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
@@ -87,23 +90,28 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
             return
         }
         
-        User.sharedInstance.GoogleAccessToken = user.authentication.idToken
-        User.sharedInstance.Name = user.profile.name
-        User.sharedInstance.Email = user.profile.email
+        self.googleSignInButton.isHidden = true
+        self.loginIndicator.isHidden = false
         
         loginViewModel.loginWith(google: user.authentication.idToken) { (success, error) in
             if success {
+                User.sharedInstance.GoogleAccessToken = user.authentication.idToken
+                User.sharedInstance.Name = user.profile.name
+                User.sharedInstance.Email = user.profile.email
                 self.presentMainViewController()
+                
             } else if let loginError = error {
+                
+                self.googleSignInButton.isHidden = false
+                self.loginIndicator.isHidden = true
+                
                 self.showError(title: "Đăng nhập không thành công", message: loginError.message!)
             }
         }
     }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        User.sharedInstance.GoogleAccessToken = ""
-        User.sharedInstance.Name = ""
-        User.sharedInstance.Email = ""
+        User.sharedInstance.signOut()
     }
 }
 

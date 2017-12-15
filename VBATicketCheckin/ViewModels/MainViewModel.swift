@@ -35,8 +35,6 @@ public class MainViewModel {
                 if statusCode == 200 {
                     let jsonData = JSON(data)
                     
-                    print(jsonData)
-                    
                     let matches = jsonData.arrayValue
                         .map { jsonObject in
                             return Match(jsonObject)
@@ -78,8 +76,6 @@ public class MainViewModel {
                     if statusCode == 200 {
                         let jsonData = JSON(data)
                         
-                        print(jsonData)
-                        
                         let ticket = Ticket(jsonData)
                         
                         completion(ticket, nil)
@@ -111,7 +107,7 @@ public class MainViewModel {
                     
                     if statusCode == 200 {
                         let jsonData = JSON(data)
-                        print(jsonData)
+                        
                         completion(true, nil)
                     } else {
                         let apiError = APIError(statusCode)

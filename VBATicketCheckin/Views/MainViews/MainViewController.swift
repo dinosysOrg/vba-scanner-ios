@@ -34,6 +34,8 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var selectMatchButton: UIButton!
     
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
     // QR Code
     
     @IBOutlet weak var qrCodeContainerView: UIView!
@@ -160,7 +162,9 @@ class MainViewController: UIViewController {
 extension MainViewController : UITableViewDelegate, UITableViewDataSource {
     
     func getUpcomingMatches() {
+        self.showLoadinng()
         self.mainViewModel.getUpcomingMatches(completion: { (success, error) in
+            self.hideLoadinng()
             if success {
                 self.tableView.reloadData()
                 self.setupScanner()
@@ -299,7 +303,7 @@ extension MainViewController : AVCaptureMetadataOutputObjectsDelegate {
     // Display error if scanner setup failed
     func setupScannerFailed() {
         let title = "Thiết lập trình quét mã không thành công"
-        let message = "Thiết bị của bạn không hỗ trỡ quét mã. Xin hãy sử dụng thiết bị khác."
+        let message = "Thiết bị của bạn không hỗ trợ quét mã. Xin hãy sử dụng thiết bị khác."
         
         self.showError(title: title, message: message)
         
@@ -345,6 +349,14 @@ extension MainViewController {
     
     func hideReScanButton(){
         self.rescanButton.isHidden = true
+    }
+    
+    func showLoadinng(){
+        self.loadingIndicator.isHidden = false
+    }
+    
+    func hideLoadinng(){
+        self.loadingIndicator.isHidden = true
     }
     
     func updateTicketUI() {
