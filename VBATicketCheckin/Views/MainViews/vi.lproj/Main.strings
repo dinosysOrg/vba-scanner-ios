@@ -1,0 +1,45 @@
+
+/* Class = "UILabel"; text = "Số lượng:"; ObjectID = "14l-rb-6Qo"; */
+"14l-rb-6Qo.text" = "Số lượng:";
+
+/* Class = "UILabel"; text = "Loại vé:"; ObjectID = "41y-eO-5lh"; */
+"41y-eO-5lh.text" = "Loại vé:";
+
+/* Class = "UILabel"; text = "Tên:"; ObjectID = "6K4-bT-gyJ"; */
+"6K4-bT-gyJ.text" = "Tên:";
+
+/* Class = "UILabel"; text = "Thanh toán:"; ObjectID = "Bvq-HO-ZSD"; */
+"Bvq-HO-ZSD.text" = "Thanh toán:";
+
+/* Class = "UIButton"; normalTitle = "CHECK IN THÀNH CÔNG"; ObjectID = "CHF-Mu-5zW"; */
+"CHF-Mu-5zW.normalTitle" = "CHECK IN THÀNH CÔNG";
+
+/* Class = "UILabel"; text = "Chưa thanh toán"; ObjectID = "EpP-nO-etC"; */
+"EpP-nO-etC.text" = "Chưa thanh toán";
+
+/* Class = "UILabel"; text = "VIP"; ObjectID = "JZc-8s-uRu"; */
+"JZc-8s-uRu.text" = "VIP";
+
+/* Class = "UILabel"; text = "Thông tin vé"; ObjectID = "WLb-HY-sBx"; */
+"WLb-HY-sBx.text" = "Thông tin vé";
+
+/* Class = "UIButton"; normalTitle = "QUÉT LẠI VÉ ĐỂ CHECK IN"; ObjectID = "XTB-lv-ehF"; */
+"XTB-lv-ehF.normalTitle" = "QUÉT LẠI VÉ ĐỂ CHECK IN";
+
+/* Class = "UILabel"; text = "Nguyễn Văn A"; ObjectID = "h9c-am-scb"; */
+"h9c-am-scb.text" = "Nguyễn Văn A";
+
+/* Class = "UILabel"; text = "Đã sử dụng"; ObjectID = "mSo-b2-Wh0"; */
+"mSo-b2-Wh0.text" = "Đã sử dụng";
+
+/* Class = "UILabel"; text = "Trạng thái:"; ObjectID = "o5Z-5n-D4I"; */
+"o5Z-5n-D4I.text" = "Trạng thái:";
+
+/* Class = "UIButton"; normalTitle = "Hủy"; ObjectID = "pMM-4S-hXV"; */
+"pMM-4S-hXV.normalTitle" = "Hủy";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "rba-HQ-OaJ"; */
+"rba-HQ-OaJ.text" = "1";
+
+/* Class = "UIButton"; normalTitle = "Thanh toán"; ObjectID = "ysd-43-LYU"; */
+"ysd-43-LYU.normalTitle" = "Thanh toán";

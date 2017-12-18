@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1EB2C2299F66420C60428330 /* Pods_VBATicketCheckin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AD8BBB1FC7DE5300A67900 /* Pods_VBATicketCheckin.framework */; };
+		C904A0891FE764BC00DD285D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904A0881FE764BC00DD285D /* Constants.swift */; };
 		C936EA801FC42CFA008963DC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C97D4B7A1FC3DB36008A2ABB /* Info.plist */; };
 		C936EA881FC432AD008963DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C936EA871FC432AD008963DC /* GoogleService-Info.plist */; };
 		C936EA8A1FC4375B008963DC /* TicketCheckInAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936EA891FC4375B008963DC /* TicketCheckInAPI.swift */; };
@@ -21,6 +22,9 @@
 		C97D4B761FC3DB36008A2ABB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C97D4B751FC3DB36008A2ABB /* Assets.xcassets */; };
 		C97D4B791FC3DB36008A2ABB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C97D4B771FC3DB36008A2ABB /* LaunchScreen.storyboard */; };
 		C97D4B871FC3DBF0008A2ABB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D4B861FC3DBF0008A2ABB /* LoginViewController.swift */; };
+		C9B1DD7C1FE3BE4E001F86EE /* ScanTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1DD7B1FE3BE4E001F86EE /* ScanTicketViewController.swift */; };
+		C9B1DD7E1FE3BE5D001F86EE /* ScanResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1DD7D1FE3BE5D001F86EE /* ScanResultViewController.swift */; };
+		C9B1DD841FE3C625001F86EE /* UIViewControllerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1DD831FE3C625001F86EE /* UIViewControllerHelper.swift */; };
 		C9B7AB091FC6A98D00B70D51 /* MatchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B7AB081FC6A98D00B70D51 /* MatchCell.swift */; };
 		C9B7AB0F1FC6AB6C00B70D51 /* DateTimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B7AB0E1FC6AB6C00B70D51 /* DateTimeHelper.swift */; };
 		C9FADB901FC537640002DD64 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FADB8F1FC537640002DD64 /* LoginViewModel.swift */; };
@@ -32,6 +36,7 @@
 		1AE33C77D608FC9701116D48 /* Pods-VBATicketCheckin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VBATicketCheckin.release.xcconfig"; path = "Pods/Target Support Files/Pods-VBATicketCheckin/Pods-VBATicketCheckin.release.xcconfig"; sourceTree = "<group>"; };
 		74988C204B45C677AB8E0A7E /* Pods_VBATicketCheckin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VBATicketCheckin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78F84D39D4C59414843D9BB9 /* Pods-VBATicketCheckin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VBATicketCheckin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VBATicketCheckin/Pods-VBATicketCheckin.debug.xcconfig"; sourceTree = "<group>"; };
+		C904A0881FE764BC00DD285D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C936EA871FC432AD008963DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C936EA891FC4375B008963DC /* TicketCheckInAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketCheckInAPI.swift; sourceTree = "<group>"; };
 		C936EA8B1FC43A05008963DC /* CheckInContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInContent.swift; sourceTree = "<group>"; };
@@ -67,6 +72,9 @@
 		C9AD8BCD1FC7DE6300A67900 /* ReachabilitySwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ReachabilitySwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9AD8BCE1FC7DE6300A67900 /* Result.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Result.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9AD8BCF1FC7DE6300A67900 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9B1DD7B1FE3BE4E001F86EE /* ScanTicketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTicketViewController.swift; sourceTree = "<group>"; };
+		C9B1DD7D1FE3BE5D001F86EE /* ScanResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanResultViewController.swift; sourceTree = "<group>"; };
+		C9B1DD831FE3C625001F86EE /* UIViewControllerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerHelper.swift; sourceTree = "<group>"; };
 		C9B3B8E71FC57515005D1661 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		C9B7AB081FC6A98D00B70D51 /* MatchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCell.swift; sourceTree = "<group>"; };
 		C9B7AB0E1FC6AB6C00B70D51 /* DateTimeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeHelper.swift; sourceTree = "<group>"; };
@@ -146,6 +154,7 @@
 				C97D4B811FC3DB6E008A2ABB /* Views */,
 				C97D4B801FC3DB6A008A2ABB /* APIs */,
 				C97D4B6E1FC3DB36008A2ABB /* AppDelegate.swift */,
+				C904A0881FE764BC00DD285D /* Constants.swift */,
 				C97D4B751FC3DB36008A2ABB /* Assets.xcassets */,
 				C97D4B7A1FC3DB36008A2ABB /* Info.plist */,
 				C936EA871FC432AD008963DC /* GoogleService-Info.plist */,
@@ -198,6 +207,8 @@
 				C97D4B721FC3DB36008A2ABB /* Main.storyboard */,
 				C97D4B701FC3DB36008A2ABB /* MainViewController.swift */,
 				C97D4B861FC3DBF0008A2ABB /* LoginViewController.swift */,
+				C9B1DD7B1FE3BE4E001F86EE /* ScanTicketViewController.swift */,
+				C9B1DD7D1FE3BE5D001F86EE /* ScanResultViewController.swift */,
 			);
 			path = MainViews;
 			sourceTree = "<group>";
@@ -214,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				C9B7AB0E1FC6AB6C00B70D51 /* DateTimeHelper.swift */,
+				C9B1DD831FE3C625001F86EE /* UIViewControllerHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -396,8 +408,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9B7AB0F1FC6AB6C00B70D51 /* DateTimeHelper.swift in Sources */,
+				C904A0891FE764BC00DD285D /* Constants.swift in Sources */,
+				C9B1DD7C1FE3BE4E001F86EE /* ScanTicketViewController.swift in Sources */,
 				C97D4B871FC3DBF0008A2ABB /* LoginViewController.swift in Sources */,
 				C936EA8A1FC4375B008963DC /* TicketCheckInAPI.swift in Sources */,
+				C9B1DD841FE3C625001F86EE /* UIViewControllerHelper.swift in Sources */,
 				C936EA8C1FC43A05008963DC /* CheckInContent.swift in Sources */,
 				C9FADB981FC552790002DD64 /* APIError.swift in Sources */,
 				C936EA921FC43CBD008963DC /* Ticket.swift in Sources */,
@@ -406,6 +421,7 @@
 				C936EA8E1FC43C0B008963DC /* Match.swift in Sources */,
 				C9FADB901FC537640002DD64 /* LoginViewModel.swift in Sources */,
 				C9B7AB091FC6A98D00B70D51 /* MatchCell.swift in Sources */,
+				C9B1DD7E1FE3BE5D001F86EE /* ScanResultViewController.swift in Sources */,
 				C936EA901FC43C7F008963DC /* User.swift in Sources */,
 				C9FADB921FC5376D0002DD64 /* MainViewModel.swift in Sources */,
 			);
@@ -437,6 +453,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -495,6 +512,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -597,6 +615,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

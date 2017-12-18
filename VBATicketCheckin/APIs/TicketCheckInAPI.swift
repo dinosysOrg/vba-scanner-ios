@@ -32,8 +32,8 @@ public enum TicketCheckInAPI  {
 }
 
 //let endpoint = "http://vba-ticket.herokuapp.com/api"
-let endpoint = "https://vba-ticket-production.herokuapp.com/api"
-//let endpoint = "https://vba-ticket-staging.herokuapp.com/api"
+//let endpoint = "https://vba-ticket-production.herokuapp.com/api"
+let endpoint = "https://vba-ticket-staging.herokuapp.com/api"
 //let endpoint = "http://09bfb966.ngrok.io/api"
 
 extension TicketCheckInAPI : TargetType {

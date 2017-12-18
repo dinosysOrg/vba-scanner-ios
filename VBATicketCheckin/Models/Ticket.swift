@@ -9,11 +9,6 @@
 import Foundation
 import SwiftyJSON
 
-
-public enum TicketStatusType : String {
-    case unuse = "Unused"
-    case used = "Used"
-}
 //{
 //    "away_team" : "Hanoi Buffaloes",
 //    "start_time" : 1512013260,

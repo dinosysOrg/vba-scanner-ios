@@ -11,17 +11,21 @@ import SwiftyJSON
 
 public class MainViewModel {
     
+    static var sharedInstance = MainViewModel()
+    
+    private init(){}
+    
     var upcomingMatches = [Match]()
     
-    var selectedMatch : Match?
+    var currentMatch : Match?
     
     var currentQRCode : CheckInContent?
     
     var currentTicket : Ticket?
     
-    func setSelectedMatchWith(index: Int) {
+    func setCurrentMatchWith(index: Int) {
         if index >= 0 && index < self.upcomingMatches.count {
-             self.selectedMatch = self.upcomingMatches[index]
+             self.currentMatch = self.upcomingMatches[index]
         }
     }
     
@@ -60,7 +64,7 @@ public class MainViewModel {
     //Sample ticket json string "{\"id\":99,\"number\":0,\"m_id\":98637,\"key\":98720}"
     func verifyTicket(ticketJsonString : String, completion: @escaping (Ticket?, APIError?) -> Void){
         
-        let matchId = self.selectedMatch!.id
+        let matchId = self.currentMatch!.id
                 
         let ticketJSON = JSON.init(parseJSON: ticketJsonString)
         
@@ -77,6 +81,8 @@ public class MainViewModel {
                         let jsonData = JSON(data)
                         
                         let ticket = Ticket(jsonData)
+                        
+                        self.currentTicket = ticket
                         
                         completion(ticket, nil)
                     } else {

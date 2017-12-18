@@ -23,7 +23,6 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -41,7 +40,9 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         
         let mainViewController = storyBoard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
         
-        self.present(mainViewController, animated:true, completion:nil)
+        let destination = UINavigationController(rootViewController: mainViewController)
+        
+        self.present(destination, animated:true, completion:nil)
     }
     
     func showError(title: String, message: String) {

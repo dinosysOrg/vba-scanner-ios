@@ -14,6 +14,8 @@ class User {
     
     static var sharedInstance = User()
     
+    private init() {}
+    
     // User Info
     
     // Name
