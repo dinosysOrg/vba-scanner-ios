@@ -30,9 +30,7 @@ extension Date {
     var matchTime: String {
         let dateFormatter = DateFormatter()
         
-        dateFormatter.dateFormat = "MMM d, yyyy h:mm a"
-        dateFormatter.amSymbol = "AM"
-        dateFormatter.pmSymbol = "PM"
+        dateFormatter.dateFormat = "dd-MM-yyyy, HH:mm"
         
         return dateFormatter.string(from: self)
     }

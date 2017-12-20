@@ -23,7 +23,7 @@ public class MainViewModel {
     
     var currentTicket : Ticket?
     
-    func setCurrentMatchWith(index: Int) {
+    func setCurrentMatch(withIndex index: Int) {
         if index >= 0 && index < self.upcomingMatches.count {
              self.currentMatch = self.upcomingMatches[index]
         }
@@ -38,6 +38,7 @@ public class MainViewModel {
                 
                 if statusCode == 200 {
                     let jsonData = JSON(data)
+                    
                     
                     let matches = jsonData.arrayValue
                         .map { jsonObject in

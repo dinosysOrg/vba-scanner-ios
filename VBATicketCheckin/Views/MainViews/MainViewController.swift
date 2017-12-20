@@ -16,7 +16,7 @@ class MainViewController: UIViewController {
     
     let cell = "matchCell"
     
-    let cellHeight : CGFloat = 64
+    let cellHeight : CGFloat = 68
     
     private let refreshControl = UIRefreshControl()
     
@@ -45,9 +45,7 @@ class MainViewController: UIViewController {
             self.tableView.addSubview(refreshControl)
         }
         
-        self.refreshControl.tintColor = Constants.mainColor
-        
-        let refreshControlAttributedTitle = NSAttributedString(string: "Đang tải danh sách trận đấu...", attributes: [NSAttributedStringKey.foregroundColor:Constants.mainColor])
+        let refreshControlAttributedTitle = NSAttributedString(string: "Đang tải danh sách trận đấu...")
         
         self.refreshControl.attributedTitle = refreshControlAttributedTitle
         self.refreshControl.addTarget(self, action: #selector(refreshMatchData(_:)), for: .valueChanged)
@@ -114,7 +112,7 @@ extension MainViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let matchIndex = indexPath.row
         
-        self.mainViewModel.setCurrentMatchWith(index: matchIndex)
+        self.mainViewModel.setCurrentMatch(withIndex: matchIndex)
         
         self.showQRCodeScanner()
     }
