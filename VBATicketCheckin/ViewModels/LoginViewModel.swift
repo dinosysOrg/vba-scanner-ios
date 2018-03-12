@@ -8,30 +8,33 @@
 
 import Foundation
 import SwiftyJSON
+import Google
+import GoogleSignIn
 
 public class LoginViewModel {
-    func loginWith(google accesstoken: String, completion: @escaping (Bool, APIError?) -> Void){
-        ticketCheckInAPIProvider.request(TicketCheckInAPI.login(accesstoken)) { result in
+    func loginWith(google user: GIDGoogleUser, completion: @escaping (Bool, APIError?) -> Void){
+        ticketCheckInAPIProvider.request(TicketCheckInAPI.login(user.authentication.idToken)) { result in
             switch result {
             case let .success(response):
                 let data = response.data
                 let statusCode = response.statusCode
                 
-                if statusCode == 200 {
+                if statusCode >= 200 && statusCode <= 300 {
                     let jsonData = JSON(data)
-                    
-                    User.sharedInstance.AccessToken = jsonData["token"].stringValue
+                    let info: JSON = ["name" : user.profile.name, "email" : user.profile.email, "accessToken" : jsonData["token"].stringValue, "googleAccessToken" : user.authentication.idToken];
+                    let current = User(json: info)
+                    User.save(current)
                     
                     completion(true, nil)
                 } else {
-                    let apiError = APIError(statusCode)
-                    completion(false, apiError)
+                    let requestError = APIError(statusCode)
+                    completion(false, requestError)
                 }
                 break
             case let .failure(error):
-                var apiError = APIError()
-                apiError.message = error.errorDescription
-                completion(false, apiError)
+                var requestError = APIError()
+                requestError.message = error.errorDescription
+                completion(false, requestError)
                 break
             }
         }

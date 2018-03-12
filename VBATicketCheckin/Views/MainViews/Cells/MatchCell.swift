@@ -9,36 +9,47 @@
 import UIKit
 
 class MatchCell: UITableViewCell {
-    
-    @IBOutlet weak var matchInfoLabel: UILabel!
-    
-    @IBOutlet weak var matchTimeLabel: UILabel!
-    
-    @IBOutlet weak var bottomBorderView: UIView!
+    @IBOutlet weak var vContainer: UIView!
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblTime: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        self.setupUI()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
-    func setMatchInfoWith(match: Match) {
+    // MARK: - Setup UI
+    private func setupUI() {
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.gunmetal
+        self.selectedBackgroundView = backgroundView
+        self.backgroundColor = UIColor.clear
+        self.contentView.backgroundColor = UIColor.clear
         
-        let matchName = match.name
+        self.vContainer.backgroundColor = UIColor.white
+        self.vContainer.layer.setCornerRadius(10.0, border: 0.0, color: nil)
         
+        self.lblName.textColor = UIColor.black
+        self.lblName.font = UIFont.regular.XL
+        self.lblName.lineBreakMode = .byWordWrapping
+        self.lblName.numberOfLines = 0
+        
+        self.lblTime.textColor = UIColor.coolGrey
+        self.lblTime.font = UIFont.regular.L
+    }
+    
+    // MARK: - Load Match data
+    func setInfoWith(_ match: Match) {
         let matchRawTime = match.startTime
-        
         let matchDate = matchRawTime.dateFromISO8601
-        
         let matchTime = matchDate?.matchTime
         
-        self.matchInfoLabel.text = matchName
-        
-        self.matchTimeLabel.text = matchTime!
+        self.lblName.text = match.name
+        self.lblTime.text = matchTime
     }
 }

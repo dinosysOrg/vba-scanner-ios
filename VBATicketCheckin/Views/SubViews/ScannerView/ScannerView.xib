@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ScannerView" customModule="VBATicketCheckin" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OHw-yB-FAr" userLabel="Container View">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D0e-p4-E0P" userLabel="View Scanner">
+                            <rect key="frame" x="40" y="185.5" width="295" height="295"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="D0e-p4-E0P" secondAttribute="height" multiplier="1:1" id="F37-L6-akZ"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oUV-9P-MOz" userLabel="View Blur">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="D0e-p4-E0P" firstAttribute="centerY" secondItem="OHw-yB-FAr" secondAttribute="centerY" id="4G7-Fs-suT"/>
+                        <constraint firstAttribute="bottom" secondItem="oUV-9P-MOz" secondAttribute="bottom" id="6Cj-fE-zI8"/>
+                        <constraint firstAttribute="trailing" secondItem="oUV-9P-MOz" secondAttribute="trailing" id="Akr-UM-tWp"/>
+                        <constraint firstItem="oUV-9P-MOz" firstAttribute="top" secondItem="OHw-yB-FAr" secondAttribute="top" id="T1X-FL-1yZ"/>
+                        <constraint firstItem="oUV-9P-MOz" firstAttribute="leading" secondItem="OHw-yB-FAr" secondAttribute="leading" id="hvQ-7x-FwC"/>
+                        <constraint firstAttribute="trailing" secondItem="D0e-p4-E0P" secondAttribute="trailing" constant="40" id="saq-Oe-pMl"/>
+                        <constraint firstItem="D0e-p4-E0P" firstAttribute="leading" secondItem="OHw-yB-FAr" secondAttribute="leading" constant="40" id="uAd-45-3MD"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="OHw-yB-FAr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="21a-63-dNe"/>
+                <constraint firstItem="OHw-yB-FAr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="TjZ-kd-NlG"/>
+                <constraint firstAttribute="trailing" secondItem="OHw-yB-FAr" secondAttribute="trailing" id="h59-Fd-Xfh"/>
+                <constraint firstAttribute="bottom" secondItem="OHw-yB-FAr" secondAttribute="bottom" id="tgS-NZ-Wrr"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="blurView" destination="oUV-9P-MOz" id="xOc-CN-e23"/>
+                <outlet property="vContainer" destination="OHw-yB-FAr" id="7oA-vO-hpV"/>
+                <outlet property="vScannerImage" destination="D0e-p4-E0P" id="xga-e9-f4A"/>
+            </connections>
+        </view>
+    </objects>
+</document>

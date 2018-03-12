@@ -10,144 +10,104 @@ import UIKit
 import AVFoundation
 import SwiftyJSON
 
-class ScanTicketViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
-    
-    let mainViewModel = MainViewModel.sharedInstance
-    
-    var captureSession: AVCaptureSession!
-    
-    var previewLayer: AVCaptureVideoPreviewLayer!
-    
-    // QR Code
-    
-    @IBOutlet weak var qrCodeContainerView: UIView!
-    
-    @IBOutlet weak var scannerImageView: UIImageView!
+class ScanTicketViewController: BaseViewController {
+    lazy var scanner = ScannerView.initWith(frame: self.view.bounds, delegate: self)
+    let mainViewModel = MainViewModel.shared
     
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
         
-        self.setupScanner()
+        self.setViewBackgroundColor(by: .gunmetal)
+        self.setNavigationTitle("Quét vé")
+        self.addScanner()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.title = "Scan Vé"
-        
-        self.startScanner()
+        self.scanner.start()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
-        self.title = ""
-        
-        self.stopScanner()
+        self.scanner.stop()
     }
     
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portrait
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
-    func setupScanner(){
-        captureSession = AVCaptureSession()
+    // MARK: - Process
+    private func addScanner() {
+        self.view.addSubview(self.scanner)
+    }
+    
+    private func handleScanTicket(_ ticket: Ticket) {
+        let title = ticket.paid ? "Checkin thành công" : "Vé chưa thanh toán"
+        let message = "Trận đấu: \(ticket.match)\n\nSố lượng vé: \(ticket.quantity)\n\nLoại vé: \(ticket.type)"
+        let popupType = ticket.paid ? PopupViewType.withoutButton : PopupViewType.normal
+        let popupTitleType = ticket.paid ? PopupTitleType.green : PopupTitleType.red
+        let popupButtonType = ticket.paid ? PopupButtonTitleType.ok : PopupButtonTitleType.payment
         
-        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
-        let videoInput: AVCaptureDeviceInput
-        
-        do {
-            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
-        } catch {
+        let popup = self.initPopupView(frame: self.view.bounds, type: popupType, delegate: self)
+        popup.loadingView(title: title, message: message, titleType: popupTitleType, buttonType: popupButtonType)
+        popup.show(in: self.view, animated: true)
+    }
+    
+    private func handleScanError(_ error: APIError) {
+        self.showAlert(title: "Check in không thành công", error: error, actionTitles: ["OK"], actions:[{ [weak self] errorAction in
+            DispatchQueue.main.async {
+                if error.type == APIErrorType.tokenExpired {
+                    self?.logOut()
+                } else {
+                    self?.scanner.start()
+                }}}])
+    }
+    
+    // MARK: - API
+    private func scanTicket(code : String) {
+        guard User.authorized else {
+            self.logOut()
             return
         }
         
-        if (captureSession.canAddInput(videoInput)) {
-            captureSession.addInput(videoInput)
-        } else {
-            setupScannerFailed()
-            return
-        }
+        self.showLoading()
         
-        let metadataOutput = AVCaptureMetadataOutput()
-        
-        if (captureSession.canAddOutput(metadataOutput)) {
-            captureSession.addOutput(metadataOutput)
-            
-            metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-            metadataOutput.metadataObjectTypes = [.qr, .ean8, .ean13, .pdf417]
-        } else {
-            self.setupScannerFailed()
-            return
-        }
-        
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.frame = self.qrCodeContainerView.layer.bounds
-        previewLayer.videoGravity = .resizeAspectFill
-        
-        self.qrCodeContainerView.layer.addSublayer(previewLayer)
-    }
-    
-    
-    func startScanner(){
-        if (captureSession?.isRunning == false) {
-            captureSession.startRunning()
-        }
-    }
-    
-    func stopScanner(){
-        if (captureSession?.isRunning == true) {
-            captureSession.stopRunning()
-        }
-    }
-    
-    // Callback qr code scanned
-    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        if let metadataObject = metadataObjects.first {
-            
-            guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
-            guard let stringValue = readableObject.stringValue else { return }
-            
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            
-            self.stopScanner()
-            
-            codeScanned(code: stringValue)
-        }
-    }
-    
-    // Display error if scanner setup failed
-    func setupScannerFailed() {
-        let title = "Thiết lập trình quét mã không thành công"
-        let message = "Thiết bị của bạn không hỗ trợ quét mã. Xin hãy sử dụng thiết bị khác."
-        
-        self.showAlert(title: title, message: message)
-        
-        captureSession = nil
-    }
-    
-    // Code scanned, verify ticket with that code
-    func codeScanned(code : String) {
-        self.mainViewModel.verifyTicket(ticketJsonString: code) { (ticket, error) in
-            if (ticket != nil) {
-                self.showScanResultView()
-            } else if let verifyTicketError = error {
-                self.showAlert(title: "Check in vé không thành công", error: verifyTicketError, actionTitles: ["OK"], actions:[{errorAction in
-                    if verifyTicketError.type == APIErrorType.tokenExpired {
-                        User.sharedInstance.signOut()
-                        self.dismiss(animated: true, completion: nil)
-                    } else {
-                        self.startScanner()
-                    }}])
+        self.mainViewModel.verifyTicket(ticketJsonString: code) { [weak self] (ticket, error) in
+            DispatchQueue.main.async {
+                self?.hideLoading()
+                
+                if ticket != nil {
+                    self?.handleScanTicket(ticket!)
+                } else if let _ = error {
+                    self?.handleScanError(error!)
+                }
             }
         }
     }
+}
+
+extension ScanTicketViewController: ScannerViewDelegate, PopupViewDelegate {
+    // MARK: - ScannerViewDelegate
+    func didReceiveScanningOutput(_ output: String) {
+        self.scanTicket(code: output)
+    }
     
-    func showScanResultView() {
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+    // MARK: - PopupViewDelegate
+    func didPopupViewRemoveFromSuperview() {
+        guard let ticket = self.mainViewModel.currentTicket else {
+            return
+        }
         
-        let destination = storyboard.instantiateViewController(withIdentifier: "ScanResultViewController") as! ScanResultViewController
+        guard ticket.paid else {
+            let destination = Utils.viewController(withIdentifier: Constants.VIEWCONTROLLER_IDENTIFIER_TICKET_PAYMENT) as! TicketPaymentDetailViewController
+            self.navigationController?.pushViewController(destination, animated: true)
+            
+            return
+        }
         
-        self.navigationController?.pushViewController(destination, animated: true)
+        self.scanner.start()
     }
 }

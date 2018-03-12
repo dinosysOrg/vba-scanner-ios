@@ -10,82 +10,89 @@ import Foundation
 import SwiftyJSON
 import GoogleSignIn
 
-class User {
+class User: NSObject, NSCoding {
+    var name: String?
+    var email: String?
+    // App Access Token
+    var accessToken: String?
+    // GoogleSignIn Access Token
+    var googleAccessToken: String?
     
-    static var sharedInstance = User()
+    required init(coder decoder: NSCoder) {
+        name = decoder.decodeObject(forKey: "name") as? String
+        email = decoder.decodeObject(forKey: "email") as? String
+        accessToken = decoder.decodeObject(forKey: "accessToken") as? String
+        googleAccessToken = decoder.decodeObject(forKey: "googleAccessToken") as? String
+    }
     
-    private init() {}
+    func encode(with coder: NSCoder) {
+        coder.encode(name, forKey: "name")
+        coder.encode(email, forKey: "email")
+        coder.encode(accessToken, forKey: "accessToken")
+        coder.encode(googleAccessToken, forKey: "googleAccessToken")
+    }
     
-    // User Info
+    // MARK: - Initialization
+    /**
+     * Init User from json data
+     * {
+     *      name: "abc",
+     *      email: "abc@bcd.com",
+     *      accessToken: "123456sfdfoisjd",
+     *      googleAccessToken: "sadflsodf7s98df79s8dfkj12lkjlwkj1lk3j123"
+     * }
+     */
+    init(json: JSON) {
+        name = json["name"].stringValue
+        email = json["email"].stringValue
+        accessToken = json["accessToken"].stringValue
+        googleAccessToken = json["googleAccessToken"].stringValue
+    }
     
-    // Name
-    var Name: String? {
+    // MARK: - Processes
+    /**
+     * Return User from UserDefaults if available otherwise returl nil
+     */
+    static var current: User? {
         get {
-            let defaults = UserDefaults.standard
-            let name = defaults.object(forKey: "name") as? String
-            return name
-        }
-        set {
-            let defaults = UserDefaults.standard
-            defaults.set(newValue, forKey: "name")
-            defaults.synchronize()
+            guard let data = Constants.USER_DEFAULTS.object(forKey: "current") as? Data else {
+                return nil
+            }
+            
+            return NSKeyedUnarchiver.unarchiveObject(with: data) as? User
         }
     }
     
-    // Email
-    var Email: String? {
+    /**
+     * Return true if user is authorized otherwise returl false
+     */
+    static var authorized: Bool {
         get {
-            let defaults = UserDefaults.standard
-            let email = defaults.object(forKey: "email") as? String
-            return email
-        }
-        set {
-            let defaults = UserDefaults.standard
-            defaults.set(newValue, forKey: "email")
-            defaults.synchronize()
+            guard let user = User.current else {
+                return false
+            }
+            
+            return !Utils.isEmpty(user.accessToken)
         }
     }
     
-    
-    // Google Access Token
-    var GoogleAccessToken: String? {
-        get {
-            let defaults = UserDefaults.standard
-            let token = defaults.object(forKey: "googleAccessToken") as? String
-            return token
-        }
-        set {
-            let defaults = UserDefaults.standard
-            defaults.set(newValue, forKey: "googleAccessToken")
-            defaults.synchronize()
-        }
+    // Save current user to UserDefaults
+    static func save(_ user: User) {
+        let encodeObject = NSKeyedArchiver.archivedData(withRootObject: user)
+        Constants.USER_DEFAULTS.set(encodeObject, forKey: "current")
+        Constants.USER_DEFAULTS.synchronize()
     }
     
-    //App Access Token
-    var AccessToken: String? {
-        get {
-            let defaults = UserDefaults.standard
-            let token = defaults.object(forKey: "accessToken") as? String
-            return token
-        }
-        set {
-            let defaults = UserDefaults.standard
-            defaults.set(newValue, forKey: "accessToken")
-            defaults.synchronize()
-        }
+    /**
+     * Remove current user from UserDefaults.
+     */
+    func remove() {
+        Constants.USER_DEFAULTS.removeObject(forKey: "current")
+        Constants.USER_DEFAULTS.synchronize()
     }
     
-    var IsAuthorized: Bool {
-        get {
-            return AccessToken != nil && !AccessToken!.isEmpty
-        }
-    }
-    
-    func signOut(){
-        self.GoogleAccessToken = ""
-        self.Name = ""
-        self.Email = ""
-        self.AccessToken = ""
+    func signOut() {
+        remove()
         GIDSignIn.sharedInstance().signOut()
     }
 }

@@ -12,8 +12,8 @@ import Moya
 let ticketCheckInAPIEndpointClosure = { (target: TicketCheckInAPI) -> Endpoint<TicketCheckInAPI> in
     let defaultEndpoint = MoyaProvider.defaultEndpointMapping(for: target)
     
-    if User.sharedInstance.IsAuthorized {
-        let token = User.sharedInstance.AccessToken
+    if User.authorized {
+        let token = User.current?.accessToken
         return defaultEndpoint.adding(newHTTPHeaderFields: ["Accept":"application/json", "token": token!])
     }
     
@@ -23,12 +23,15 @@ let ticketCheckInAPIEndpointClosure = { (target: TicketCheckInAPI) -> Endpoint<T
 let ticketCheckInAPIProvider = MoyaProvider<TicketCheckInAPI>(endpointClosure: ticketCheckInAPIEndpointClosure)
 
 // MARK: - Provider support
-//Delcaration of Ticket Checkin APIs
-public enum TicketCheckInAPI  {
-    case login(String) //Signin with google access token
-    case getUpcomingMatches() //Get upcoming matches
-    case verifyTicket(Int, CheckInContent) //Verify ticket
-    case purchaseTicket(String,Double) //Purchase unpaid ticket
+// Delcaration of Ticket Checkin APIs
+enum TicketCheckInAPI  {
+    case login(String) // Signin with google access token
+    case getUpcomingMatches() // Get upcoming matches
+    case verifyTicket(Int, QRCodeContent) // Verify ticket
+    case purchaseTicket(String, Double) // Purchase unpaid ticket
+    case getRateP2M() // Get conversion rate for changing order price --> loyalty point
+    case purchaseLoyaltyPointTicket(String, String) // Purchase ticket with loyalty point
+    case purchaseMerchandise(Int, String) // Purchase merchandise with loyalty point
 }
 
 //let endpoint = "http://vba-ticket.herokuapp.com/api"
@@ -40,7 +43,7 @@ extension TicketCheckInAPI : TargetType {
     
     public var baseURL: URL { return URL(string: endpoint)! }
     
-    //Path for each API
+    // Path for each API
     public var path: String {
         switch self {
         case .login(_):
@@ -51,10 +54,16 @@ extension TicketCheckInAPI : TargetType {
             return "/qrcode/scan"
         case .purchaseTicket(_,_):
             return "/purchase"
+        case .getRateP2M():
+            return "/p2m"
+        case .purchaseLoyaltyPointTicket(_,_):
+            return "/orders/point_paid_scanner"
+        case .purchaseMerchandise(_,_):
+            return "/purchase_merchandise"
         }
     }
     
-    //HTTP Method for each API
+    // HTTP Method for each API
     public var method: Moya.Method {
         switch self {
         case .login(_):
@@ -65,22 +74,34 @@ extension TicketCheckInAPI : TargetType {
             return .post
         case .purchaseTicket:
             return .post
+        case .getRateP2M():
+            return .get
+        case .purchaseLoyaltyPointTicket:
+            return .post
+        case .purchaseMerchandise:
+            return .post
         }
     }
     
-    //Parameters for each API
+    // Parameters for each API
     public var parameters: [String: Any]? {
         switch self {
         case .login(let token):
             return ["code": token]
-        case .verifyTicket(let matchId, let checkInContent):
+        case .verifyTicket(let matchId, let qrCodeContent):
             return [ "match_id" : matchId,
-                     "id": checkInContent.id,
-                     "m_id": checkInContent.mId,
-                     "key": checkInContent.key]
+                     "id": qrCodeContent.id,
+                     "m_id": qrCodeContent.mId,
+                     "key": qrCodeContent.key]
         case .purchaseTicket(let id, let paidValue):
             return ["id" : id,
                     "paid_value" : paidValue]
+        case .purchaseLoyaltyPointTicket(let customerId, let orderId):
+            return ["customer_id" : customerId,
+                    "order_id" : orderId]
+        case .purchaseMerchandise(let points, let customerId):
+            return ["customer_id" : customerId,
+                    "points" : points]
         default:
             return nil
         }

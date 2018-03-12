@@ -26,24 +26,28 @@ import SwiftyJSON
 
 struct Ticket {
     let orderId: Int
-    let orderPrice: String
+    let orderPrice: Double
+    let displayedPrice: String
     let quantity: Int
     let kind: String
     let paid: Bool
-    let ticketType: String
+    let type: String
     let name: String
     let used: Bool
+    let match: String
     
     init(_ jsonData: JSON) {
         orderId = jsonData["order_id"].intValue
-        orderPrice = jsonData["order_price"].stringValue
+        orderPrice = Double(jsonData["order_price"].stringValue) ?? 0.0
+        displayedPrice = Utils.thousandedString(from: orderPrice)
         quantity = jsonData["quantity"].intValue
         kind = jsonData["kind"].stringValue
         paid = jsonData["paid"].boolValue
-        ticketType = jsonData["ticket_type"].stringValue
+        type = jsonData["ticket_type"].stringValue
         name = jsonData["name"].stringValue
         let status = jsonData["use_status="].stringValue
         used = status == "Used" ? true : false
+        match = jsonData["home_team"].stringValue + " vs " + jsonData["away_team"].stringValue
     }
 }
 

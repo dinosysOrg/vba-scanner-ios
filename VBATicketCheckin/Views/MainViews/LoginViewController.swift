@@ -10,109 +10,91 @@ import UIKit
 import Google
 import GoogleSignIn
 
-class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
+class LoginViewController: BaseViewController {
+    @IBOutlet weak var loginIndicator: UIActivityIndicatorView!
     
     let loginViewModel = LoginViewModel()
-    
     let googleSignInButton = GIDSignInButton()
-    
     var isGoogleButtonSetup = false
-    
-    @IBOutlet weak var loginIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        self.setViewBackgroundColor(by: .clear)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if User.sharedInstance.IsAuthorized {
-            presentMainViewController()
-        } else {
+        guard User.authorized else {
             self.setupGoogleSignIn()
-        }
-    }
-    
-    func presentMainViewController(){
-        let storyBoard = UIStoryboard(name: "Main", bundle:nil)
-        
-        let mainViewController = storyBoard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
-        
-        let destination = UINavigationController(rootViewController: mainViewController)
-        
-        self.present(destination, animated:true, completion:nil)
-    }
-    
-    func showError(title: String, message: String) {
-        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        ac.addAction(UIAlertAction(title: "OK", style: .default))
-        
-        present(ac, animated: true)
-    }
-    
-    func setupGoogleSignIn(){
-        
-        if self.isGoogleButtonSetup {
             return
         }
         
-        // Error object
-        var error : NSError?
-        
-        // Setting the error
-        GGLContext.sharedInstance().configureWithError(&error)
-        
-        // If any error stop execution and print error
-        if error != nil{
-            print(error ?? "google error")
-            return
-        }
-        
-        // Adding the delegates
-        GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance().delegate = self
-        
-        // Getting the signin button and adding it to view
-        self.googleSignInButton.center = CGPoint(x: view.center.x, y: (view.center.y + 120))
-        
-        self.view.addSubview(self.googleSignInButton)
-        
-        self.isGoogleButtonSetup = true
-        self.loginIndicator.isHidden = false
+        self.setRootViewController(withType: .tabBar)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.setGoogleSignInButtonHidden(true)
+    }
+    
+    // MARK: - Format
+    private func setGoogleSignInButtonHidden(_ isHidden: Bool) {
+        self.googleSignInButton.isHidden = isHidden
+        self.loginIndicator.isHidden = !isHidden
+    }
+    
+    // MARK: - Process
+    private func setupGoogleSignIn() {
+        guard self.isGoogleButtonSetup else {
+            var error: NSError?
+            GGLContext.sharedInstance().configureWithError(&error)
+            
+            guard error == nil else {
+                self.showAlert(title: "Thiết lập Google không thành công", message: error!.localizedDescription, actionTitles: ["OK"], actions: [])
+                return
+            }
+            
+            // Adding the delegates
+            GIDSignIn.sharedInstance().uiDelegate = self
+            GIDSignIn.sharedInstance().delegate = self
+            // Getting the signin button and adding it to view
+            self.googleSignInButton.center = CGPoint(x: view.center.x, y: (view.center.y + 120))
+            self.view.addSubview(self.googleSignInButton)
+            
+            self.isGoogleButtonSetup = true
+            self.setGoogleSignInButtonHidden(false)
+            
+            return
+        }
+    }
+}
+
+extension LoginViewController: GIDSignInUIDelegate, GIDSignInDelegate {
+    // MARK: - GIDSignInDelegate
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        // If any error stop and print the error
-        if error != nil{
-            print(error ?? "google error")
+        guard error == nil else {
+            self.showAlert(title: "Đăng nhập tài khoản Google không thành công", message: error.localizedDescription, actionTitles: ["OK"], actions: [])
             return
         }
         
-        self.googleSignInButton.isHidden = true
-        self.loginIndicator.isHidden = false
+        self.setGoogleSignInButtonHidden(true)
         
-        loginViewModel.loginWith(google: user.authentication.idToken) { (success, error) in
-            if success {
-                User.sharedInstance.GoogleAccessToken = user.authentication.idToken
-                User.sharedInstance.Name = user.profile.name
-                User.sharedInstance.Email = user.profile.email
-                self.presentMainViewController()
-                
-            } else if let loginError = error {
-                
-                self.googleSignInButton.isHidden = false
-                self.loginIndicator.isHidden = true
-                
-                self.showError(title: "Đăng nhập không thành công", message: loginError.message!)
+        loginViewModel.loginWith(google: user) { [weak self] (success, error) in
+            DispatchQueue.main.async {
+                if success {
+                    self?.setRootViewController(withType: .tabBar)
+                } else if let _ = error {
+                    self?.setGoogleSignInButtonHidden(false)
+                    self?.showAlert(title: "Đăng nhập không thành công", message: error!.message!, actionTitles: ["OK"], actions: [])
+                }
             }
         }
     }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        User.sharedInstance.signOut()
+        User.current?.signOut()
     }
 }
-

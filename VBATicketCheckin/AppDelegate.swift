@@ -33,10 +33,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         Fabric.with([Crashlytics.self])
         
+        //        [self.navigationController.navigationBar setBackgroundImage: nil
+        //            forBarMetrics: UIBarMetricsDefault];
+        //        [self.navigationController.navigationBar setShadowImage: nil];
+        //        self.navigationController.navigationBar.translucent = YES;
+        //        self.navigationController.navigationBar.backgroundColor = [Utility color_White];
+        
         let navigationBarAppearace = UINavigationBar.appearance()
-        navigationBarAppearace.tintColor = UIColor.white
-        navigationBarAppearace.barTintColor = Constants.mainColor
-        navigationBarAppearace.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
+        navigationBarAppearace.tintColor = UIColor.black
+        navigationBarAppearace.setBackgroundImage(UIImage(), for: .default)
+        navigationBarAppearace.shadowImage = nil
+        navigationBarAppearace.isTranslucent = true
+        navigationBarAppearace.backgroundColor = UIColor.clear
+        navigationBarAppearace.titleTextAttributes = [ NSAttributedStringKey.foregroundColor : UIColor.black ]
     
         return true
     }
