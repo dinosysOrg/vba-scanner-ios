@@ -63,9 +63,14 @@ class TicketPaymentDetailViewController: BaseViewController {
         self.formatButton(self.btnScanPayment, title: "QUÉT MÃ\nTHANH TOÁN")
     }
     
+    private func reloadData(ticket: Ticket?, rate: ConversionRateP2M) {
+        self.convertToLoyaltyPoint(price: (ticket?.orderPrice)!, rate: rate)
+        self.setupUI()
+    }
+    
     // MARK: - Process
-    private func convertToLoyaltyPointByPrice(_ price: Double, conversionRate: ConversionRateP2M) {
-        self.loyaltyPoint = LoyaltyPoint(price: price, rate: conversionRate)
+    private func convertToLoyaltyPoint(price: Double, rate: ConversionRateP2M) {
+        self.loyaltyPoint = LoyaltyPoint(price: price, rate: rate)
     }
     
     private func handleConversionRateError(_ error: APIError) {
@@ -121,9 +126,7 @@ class TicketPaymentDetailViewController: BaseViewController {
                 self?.hideLoading()
                 
                 if rate != nil {
-                    let ticket = self?.mainViewModel.currentTicket
-                    self?.convertToLoyaltyPointByPrice((ticket?.orderPrice)!, conversionRate: rate!)
-                    self?.setupUI()
+                    self?.reloadData(ticket: self?.mainViewModel.currentTicket, rate: rate!)
                 } else if let _ = error {
                     self?.handleConversionRateError(error!)
                 }

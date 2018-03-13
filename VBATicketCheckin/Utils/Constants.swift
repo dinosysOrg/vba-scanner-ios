@@ -35,8 +35,11 @@ struct Constants {
     static let SLASH = "/"
     static let QUESTION_MARK = "?"
     static let EQUAL = "="
+    
+    // MARK: - Default values
     static let DEFAULT_STRING_VALUE = "--"
     static let DEFAULT_NUMBER_VALUE = 0
+    static let DEFAULT_POPUPVIEW_WIDTH_RATIO: CGFloat = 0.69
     
     // MARK: - Font
     static let FONTNAME_REGULAR = "Lato-Regular"

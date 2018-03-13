@@ -9,7 +9,7 @@
 import Foundation
 import Moya
 
-let ticketCheckInAPIEndpointClosure = { (target: TicketCheckInAPI) -> Endpoint<TicketCheckInAPI> in
+let apiServiceEndpointClosure = { (target: APIService) -> Endpoint<APIService> in
     let defaultEndpoint = MoyaProvider.defaultEndpointMapping(for: target)
     
     if User.authorized {
@@ -20,11 +20,11 @@ let ticketCheckInAPIEndpointClosure = { (target: TicketCheckInAPI) -> Endpoint<T
     return defaultEndpoint
 }
 
-let ticketCheckInAPIProvider = MoyaProvider<TicketCheckInAPI>(endpointClosure: ticketCheckInAPIEndpointClosure)
+let apiService = MoyaProvider<APIService>(endpointClosure: apiServiceEndpointClosure)
 
 // MARK: - Provider support
 // Delcaration of Ticket Checkin APIs
-enum TicketCheckInAPI  {
+enum APIService  {
     case login(String) // Signin with google access token
     case getUpcomingMatches() // Get upcoming matches
     case verifyTicket(Int, QRCodeContent) // Verify ticket
@@ -34,14 +34,15 @@ enum TicketCheckInAPI  {
     case purchaseMerchandise(Int, String) // Purchase merchandise with loyalty point
 }
 
-//let endpoint = "http://vba-ticket.herokuapp.com/api"
-//let endpoint = "https://vba-ticket-production.herokuapp.com/api"
-let endpoint = "https://vba-ticket-staging.herokuapp.com/api"
-//let endpoint = "http://09bfb966.ngrok.io/api"
+enum BaseUrlType: String {
+    case local = "http://192.168.4.76:3000/api"
+    case debug = ""
+    case staging = "https://vba-ticket-staging.herokuapp.com/api"
+    case product = "https://vba-ticket-production.herokuapp.com/api"
+}
 
-extension TicketCheckInAPI : TargetType {
-    
-    public var baseURL: URL { return URL(string: endpoint)! }
+extension APIService : TargetType {
+    public var baseURL: URL { return URL(string: BaseUrlType.staging.rawValue)! }
     
     // Path for each API
     public var path: String {
@@ -66,19 +67,11 @@ extension TicketCheckInAPI : TargetType {
     // HTTP Method for each API
     public var method: Moya.Method {
         switch self {
-        case .login(_):
-            return .post
         case .getUpcomingMatches():
             return .get
-        case .verifyTicket(_):
-            return .post
-        case .purchaseTicket:
-            return .post
         case .getRateP2M():
             return .get
-        case .purchaseLoyaltyPointTicket:
-            return .post
-        case .purchaseMerchandise:
+        default:
             return .post
         }
     }
@@ -107,7 +100,7 @@ extension TicketCheckInAPI : TargetType {
         }
     }
     
-    public var parameterEncoding: ParameterEncoding {   
+    public var parameterEncoding: ParameterEncoding {
         switch self {
         case .verifyTicket(_):
             return JSONEncoding.default
@@ -128,3 +121,4 @@ extension TicketCheckInAPI : TargetType {
         return Data()
     }
 }
+

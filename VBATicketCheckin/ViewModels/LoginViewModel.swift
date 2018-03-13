@@ -13,7 +13,7 @@ import GoogleSignIn
 
 public class LoginViewModel {
     func loginWith(google user: GIDGoogleUser, completion: @escaping (Bool, APIError?) -> Void){
-        ticketCheckInAPIProvider.request(TicketCheckInAPI.login(user.authentication.idToken)) { result in
+        apiService.request(APIService.login(user.authentication.idToken)) { result in
             switch result {
             case let .success(response):
                 let data = response.data

@@ -23,8 +23,8 @@ extension ScannerViewModelDelegate {
 class ScannerViewModel: NSObject {
     weak var delegate: ScannerViewModelDelegate?
     
-    lazy var pSession = AVCaptureSession()
-    private var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+    private var pSession: AVCaptureSession!
+    private var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     private var scanningRect = CGRect()
     private let supportedCodeTypes = [AVMetadataObject.ObjectType.upce,
                                       AVMetadataObject.ObjectType.code39,
@@ -46,6 +46,8 @@ class ScannerViewModel: NSObject {
     }
     
     func initSession() -> AVCaptureSession? {
+        pSession = AVCaptureSession()
+        
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {
             log("Cannot create AVCaptureDevice")
             return nil
@@ -54,20 +56,20 @@ class ScannerViewModel: NSObject {
         do {
             let videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
             
-            guard self.pSession.canAddInput(videoInput) else {
+            guard pSession.canAddInput(videoInput) else {
                 log("Cannot addInput()")
                 return nil
             }
             
-            self.pSession.addInput(videoInput)
+            pSession.addInput(videoInput)
             let metadataOutput = AVCaptureMetadataOutput()
             
-            guard self.pSession.canAddOutput(metadataOutput) else {
+            guard pSession.canAddOutput(metadataOutput) else {
                 log("Cannot addOutput()")
                 return nil
             }
             
-            self.pSession.addOutput(metadataOutput)
+            pSession.addOutput(metadataOutput)
             metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             metadataOutput.metadataObjectTypes = self.supportedCodeTypes
         } catch {
@@ -75,7 +77,7 @@ class ScannerViewModel: NSObject {
             return nil
         }
         
-        return self.pSession
+        return pSession
     }
     
     func setCapturePreviewLayer(_ previewLayer: AVCaptureVideoPreviewLayer, scanningFrame: CGRect) {
@@ -85,13 +87,13 @@ class ScannerViewModel: NSObject {
     
     // MARK: - Process
     func startScanner() {
-        if self.pSession.isRunning == false {
+        if self.pSession?.isRunning == false {
             self.pSession.startRunning()
         }
     }
     
     func stopScanner() {
-        if self.pSession.isRunning == true {
+        if self.pSession?.isRunning == true {
             self.pSession.stopRunning()
         }
     }

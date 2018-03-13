@@ -20,6 +20,7 @@ enum APIErrorType: Int {
     case ok = 200
     case ticketError = 400
     case tokenExpired = 403
+    case userNotFound = 404
     case notEnoughPoint = 422
     case internalServer = 500
     case unknown = 999
@@ -64,6 +65,8 @@ struct APIError {
                 }
             case .tokenExpired:
                 return "Phiên làm việc hết hạn. Vui lòng đăng nhập lại."
+            case .userNotFound:
+                return "Không tìm thấy máy chủ hoặc tài khoản này không tồn tại."
             case .notEnoughPoint:
                 return "Người dùng không đủ điểm để thanh toán."
             case .internalServer:

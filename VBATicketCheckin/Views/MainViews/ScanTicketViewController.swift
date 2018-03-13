@@ -11,8 +11,8 @@ import AVFoundation
 import SwiftyJSON
 
 class ScanTicketViewController: BaseViewController {
-    lazy var scanner = ScannerView.initWith(frame: self.view.bounds, delegate: self)
     let mainViewModel = MainViewModel.shared
+    var scanner: ScannerView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,14 +24,20 @@ class ScanTicketViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.scanner.start()
+        // Use scanner.start() for next time pop from other view controller
+        self.scanner?.start()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Use scanner.start() for first time scanner initiated
+        self.scanner?.start()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        self.scanner.stop()
+        self.scanner?.stop()
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,7 +47,8 @@ class ScanTicketViewController: BaseViewController {
     
     // MARK: - Process
     private func addScanner() {
-        self.view.addSubview(self.scanner)
+        self.scanner = ScannerView.initWith(frame: self.view.bounds, delegate: self)
+        self.view.addSubview(self.scanner!)
     }
     
     private func handleScanTicket(_ ticket: Ticket) {
@@ -54,15 +61,16 @@ class ScanTicketViewController: BaseViewController {
         let popup = self.initPopupView(frame: self.view.bounds, type: popupType, delegate: self)
         popup.loadingView(title: title, message: message, titleType: popupTitleType, buttonType: popupButtonType)
         popup.show(in: self.view, animated: true)
+        self.setNavigationSwipeEnable(false)
     }
     
     private func handleScanError(_ error: APIError) {
-        self.showAlert(title: "Check in không thành công", error: error, actionTitles: ["OK"], actions:[{ [weak self] errorAction in
+        self.showAlert(title: "Check in không thành công", error: error, actionTitles: ["OK"], actions: [{ [weak self] errorAction in
             DispatchQueue.main.async {
                 if error.type == APIErrorType.tokenExpired {
                     self?.logOut()
                 } else {
-                    self?.scanner.start()
+                    self?.scanner?.start()
                 }}}])
     }
     
@@ -91,12 +99,25 @@ class ScanTicketViewController: BaseViewController {
 
 extension ScanTicketViewController: ScannerViewDelegate, PopupViewDelegate {
     // MARK: - ScannerViewDelegate
+    func didReceiveCameraPermissionWarning() {
+        self.showAlert(title: "Truy cập camera không thành công", message: "Vui lòng cho phép ứng dụng truy cập camera", actionTitles: ["Cancel", "OK"], actions: [{ cancel in
+            DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
+            }}, { [weak self] ok in
+                DispatchQueue.main.async {
+                    self?.gotoAppSetting()
+                }
+            }])
+    }
+    
     func didReceiveScanningOutput(_ output: String) {
         self.scanTicket(code: output)
     }
     
     // MARK: - PopupViewDelegate
     func didPopupViewRemoveFromSuperview() {
+        self.setNavigationSwipeEnable(true)
+        
         guard let ticket = self.mainViewModel.currentTicket else {
             return
         }
@@ -108,6 +129,6 @@ extension ScanTicketViewController: ScannerViewDelegate, PopupViewDelegate {
             return
         }
         
-        self.scanner.start()
+        self.scanner?.start()
     }
 }

@@ -42,6 +42,9 @@ class PopupView: BaseView {
     @IBOutlet weak var lblMessage: UILabel!
     @IBOutlet weak var btnComplete: UIButton!
     
+    @IBOutlet weak var constraintVContainerWidthRatio: NSLayoutConstraint!
+    @IBOutlet weak var constraintLblTitleBottom: NSLayoutConstraint!
+    
     weak var delegate: PopupViewDelegate?
     private var popupType = PopupViewType.normal
     
@@ -80,6 +83,7 @@ class PopupView: BaseView {
     
     func loadingView(title: String?, message: String, titleType: PopupTitleType?, buttonType: PopupButtonTitleType?) {
         self.lblTitle.text = title
+        self.constraintLblTitleBottom.isActive = title != nil
         self.lblMessage.text = message
         self.setTitleColorBy(type: titleType ?? .normal)
         self.setButtonTitleBy(type: buttonType ?? .ok)
@@ -88,6 +92,7 @@ class PopupView: BaseView {
     
     // MARK: - Setup UI
     private func setupUI() {
+        self.constraintVContainerWidthRatio.constant = Constants.DEFAULT_POPUPVIEW_WIDTH_RATIO
         self.vContainer.layer.setCornerRadius(10.0, border: 0.0, color: nil)
         self.formatLabel(self.lblTitle, title: Constants.EMPTY_STRING, color: UIColor.black)
         self.formatMultipleLinesLabel(self.lblMessage, title: Constants.EMPTY_STRING, color: UIColor.black)

@@ -15,9 +15,9 @@ enum ScanningType {
 }
 
 class UserQRCodeScanningViewController: BaseViewController {
-    lazy var scanner = ScannerView.initWith(frame: self.view.bounds, delegate: self)
-    
     let mainViewModel = MainViewModel.shared
+    
+    var scanner: ScannerView?
     var scanningType = ScanningType.merchandise
     var loyaltyPoint: LoyaltyPoint?
     
@@ -27,6 +27,18 @@ class UserQRCodeScanningViewController: BaseViewController {
         self.setNavigationTitle("Quét mã QR")
         self.addScanner()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Use scanner.start() for next time pop from other view controller
+        self.scanner?.start()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Use scanner.start() for first time scanner initiated
+        self.scanner?.start()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -35,7 +47,8 @@ class UserQRCodeScanningViewController: BaseViewController {
     
     // MARK: - Process
     private func addScanner() {
-        self.view.addSubview(self.scanner)
+        self.scanner = ScannerView.initWith(frame: self.view.bounds, delegate: self)
+        self.view.addSubview(self.scanner!)
     }
     
     private func handlePurchaseSucceed() {
@@ -58,13 +71,14 @@ class UserQRCodeScanningViewController: BaseViewController {
             let popup = self.initPopupView(frame: self.view.bounds, type: popupType, delegate: self)
             popup.loadingView(title: title, message: message, titleType: nil, buttonType: popupButtonType)
             popup.show(in: self.view, animated: true)
+            self.setNavigationSwipeEnable(false)
         } else {
             self.showAlert(title: "Thanh toán không thành công", error: error, actionTitles: ["OK"], actions:[{ [weak self] errorAction in
                 DispatchQueue.main.async {
                     if error.type == APIErrorType.tokenExpired {
                         self?.logOut()
                     } else {
-                        self?.scanner.start()
+                        self?.scanner?.start()
                     }
                 }}])
         }
@@ -116,6 +130,17 @@ class UserQRCodeScanningViewController: BaseViewController {
 
 extension UserQRCodeScanningViewController: ScannerViewDelegate, PopupViewDelegate {
     // MARK: - ScannerViewDelegate
+    func didReceiveCameraPermissionWarning() {
+        self.showAlert(title: "Truy cập camera không thành công", message: "Vui lòng cho phép ứng dụng truy cập camera", actionTitles: ["Cancel", "OK"], actions: [{ cancel in
+            DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
+            }}, { [weak self] ok in
+                DispatchQueue.main.async {
+                    self?.gotoAppSetting()
+                }
+            }])
+    }
+    
     func didReceiveScanningOutput(_ output: String) {
         let jsonData: JSON = ["customer_id" : output]
         let qrCodeContent = QRCodeContent(jsonData)
@@ -130,6 +155,7 @@ extension UserQRCodeScanningViewController: ScannerViewDelegate, PopupViewDelega
     
     // MARK: - PopupViewDelegate
     func didPopupViewRemoveFromSuperview() {
-        self.scanner.start()
+        self.setNavigationSwipeEnable(true)
+        self.scanner?.start()
     }
 }

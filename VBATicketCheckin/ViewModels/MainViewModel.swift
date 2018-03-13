@@ -10,11 +10,7 @@ import Foundation
 import SwiftyJSON
 
 public class MainViewModel {
-    //    static var shared = MainViewModel()
-    static let shared: MainViewModel = {
-        let sharedInstance = MainViewModel()
-        return sharedInstance
-    }()
+    static var shared = MainViewModel()
     
     private init() {}
     
@@ -35,7 +31,7 @@ public class MainViewModel {
     
     // MARK: - API
     func getUpcomingMatches(completion: @escaping (Bool, APIError?) -> Void){
-        ticketCheckInAPIProvider.request(TicketCheckInAPI.getUpcomingMatches()) { result in
+        apiService.request(APIService.getUpcomingMatches()) { result in
             switch result {
             case let .success(response):
                 let data = response.data
@@ -71,7 +67,7 @@ public class MainViewModel {
         self.currentQRCode = QRCodeContent(ticketJSON)
         
         if let qrCode = self.currentQRCode  {
-            ticketCheckInAPIProvider.request(TicketCheckInAPI.verifyTicket(matchId, qrCode)) { result in
+            apiService.request(APIService.verifyTicket(matchId, qrCode)) { result in
                 switch result {
                 case let .success(response):
                     let data = response.data
@@ -103,7 +99,7 @@ public class MainViewModel {
             let id = String(qrCode.id)
             let paidValue = ticket.orderPrice
             
-            ticketCheckInAPIProvider.request(TicketCheckInAPI.purchaseTicket(id, paidValue)) { result in
+            apiService.request(APIService.purchaseTicket(id, paidValue)) { result in
                 switch result {
                 case let .success(response):
                     let data = response.data
@@ -128,7 +124,7 @@ public class MainViewModel {
     }
     
     func getConversionRateP2M(completion: @escaping (ConversionRateP2M?, APIError?) -> Void){
-        ticketCheckInAPIProvider.request(TicketCheckInAPI.getRateP2M()) { result in
+        apiService.request(APIService.getRateP2M()) { result in
             switch result {
             case let .success(response):
                 let data = response.data
@@ -158,17 +154,17 @@ public class MainViewModel {
             let orderId = String(ticket.orderId)
             let customerId = String(qrCode.customerId)
             
-            ticketCheckInAPIProvider.request(TicketCheckInAPI.purchaseLoyaltyPointTicket(customerId, orderId)) { result in
+            apiService.request(APIService.purchaseLoyaltyPointTicket(customerId, orderId)) { result in
                 switch result {
                 case let .success(response):
                     let data = response.data
                     let statusCode = response.statusCode
+                    let jsonData = JSON(data)
                     
                     if statusCode >= 200 && statusCode <= 300 {
-                        let jsonData = JSON(data)
                         completion(true, nil)
                     } else {
-                        let requestError = APIError(statusCode)
+                        let requestError = APIError(statusCode, errorData: jsonData)
                         completion(false, requestError)
                     }
                     break
@@ -186,17 +182,17 @@ public class MainViewModel {
         if let qrCode = self.currentQRCode {
             let customerId = String(qrCode.customerId)
             
-            ticketCheckInAPIProvider.request(TicketCheckInAPI.purchaseMerchandise(point, customerId)) { result in
+            apiService.request(APIService.purchaseMerchandise(point, customerId)) { result in
                 switch result {
                 case let .success(response):
                     let data = response.data
                     let statusCode = response.statusCode
+                    let jsonData = JSON(data)
                     
                     if statusCode >= 200 && statusCode <= 300 {
-                        let jsonData = JSON(data)
                         completion(true, nil)
                     } else {
-                        let requestError = APIError(statusCode)
+                        let requestError = APIError(statusCode, errorData: jsonData)
                         completion(false, requestError)
                     }
                     break

@@ -17,6 +17,8 @@
 		47113B81204E46C10091A109 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47113B7E204E46C00091A109 /* Lato-Black.ttf */; };
 		47113B83204E47AB0091A109 /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47113B82204E47AB0091A109 /* CustomColors.swift */; };
 		47113B85204E47E90091A109 /* CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47113B84204E47E90091A109 /* CustomFonts.swift */; };
+		47C695D72056862B00671688 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C695D62056862B00671688 /* APIService.swift */; };
+		47C695D9205689F200671688 /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C695D8205689F200671688 /* RequestService.swift */; };
 		47D0E4E42050D97B0017001F /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D0E4E32050D97B0017001F /* BaseView.swift */; };
 		47D0E4E72050DF5F0017001F /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D0E4E62050DF5F0017001F /* PopupView.swift */; };
 		47D0E4E92050DF6C0017001F /* PopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47D0E4E82050DF6C0017001F /* PopupView.xib */; };
@@ -35,7 +37,6 @@
 		C904A0891FE764BC00DD285D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904A0881FE764BC00DD285D /* Constants.swift */; };
 		C936EA801FC42CFA008963DC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C97D4B7A1FC3DB36008A2ABB /* Info.plist */; };
 		C936EA881FC432AD008963DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C936EA871FC432AD008963DC /* GoogleService-Info.plist */; };
-		C936EA8A1FC4375B008963DC /* TicketCheckInAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936EA891FC4375B008963DC /* TicketCheckInAPI.swift */; };
 		C936EA8E1FC43C0B008963DC /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936EA8D1FC43C0B008963DC /* Match.swift */; };
 		C936EA901FC43C7F008963DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936EA8F1FC43C7F008963DC /* User.swift */; };
 		C936EA921FC43CBD008963DC /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = C936EA911FC43CBD008963DC /* Ticket.swift */; };
@@ -64,6 +65,8 @@
 		47113B7E204E46C00091A109 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		47113B82204E47AB0091A109 /* CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
 		47113B84204E47E90091A109 /* CustomFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFonts.swift; sourceTree = "<group>"; };
+		47C695D62056862B00671688 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		47C695D8205689F200671688 /* RequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
 		47D0E4E32050D97B0017001F /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		47D0E4E62050DF5F0017001F /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		47D0E4E82050DF6C0017001F /* PopupView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopupView.xib; sourceTree = "<group>"; };
@@ -83,7 +86,6 @@
 		78F84D39D4C59414843D9BB9 /* Pods-VBATicketCheckin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VBATicketCheckin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VBATicketCheckin/Pods-VBATicketCheckin.debug.xcconfig"; sourceTree = "<group>"; };
 		C904A0881FE764BC00DD285D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C936EA871FC432AD008963DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		C936EA891FC4375B008963DC /* TicketCheckInAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketCheckInAPI.swift; sourceTree = "<group>"; };
 		C936EA8D1FC43C0B008963DC /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		C936EA8F1FC43C7F008963DC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C936EA911FC43CBD008963DC /* Ticket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
@@ -167,6 +169,15 @@
 				47113B7D204E46C00091A109 /* Lato-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		47C695D5205685DA00671688 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				47C695D62056862B00671688 /* APIService.swift */,
+				47C695D8205689F200671688 /* RequestService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		47D0E4E52050DF2D0017001F /* PopupView */ = {
@@ -266,7 +277,7 @@
 		C97D4B6D1FC3DB36008A2ABB /* VBATicketCheckin */ = {
 			isa = PBXGroup;
 			children = (
-				C97D4B801FC3DB6A008A2ABB /* APIs */,
+				47C695D5205685DA00671688 /* Services */,
 				C9B7AB0D1FC6AB6200B70D51 /* Helper */,
 				C97D4B831FC3DB7E008A2ABB /* Models */,
 				C97D4B811FC3DB6E008A2ABB /* Views */,
@@ -279,14 +290,6 @@
 				C936EA871FC432AD008963DC /* GoogleService-Info.plist */,
 			);
 			path = VBATicketCheckin;
-			sourceTree = "<group>";
-		};
-		C97D4B801FC3DB6A008A2ABB /* APIs */ = {
-			isa = PBXGroup;
-			children = (
-				C936EA891FC4375B008963DC /* TicketCheckInAPI.swift */,
-			);
-			path = APIs;
 			sourceTree = "<group>";
 		};
 		C97D4B811FC3DB6E008A2ABB /* Views */ = {
@@ -525,7 +528,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -539,12 +542,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47C695D72056862B00671688 /* APIService.swift in Sources */,
 				C9B7AB0F1FC6AB6C00B70D51 /* DateTimeHelper.swift in Sources */,
 				C904A0891FE764BC00DD285D /* Constants.swift in Sources */,
 				C9B1DD7C1FE3BE4E001F86EE /* ScanTicketViewController.swift in Sources */,
 				47D5E387204FDFCA008A0105 /* ScannerViewModel.swift in Sources */,
 				C97D4B871FC3DBF0008A2ABB /* LoginViewController.swift in Sources */,
-				C936EA8A1FC4375B008963DC /* TicketCheckInAPI.swift in Sources */,
 				47D0E4E42050D97B0017001F /* BaseView.swift in Sources */,
 				C9B1DD841FE3C625001F86EE /* UIViewControllerHelper.swift in Sources */,
 				47D0E4EF205137080017001F /* TicketPaymentDetailViewController.swift in Sources */,
@@ -568,6 +571,7 @@
 				47D5E377204F8673008A0105 /* TabBarController.swift in Sources */,
 				C936EA901FC43C7F008963DC /* User.swift in Sources */,
 				C9FADB921FC5376D0002DD64 /* MainViewModel.swift in Sources */,
+				47C695D9205689F200671688 /* RequestService.swift in Sources */,
 				47D5DE80205292BF00637642 /* MatchesViewController.swift in Sources */,
 				47D5E37B204F886A008A0105 /* PaymentViewController.swift in Sources */,
 				47D0E4EB2050EE640017001F /* BaseViewController.swift in Sources */,

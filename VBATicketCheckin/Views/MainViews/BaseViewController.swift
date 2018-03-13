@@ -158,6 +158,31 @@ class BaseViewController: UIViewController {
         Constants.APP_DELEGATE.window?.makeKeyAndVisible()
     }
     
+    
+    /// Enable/Disable navigation's PopGestureRecognizer when popup shown
+    ///
+    /// - Parameter enable: boolean
+    func setNavigationSwipeEnable(_ enable: Bool) {
+        self.view.isUserInteractionEnabled = !enable
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = enable
+    }
+    
+    func gotoAppSetting() {
+        guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+            return
+        }
+        
+        if UIApplication.shared.canOpenURL(settingsUrl) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    log("Settings opened: \(success)")
+                })
+            } else {
+                UIApplication.shared.openURL(settingsUrl)
+            }
+        }
+    }
+    
     func logOut() {
         User.current?.signOut()
         self.setRootViewController(withType: .login)

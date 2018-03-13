@@ -11,6 +11,7 @@ import AVFoundation
 
 protocol ScannerViewDelegate: class {
     // #required
+    func didReceiveCameraPermissionWarning()
     
     // #optional
     func didReceiveScanningOutput(_ output: String)
@@ -82,6 +83,18 @@ class ScannerView: BaseView {
             self.scannerViewModel.startScanner()
             
             guard let session = self.scannerViewModel.initSession() else {
+                guard AVCaptureDevice.authorizationStatus(for: .video) == .authorized else {
+                    AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
+                        if granted {
+                            log("access allowed")
+                        } else {
+                            self.delegate?.didReceiveCameraPermissionWarning()
+                        }
+                    })
+                    
+                    return
+                }
+                
                 return
             }
             
