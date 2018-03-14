@@ -35,6 +35,7 @@ struct Ticket {
     let name: String
     let used: Bool
     let match: String
+    var orderPoint: LoyaltyPoint?
     
     init(_ jsonData: JSON) {
         orderId = jsonData["order_id"].intValue

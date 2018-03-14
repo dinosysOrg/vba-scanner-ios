@@ -75,7 +75,7 @@ class ScanTicketViewController: BaseViewController {
     }
     
     // MARK: - API
-    private func scanTicket(code : String) {
+    private func scanTicket(_ content: String) {
         guard User.authorized else {
             self.logOut()
             return
@@ -83,15 +83,16 @@ class ScanTicketViewController: BaseViewController {
         
         self.showLoading()
         
-        self.mainViewModel.verifyTicket(ticketJsonString: code) { [weak self] (ticket, error) in
+        self.mainViewModel.scanTicket(content) { [weak self] (ticket, error) in
             DispatchQueue.main.async {
                 self?.hideLoading()
                 
-                if ticket != nil {
-                    self?.handleScanTicket(ticket!)
-                } else if let _ = error {
+                guard error == nil else {
                     self?.handleScanError(error!)
+                    return
                 }
+                
+                self?.handleScanTicket(ticket!)
             }
         }
     }
@@ -111,7 +112,7 @@ extension ScanTicketViewController: ScannerViewDelegate, PopupViewDelegate {
     }
     
     func didReceiveScanningOutput(_ output: String) {
-        self.scanTicket(code: output)
+        self.scanTicket(output)
     }
     
     // MARK: - PopupViewDelegate
@@ -124,7 +125,6 @@ extension ScanTicketViewController: ScannerViewDelegate, PopupViewDelegate {
         
         guard ticket.paid else {
             let destination = Utils.viewController(withIdentifier: Constants.VIEWCONTROLLER_IDENTIFIER_TICKET_PAYMENT) as! TicketPaymentDetailViewController
-            destination.setTicketQRCodeContent(self.mainViewModel.currentQRCode)
             self.navigationController?.pushViewController(destination, animated: true)
             
             return

@@ -17,6 +17,7 @@
 		47113B81204E46C10091A109 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47113B7E204E46C00091A109 /* Lato-Black.ttf */; };
 		47113B83204E47AB0091A109 /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47113B82204E47AB0091A109 /* CustomColors.swift */; };
 		47113B85204E47E90091A109 /* CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47113B84204E47E90091A109 /* CustomFonts.swift */; };
+		472ACEE220590A1C008EA228 /* ServiceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472ACEE120590A1C008EA228 /* ServiceHelper.swift */; };
 		47C695D72056862B00671688 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C695D62056862B00671688 /* APIService.swift */; };
 		47C695D9205689F200671688 /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C695D8205689F200671688 /* RequestService.swift */; };
 		47D0E4E42050D97B0017001F /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D0E4E32050D97B0017001F /* BaseView.swift */; };
@@ -65,6 +66,7 @@
 		47113B7E204E46C00091A109 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		47113B82204E47AB0091A109 /* CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
 		47113B84204E47E90091A109 /* CustomFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFonts.swift; sourceTree = "<group>"; };
+		472ACEE120590A1C008EA228 /* ServiceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHelper.swift; sourceTree = "<group>"; };
 		47C695D62056862B00671688 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		47C695D8205689F200671688 /* RequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
 		47D0E4E32050D97B0017001F /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 			children = (
 				C9B7AB0E1FC6AB6C00B70D51 /* DateTimeHelper.swift */,
 				C9B1DD831FE3C625001F86EE /* UIViewControllerHelper.swift */,
+				472ACEE120590A1C008EA228 /* ServiceHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -557,6 +560,7 @@
 				C936EA921FC43CBD008963DC /* Ticket.swift in Sources */,
 				47D5E37E204F9380008A0105 /* ScannerView.swift in Sources */,
 				47D0E4F12051374E0017001F /* UserQRCodeScanningViewController.swift in Sources */,
+				472ACEE220590A1C008EA228 /* ServiceHelper.swift in Sources */,
 				C97D4B6F1FC3DB36008A2ABB /* AppDelegate.swift in Sources */,
 				4707D1152055616F00B4156E /* ConversionRateP2M.swift in Sources */,
 				47113B79204E43380091A109 /* Utils.swift in Sources */,

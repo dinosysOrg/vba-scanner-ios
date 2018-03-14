@@ -84,6 +84,11 @@ struct APIError {
         type = APIErrorType.unknown
     }
     
+    init(_ errorMessage: String?) {
+        type = APIErrorType.internalServer
+        message = errorMessage
+    }
+    
     init(_ statusCode: Int) {
         if let errorType = APIErrorType(rawValue: statusCode) {
             type = errorType
@@ -96,7 +101,7 @@ struct APIError {
         if let errorType = APIErrorType(rawValue: statusCode) {
             type = errorType
             
-            if let ticketError = TicketErrorType(rawValue: (errorData["error"])["code"].intValue) {
+            if let ticketError = TicketErrorType(rawValue: errorData["code"].intValue) {
                 ticketErrorType = ticketError
             }
         } else {

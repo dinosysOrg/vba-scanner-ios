@@ -95,18 +95,19 @@ class MatchesViewController: BaseViewController {
             self.showLoading()
         }
         
-        self.mainViewModel.getUpcomingMatches(completion: { [weak self] (success, error) in
+        self.mainViewModel.getUpcomingMatches { [weak self] (matches, error) in
             DispatchQueue.main.async {
                 self?.hideLoading()
                 self?.refreshControl.endRefreshing()
                 
-                if success {
-                    self?.tableView.reloadData()
-                } else if let _ = error {
+                guard error == nil else {
                     self?.handleMatchesGettingError(error!)
+                    return
                 }
+                
+                self?.tableView.reloadData()
             }
-        })
+        }
     }
 }
 

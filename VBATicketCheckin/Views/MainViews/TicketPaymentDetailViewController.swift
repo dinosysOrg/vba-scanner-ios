@@ -26,23 +26,12 @@ class TicketPaymentDetailViewController: BaseViewController {
     @IBOutlet weak var btnScanPayment: UIButton!
     
     private let mainViewModel = MainViewModel.shared
-    private var loyaltyPoint: LoyaltyPoint?
-    private var ticketQRCodeContent: QRCodeContent?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupUI()
         self.getConversionRate()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // Reset currentQRCode everytime TicketPayment scene appears
-        if let ticketQRCode = self.ticketQRCodeContent {
-            self.mainViewModel.setCurrentQRCode(ticketQRCode)
-        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,9 +43,9 @@ class TicketPaymentDetailViewController: BaseViewController {
     func setupUI() {
         let ticket = self.mainViewModel.currentTicket
         
-        let matchInfo = "Trận đấu: \(ticket?.match ?? Constants.DEFAULT_STRING_VALUE)\n\nSố lượng vé: \(ticket?.quantity ?? Constants.DEFAULT_NUMBER_VALUE)\n\nLoại vé: \(ticket?.type ?? Constants.DEFAULT_STRING_VALUE)"
+        let matchInfo = "Trận đấu: \(ticket?.match ?? Constants.DEFAULT_STRING_VALUE)\n\nSố lượng vé: \(ticket?.quantity ?? Constants.DEFAULT_INT_VALUE)\n\nLoại vé: \(ticket?.type ?? Constants.DEFAULT_STRING_VALUE)"
         let strPrice = ticket?.displayedPrice ?? Constants.ZERO_STRING
-        let strPoint = "\(self.loyaltyPoint?.value ?? Constants.DEFAULT_NUMBER_VALUE)"
+        let strPoint = "\(ticket?.orderPoint?.value ?? Constants.DEFAULT_INT_VALUE)"
         
         self.formatLabel(self.lblTitleOrder, title: "Thông tin đơn hàng", color: UIColor.black)
         self.formatMultipleLinesLabel(self.lblMatchInfo, title: matchInfo, color: UIColor.black)
@@ -73,18 +62,9 @@ class TicketPaymentDetailViewController: BaseViewController {
         self.formatButton(self.btnScanPayment, title: "QUÉT MÃ\nTHANH TOÁN")
     }
     
-    private func reloadData(ticket: Ticket?, rate: ConversionRateP2M) {
-        self.convertToLoyaltyPoint(price: (ticket?.orderPrice)!, rate: rate)
-        self.setupUI()
-    }
-    
     // MARK: - Process
-    func setTicketQRCodeContent(_ content: QRCodeContent?) {
-        self.ticketQRCodeContent = content
-    }
-    
-    private func convertToLoyaltyPoint(price: Double, rate: ConversionRateP2M) {
-        self.loyaltyPoint = LoyaltyPoint(price: price, rate: rate)
+    private func reloadData() {
+        self.setupUI()
     }
     
     private func handleConversionRateError(_ error: APIError) {
@@ -139,11 +119,12 @@ class TicketPaymentDetailViewController: BaseViewController {
             DispatchQueue.main.async {
                 self?.hideLoading()
                 
-                if rate != nil {
-                    self?.reloadData(ticket: self?.mainViewModel.currentTicket, rate: rate!)
-                } else if let _ = error {
+                guard error == nil else {
                     self?.handleConversionRateError(error!)
+                    return
                 }
+                
+                self?.reloadData()
             }
         }
     }
@@ -156,15 +137,16 @@ class TicketPaymentDetailViewController: BaseViewController {
         
         self.showLoading()
         
-        self.mainViewModel.purchaseTicket { [weak self] (succeed, error) in
+        self.mainViewModel.purchaseTicket { [weak self] error in
             DispatchQueue.main.async {
                 self?.hideLoading()
                 
-                if (succeed) {
-                    self?.handlePurchaseTicketSucceed()
-                } else if let _ = error {
+                guard error == nil else {
                     self?.handlePurchaseTicketError(error!)
+                    return
                 }
+                
+                self?.handlePurchaseTicketSucceed()
             }
         }
     }

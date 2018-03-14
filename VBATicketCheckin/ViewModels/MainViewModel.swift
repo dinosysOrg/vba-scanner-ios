@@ -10,14 +10,15 @@ import Foundation
 import SwiftyJSON
 
 public class MainViewModel {
-    static var shared = MainViewModel()
-    
-    private init() {}
+    static let shared = MainViewModel()
+    private let service = RequestService.shared
     
     var upcomingMatches = [Match]()
     var currentMatch : Match?
     var currentQRCode : QRCodeContent?
     var currentTicket : Ticket?
+    
+    private init() {}
     
     func setCurrentMatch(withIndex index: Int) {
         if index >= 0 && index < self.upcomingMatches.count {
@@ -30,179 +31,99 @@ public class MainViewModel {
     }
     
     // MARK: - API
-    func getUpcomingMatches(completion: @escaping (Bool, APIError?) -> Void){
-        apiService.request(APIService.getUpcomingMatches()) { result in
-            switch result {
-            case let .success(response):
-                let data = response.data
-                let statusCode = response.statusCode
-                
-                if statusCode >= 200 && statusCode <= 300 {
-                    let jsonData = JSON(data)
-                    let matches = jsonData.arrayValue.map { jsonObject in
-                            return Match(jsonObject)
-                    }
-
-                    self.upcomingMatches = matches
-                    
-                    completion(true, nil)
-                } else {
-                    let requestError = APIError(statusCode)
-                    completion(false, requestError)
+    func getUpcomingMatches(completion: ((_ matches: [Match]?, _ error: APIError?) -> Void)?) {
+        service.requestGetUpcomingMatches { (array, error) in
+            guard let complete = completion else {
+                return
+            }
+            
+            if let _ = error {
+                complete(nil, error)
+            } else {
+                self.upcomingMatches = array!.map { json in
+                    return Match(json)
                 }
-                break
-            case let .failure(error):
-                var requestError = APIError()
-                requestError.message = error.errorDescription
-                completion(false, requestError)
-                break
+                
+                complete(self.upcomingMatches, nil)
             }
         }
     }
     
-    // Sample ticket json string "{\"id\":99,\"number\":0,\"m_id\":98637,\"key\":98720}"
-    func verifyTicket(ticketJsonString : String, completion: @escaping (Ticket?, APIError?) -> Void) {
+    func scanTicket(_ content: String, completion: ((_ ticket: Ticket?, _ error: APIError?) -> Void)?) {
         let matchId = self.currentMatch!.id
-        let ticketJSON = JSON.init(parseJSON: ticketJsonString)
-        self.currentQRCode = QRCodeContent(ticketJSON)
+        let ticketJSON = JSON.init(parseJSON: content)
+        let ticketQRCode = QRCodeContent(ticketJSON)
+        let info: [String : Any] = ["match_id" : matchId, "ticket_qrcode" : ticketQRCode]
+        self.currentQRCode = ticketQRCode
         
-        if let qrCode = self.currentQRCode  {
-            apiService.request(APIService.verifyTicket(matchId, qrCode)) { result in
-                switch result {
-                case let .success(response):
-                    let data = response.data
-                    let statusCode = response.statusCode
-                    let jsonData = JSON(data)
-                    
-                    if statusCode >= 200 && statusCode <= 300 {
-                        let ticket = Ticket(jsonData)
-                        self.currentTicket = ticket
-                        
-                        completion(ticket, nil)
-                    } else {
-                        let requestError = APIError(statusCode, errorData: jsonData)
-                        completion(nil, requestError)
-                    }
-                    break
-                case let .failure(error):
-                    var requestError = APIError()
-                    requestError.message = error.errorDescription
-                    completion(nil, requestError)
-                    break
-                }
+        service.requestScanTicket(info) { (json, error) in
+            guard let complete = completion else {
+                return
             }
-        }
-    }
-    
-    func purchaseTicket(completion: @escaping (Bool, APIError?) -> Void){
-        if let ticket = self.currentTicket, let qrCode = self.currentQRCode {
-            let id = String(qrCode.id)
-            let paidValue = ticket.orderPrice
             
-            apiService.request(APIService.purchaseTicket(id, paidValue)) { result in
-                switch result {
-                case let .success(response):
-                    let data = response.data
-                    let statusCode = response.statusCode
-                    
-                    if statusCode >= 200 && statusCode <= 300 {
-                        let jsonData = JSON(data)
-                        completion(true, nil)
-                    } else {
-                        let requestError = APIError(statusCode)
-                        completion(false, requestError)
-                    }
-                    break
-                case let .failure(error):
-                    var requestError = APIError()
-                    requestError.message = error.errorDescription
-                    completion(false, requestError)
-                    break
-                }
-            }
-        }
-    }
-    
-    func getConversionRateP2M(completion: @escaping (ConversionRateP2M?, APIError?) -> Void){
-        apiService.request(APIService.getRateP2M()) { result in
-            switch result {
-            case let .success(response):
-                let data = response.data
-                let statusCode = response.statusCode
+            if let _ = error {
+                complete(nil, error)
+            } else {
+                let ticket = Ticket(json!)
+                self.currentTicket = ticket
                 
-                if statusCode >= 200 && statusCode <= 300 {
-                    let jsonData = JSON(data)
-                    let rate = ConversionRateP2M(jsonData["data"])
-                    
-                    completion(rate, nil)
-                } else {
-                    let requestError = APIError(statusCode)
-                    completion(nil, requestError)
-                }
-                break
-            case let .failure(error):
-                var requestError = APIError()
-                requestError.message = error.errorDescription
-                completion(nil, requestError)
-                break
+                complete(ticket, nil)
             }
         }
     }
     
-    func purchaseLoyaltyPointTicket(completion: @escaping (Bool, APIError?) -> Void){
-        if let ticket = self.currentTicket, let qrCode = self.currentQRCode {
-            let orderId = String(ticket.orderId)
-            let customerId = String(qrCode.customerId)
+    func purchaseTicket(completion: ((_ error: APIError?) -> Void)?) {
+        let id = String(self.currentQRCode!.id)
+        let paidValue = self.currentTicket!.orderPrice
+        let info: [String : Any] = ["id" : id, "paid_value" : paidValue]
+        
+        service.requestPurchaseTicket(info) { error in
+            guard let complete = completion else {
+                return
+            }
             
-            apiService.request(APIService.purchaseLoyaltyPointTicket(customerId, orderId)) { result in
-                switch result {
-                case let .success(response):
-                    let data = response.data
-                    let statusCode = response.statusCode
-                    let jsonData = JSON(data)
-                    
-                    if statusCode >= 200 && statusCode <= 300 {
-                        completion(true, nil)
-                    } else {
-                        let requestError = APIError(statusCode, errorData: jsonData)
-                        completion(false, requestError)
-                    }
-                    break
-                case let .failure(error):
-                    var requestError = APIError()
-                    requestError.message = error.errorDescription
-                    completion(false, requestError)
-                    break
-                }
+            complete(error)
+        }
+    }
+    
+    func getConversionRateP2M(completion: ((_ rate: ConversionRateP2M?, _ error: APIError?) -> Void)?) {
+        service.requestGetConversionRateP2M { (json, error) in
+            guard let complete = completion else {
+                return
+            }
+            
+            if let _ = error {
+                complete(nil, error)
+            } else {
+                let rate = ConversionRateP2M(json!)
+                let point = LoyaltyPoint(price: self.currentTicket?.orderPrice ?? Constants.DEFAULT_DOUBLE_VALUE, rate: rate)
+                self.currentTicket?.orderPoint = point
+                complete(rate, nil)
             }
         }
     }
     
-    func purchaseMerchandiseWithPoint(_ point: Int, completion: @escaping (Bool, APIError?) -> Void){
-        if let qrCode = self.currentQRCode {
-            let customerId = String(qrCode.customerId)
-            
-            apiService.request(APIService.purchaseMerchandise(point, customerId)) { result in
-                switch result {
-                case let .success(response):
-                    let data = response.data
-                    let statusCode = response.statusCode
-                    let jsonData = JSON(data)
-                    
-                    if statusCode >= 200 && statusCode <= 300 {
-                        completion(true, nil)
-                    } else {
-                        let requestError = APIError(statusCode, errorData: jsonData)
-                        completion(false, requestError)
-                    }
-                    break
-                case let .failure(error):
-                    var requestError = APIError()
-                    requestError.message = error.errorDescription
-                    completion(false, requestError)
-                    break
-                }
+    func purchaseTicket(withCustomerId customerId: String, completion: ((_ error: APIError?) -> Void)?) {
+        let info: [String : Any] = ["order_id" : String(self.currentTicket!.orderId), "customer_id" : customerId]
+        
+        service.requestPurchaseTicketWithPoint(info) { error in
+            guard let complete = completion else {
+                return
             }
+            
+            complete(error)
+        }
+    }
+    
+    func purchaseMerchandise(withPoint point: Int, customerId: String, completion: ((_ error: APIError?) -> Void)?) {
+        let info: [String : Any] = ["points" : point, "customer_id" : customerId]
+        
+        service.requestPurchaseMerchandiseWithPoint(info) { error in
+            guard let complete = completion else {
+                return
+            }
+            
+            complete(error)
         }
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 import Moya
 
-let apiServiceEndpointClosure = { (target: APIService) -> Endpoint<APIService> in
+let serviceEndpointClosure = { (target: APIService) -> Endpoint<APIService> in
     let defaultEndpoint = MoyaProvider.defaultEndpointMapping(for: target)
     
     if User.authorized {
@@ -20,17 +20,17 @@ let apiServiceEndpointClosure = { (target: APIService) -> Endpoint<APIService> i
     return defaultEndpoint
 }
 
-let apiService = MoyaProvider<APIService>(endpointClosure: apiServiceEndpointClosure)
+let provider = MoyaProvider<APIService>(endpointClosure: serviceEndpointClosure)
 
 // MARK: - Provider support
 // Delcaration of Ticket Checkin APIs
 enum APIService  {
     case login(String) // Signin with google access token
     case getUpcomingMatches() // Get upcoming matches
-    case verifyTicket(Int, QRCodeContent) // Verify ticket
+    case scanTicket(Int, QRCodeContent) // Verify ticket
     case purchaseTicket(String, Double) // Purchase unpaid ticket
     case getRateP2M() // Get conversion rate for changing order price --> loyalty point
-    case purchaseLoyaltyPointTicket(String, String) // Purchase ticket with loyalty point
+    case purchaseTicketWithPoint(String, String) // Purchase ticket with loyalty point
     case purchaseMerchandise(Int, String) // Purchase merchandise with loyalty point
 }
 
@@ -51,13 +51,13 @@ extension APIService : TargetType {
             return "/admins/auth"
         case .getUpcomingMatches():
             return "/matches/upcoming"
-        case .verifyTicket(_):
+        case .scanTicket(_):
             return "/qrcode/scan"
         case .purchaseTicket(_,_):
             return "/purchase"
         case .getRateP2M():
             return "/p2m"
-        case .purchaseLoyaltyPointTicket(_,_):
+        case .purchaseTicketWithPoint(_,_):
             return "/orders/point_paid_scanner"
         case .purchaseMerchandise(_,_):
             return "/purchase_merchandise"
@@ -81,7 +81,7 @@ extension APIService : TargetType {
         switch self {
         case .login(let token):
             return ["code": token]
-        case .verifyTicket(let matchId, let qrCodeContent):
+        case .scanTicket(let matchId, let qrCodeContent):
             return [ "match_id" : matchId,
                      "id": qrCodeContent.id,
                      "m_id": qrCodeContent.mId,
@@ -89,7 +89,7 @@ extension APIService : TargetType {
         case .purchaseTicket(let id, let paidValue):
             return ["id" : id,
                     "paid_value" : paidValue]
-        case .purchaseLoyaltyPointTicket(let customerId, let orderId):
+        case .purchaseTicketWithPoint(let customerId, let orderId):
             return ["customer_id" : customerId,
                     "order_id" : orderId]
         case .purchaseMerchandise(let points, let customerId):
@@ -102,7 +102,7 @@ extension APIService : TargetType {
     
     public var parameterEncoding: ParameterEncoding {
         switch self {
-        case .verifyTicket(_):
+        case .scanTicket(_):
             return JSONEncoding.default
         default:
             return URLEncoding.default

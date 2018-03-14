@@ -45,10 +45,9 @@ class MerchandiseViewController: BaseViewController {
             return
         }
         
-        let loyaltyPoint = LoyaltyPoint(Int(self.point!)!)
         let destination = Utils.viewController(withIdentifier: Constants.VIEWCONTROLLER_IDENTIFIER_USER_QRCODE_SCANNING) as! UserQRCodeScanningViewController
         destination.scanningType = .merchandise
-        destination.loyaltyPoint = loyaltyPoint
+        destination.merchandisePoint = self.point
         self.navigationController?.pushViewController(destination, animated: true)
     }
 }

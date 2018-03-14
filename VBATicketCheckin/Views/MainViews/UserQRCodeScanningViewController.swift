@@ -19,7 +19,7 @@ class UserQRCodeScanningViewController: BaseViewController {
     
     private var scanner: ScannerView?
     var scanningType = ScanningType.merchandise
-    var loyaltyPoint: LoyaltyPoint?
+    var merchandisePoint: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,7 +85,7 @@ class UserQRCodeScanningViewController: BaseViewController {
     }
     
     // MARK: - API
-    private func purchaseMerchandise(_ point: LoyaltyPoint) {
+    private func purchaseMerchandise(withPoint point: Int, customerId: String) {
         guard User.authorized else {
             self.logOut()
             return
@@ -93,20 +93,21 @@ class UserQRCodeScanningViewController: BaseViewController {
         
         self.showLoading()
         
-        self.mainViewModel.purchaseMerchandiseWithPoint(point.value) { [weak self] (succeed, error) in
+        self.mainViewModel.purchaseMerchandise(withPoint: point, customerId: customerId) { [weak self] error in
             DispatchQueue.main.async {
                 self?.hideLoading()
                 
-                if (succeed) {
-                    self?.handlePurchaseSucceed()
-                } else if let _ = error {
+                guard error == nil else {
                     self?.handlePurchaseError(error!)
+                    return
                 }
+                
+                self?.handlePurchaseSucceed()
             }
         }
     }
     
-    private func purchasePointTicket() {
+    private func purchaseTicket(withCustomerId customerId: String) {
         guard User.authorized else {
             self.logOut()
             return
@@ -114,15 +115,16 @@ class UserQRCodeScanningViewController: BaseViewController {
         
         self.showLoading()
         
-        self.mainViewModel.purchaseLoyaltyPointTicket { [weak self] (succeed, error) in
+        self.mainViewModel.purchaseTicket(withCustomerId: customerId) { [weak self] error in
             DispatchQueue.main.async {
                 self?.hideLoading()
                 
-                if (succeed) {
-                    self?.handlePurchaseSucceed()
-                } else if let _ = error {
+                guard error == nil else {
                     self?.handlePurchaseError(error!)
+                    return
                 }
+                
+                self?.handlePurchaseSucceed()
             }
         }
     }
@@ -142,14 +144,10 @@ extension UserQRCodeScanningViewController: ScannerViewDelegate, PopupViewDelega
     }
     
     func didReceiveScanningOutput(_ output: String) {
-        let jsonData: JSON = ["customer_id" : output]
-        let qrCodeContent = QRCodeContent(jsonData)
-        self.mainViewModel.setCurrentQRCode(qrCodeContent)
-        
         if self.scanningType == .merchandise {
-            self.purchaseMerchandise(self.loyaltyPoint!)
+            self.purchaseMerchandise(withPoint: Int(self.merchandisePoint!)!, customerId: output)
         } else {
-            self.purchasePointTicket()
+            self.purchaseTicket(withCustomerId: output)
         }
     }
     

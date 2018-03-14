@@ -24,7 +24,10 @@ struct Constants {
     static let STORYBOARD = UIStoryboard(name: "Main", bundle:nil)
     
     // MARK: - API components
-    static let BASE_URL = "http://dev.bsp.vn:8081/training-movie"
+    struct ResponseKey {
+        static let DATA = "data"
+        static let ERROR = "error"
+    }
     
     // MARK: - String
     static let ZERO_STRING = "0"
@@ -39,7 +42,8 @@ struct Constants {
     
     // MARK: - Default values
     static let DEFAULT_STRING_VALUE = "--"
-    static let DEFAULT_NUMBER_VALUE = 0
+    static let DEFAULT_INT_VALUE = 0
+    static let DEFAULT_DOUBLE_VALUE = 0.0
     static let DEFAULT_POPUPVIEW_WIDTH_RATIO: CGFloat = 0.69
     
     // MARK: - Font

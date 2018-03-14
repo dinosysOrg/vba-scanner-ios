@@ -82,15 +82,16 @@ extension LoginViewController: GIDSignInUIDelegate, GIDSignInDelegate {
         
         self.setGoogleSignInButtonHidden(true)
         
-        loginViewModel.loginWith(google: user) { [weak self] (success, error) in
+        loginViewModel.login(withGoogleUser: user) { [weak self] error in
             DispatchQueue.main.async {
-                if success {
-                    self?.setRootViewController(withType: .tabBar)
-                } else if let _ = error {
+                guard error == nil else {
                     self?.setGoogleSignInButtonHidden(false)
                     self?.showAlert(title: "Đăng nhập không thành công", message: error!.message!, actionTitles: ["OK"], actions: [{ ok in
                         }])
+                    return
                 }
+                
+                self?.setRootViewController(withType: .tabBar)
             }
         }
     }
