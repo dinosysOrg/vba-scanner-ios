@@ -36,6 +36,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         UITabBarItem.appearance().setTitleTextAttributes(normalAtt, for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes(selectedAtt, for: .selected)
+        
+        guard Utils.is_iPad else {
+            UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0.0, vertical: -15.0)
+            return
+        }
     }
     
     // MARK: - UITabBarControllerDelegate

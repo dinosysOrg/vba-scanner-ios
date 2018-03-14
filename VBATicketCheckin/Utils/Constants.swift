@@ -19,6 +19,7 @@ func log(_ message: String?, file: String = #file, function: String = #function,
 struct Constants {
     static let USER_DEFAULTS = UserDefaults.standard
     static let DEVICE_SIZE = UIScreen.main.bounds.size
+    static let CURRENT_DEVICE = UIDevice.current.userInterfaceIdiom
     static let APP_DELEGATE = UIApplication.shared.delegate as! AppDelegate
     static let STORYBOARD = UIStoryboard(name: "Main", bundle:nil)
     

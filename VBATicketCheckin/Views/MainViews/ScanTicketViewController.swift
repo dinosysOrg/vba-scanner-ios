@@ -11,8 +11,8 @@ import AVFoundation
 import SwiftyJSON
 
 class ScanTicketViewController: BaseViewController {
-    let mainViewModel = MainViewModel.shared
-    var scanner: ScannerView?
+    private let mainViewModel = MainViewModel.shared
+    private var scanner: ScannerView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +60,7 @@ class ScanTicketViewController: BaseViewController {
         
         let popup = self.initPopupView(frame: self.view.bounds, type: popupType, delegate: self)
         popup.loadingView(title: title, message: message, titleType: popupTitleType, buttonType: popupButtonType)
-        popup.show(in: self.view, animated: true)
+        popup.show(in: (self.navigationController?.view ?? self.view), animated: true)
         self.setNavigationSwipeEnable(false)
     }
     
@@ -124,6 +124,7 @@ extension ScanTicketViewController: ScannerViewDelegate, PopupViewDelegate {
         
         guard ticket.paid else {
             let destination = Utils.viewController(withIdentifier: Constants.VIEWCONTROLLER_IDENTIFIER_TICKET_PAYMENT) as! TicketPaymentDetailViewController
+            destination.setTicketQRCodeContent(self.mainViewModel.currentQRCode)
             self.navigationController?.pushViewController(destination, animated: true)
             
             return

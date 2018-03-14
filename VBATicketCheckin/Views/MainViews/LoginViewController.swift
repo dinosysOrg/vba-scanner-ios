@@ -13,9 +13,9 @@ import GoogleSignIn
 class LoginViewController: BaseViewController {
     @IBOutlet weak var loginIndicator: UIActivityIndicatorView!
     
-    let loginViewModel = LoginViewModel()
-    let googleSignInButton = GIDSignInButton()
-    var isGoogleButtonSetup = false
+    private let loginViewModel = LoginViewModel()
+    private let googleSignInButton = GIDSignInButton()
+    private var isGoogleButtonSetup = false
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -18,7 +18,7 @@ enum MatchSelectedType {
 class MatchesViewController: BaseViewController {
     @IBOutlet weak var tableView: UITableView!
     
-    let mainViewModel = MainViewModel.shared
+    private let mainViewModel = MainViewModel.shared
     
     private let refreshControl = UIRefreshControl()
     var selectedType = MatchSelectedType.checkIn

@@ -15,9 +15,9 @@ enum ScanningType {
 }
 
 class UserQRCodeScanningViewController: BaseViewController {
-    let mainViewModel = MainViewModel.shared
+    private let mainViewModel = MainViewModel.shared
     
-    var scanner: ScannerView?
+    private var scanner: ScannerView?
     var scanningType = ScanningType.merchandise
     var loyaltyPoint: LoyaltyPoint?
     
@@ -58,7 +58,7 @@ class UserQRCodeScanningViewController: BaseViewController {
         
         let popup = self.initPopupView(frame: self.view.bounds, type: popupType, delegate: self)
         popup.loadingView(title: title, message: message, titleType: nil, buttonType: nil)
-        popup.show(in: self.view, animated: true)
+        popup.show(in: (self.navigationController?.view ?? self.view), animated: true)
     }
     
     private func handlePurchaseError(_ error: APIError) {
@@ -70,7 +70,7 @@ class UserQRCodeScanningViewController: BaseViewController {
             
             let popup = self.initPopupView(frame: self.view.bounds, type: popupType, delegate: self)
             popup.loadingView(title: title, message: message, titleType: nil, buttonType: popupButtonType)
-            popup.show(in: self.view, animated: true)
+            popup.show(in: (self.navigationController?.view ?? self.view), animated: true)
             self.setNavigationSwipeEnable(false)
         } else {
             self.showAlert(title: "Thanh toán không thành công", error: error, actionTitles: ["OK"], actions:[{ [weak self] errorAction in

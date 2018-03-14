@@ -66,7 +66,7 @@
             <objects>
                 <navigationController id="v7T-dJ-PhB" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="CHECKIN" id="HoG-VX-vCc">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-15"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Q8a-VC-3iK">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -85,7 +85,7 @@
             <objects>
                 <navigationController id="i2F-t7-QRE" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="THANH TOÁN" id="CDX-4j-Ebq">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-15"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MzO-T9-grI">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>

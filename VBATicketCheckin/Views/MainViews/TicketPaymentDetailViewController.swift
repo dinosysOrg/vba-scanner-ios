@@ -25,14 +25,24 @@ class TicketPaymentDetailViewController: BaseViewController {
     @IBOutlet weak var btnCashPayment: UIButton!
     @IBOutlet weak var btnScanPayment: UIButton!
     
-    let mainViewModel = MainViewModel.shared
-    var loyaltyPoint: LoyaltyPoint?
+    private let mainViewModel = MainViewModel.shared
+    private var loyaltyPoint: LoyaltyPoint?
+    private var ticketQRCodeContent: QRCodeContent?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupUI()
         self.getConversionRate()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Reset currentQRCode everytime TicketPayment scene appears
+        if let ticketQRCode = self.ticketQRCodeContent {
+            self.mainViewModel.setCurrentQRCode(ticketQRCode)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,6 +79,10 @@ class TicketPaymentDetailViewController: BaseViewController {
     }
     
     // MARK: - Process
+    func setTicketQRCodeContent(_ content: QRCodeContent?) {
+        self.ticketQRCodeContent = content
+    }
+    
     private func convertToLoyaltyPoint(price: Double, rate: ConversionRateP2M) {
         self.loyaltyPoint = LoyaltyPoint(price: price, rate: rate)
     }
@@ -89,7 +103,7 @@ class TicketPaymentDetailViewController: BaseViewController {
         
         let popup = self.initPopupView(frame: self.view.bounds, type: popupType, delegate: self)
         popup.loadingView(title: title, message: message, titleType: nil, buttonType: nil)
-        popup.show(in: self.view, animated: true)
+        popup.show(in: (self.navigationController?.view ?? self.view), animated: true)
     }
     
     private func handlePurchaseTicketError(_ error: APIError) {
