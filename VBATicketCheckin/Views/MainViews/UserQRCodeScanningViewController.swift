@@ -73,7 +73,7 @@ class UserQRCodeScanningViewController: BaseViewController {
             popup.show(in: (self.navigationController?.view ?? self.view), animated: true)
             self.setNavigationSwipeEnable(false)
         } else {
-            self.showAlert(title: "Thanh toán không thành công", error: error, actionTitles: ["OK"], actions:[{ [weak self] errorAction in
+            self.showAlert(title: "Thanh toán không thành công", error: error, actionTitles: ["OK"], actions: [{ [weak self] errorAction in
                 DispatchQueue.main.async {
                     if error.type == APIErrorType.tokenExpired {
                         self?.logOut()
@@ -133,14 +133,7 @@ class UserQRCodeScanningViewController: BaseViewController {
 extension UserQRCodeScanningViewController: ScannerViewDelegate, PopupViewDelegate {
     // MARK: - ScannerViewDelegate
     func didReceiveCameraPermissionWarning() {
-        self.showAlert(title: "Truy cập camera không thành công", message: "Vui lòng cho phép ứng dụng truy cập camera", actionTitles: ["Cancel", "OK"], actions: [{ cancel in
-            DispatchQueue.main.async {
-                self.navigationController?.popViewController(animated: true)
-            }}, { [weak self] ok in
-                DispatchQueue.main.async {
-                    self?.gotoAppSetting()
-                }
-            }])
+        self.showCameraPermissionError()
     }
     
     func didReceiveScanningOutput(_ output: String) {
@@ -153,6 +146,12 @@ extension UserQRCodeScanningViewController: ScannerViewDelegate, PopupViewDelega
     
     // MARK: - PopupViewDelegate
     func didPopupViewRemoveFromSuperview() {
+        // If purchase ticket successfully navigate back to ScanTicket
+        if (self.scanningType == .ticket) && self.mainViewModel.purchaseSucceed {
+            self.popToScanTicket()
+            return
+        }
+        
         self.setNavigationSwipeEnable(true)
         self.scanner?.start()
     }

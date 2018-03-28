@@ -17,6 +17,7 @@ public class MainViewModel {
     var currentMatch : Match?
     var currentQRCode : QRCodeContent?
     var currentTicket : Ticket?
+    var purchaseSucceed = false
     
     private init() {}
     
@@ -111,6 +112,7 @@ public class MainViewModel {
                 return
             }
             
+            self.purchaseSucceed = (error == nil)
             complete(error)
         }
     }

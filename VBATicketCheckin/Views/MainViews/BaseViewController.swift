@@ -158,7 +158,6 @@ class BaseViewController: UIViewController {
         Constants.APP_DELEGATE.window?.makeKeyAndVisible()
     }
     
-    
     /// Enable/Disable navigation's PopGestureRecognizer when popup shown
     ///
     /// - Parameter enable: boolean
@@ -179,6 +178,26 @@ class BaseViewController: UIViewController {
                 })
             } else {
                 UIApplication.shared.openURL(settingsUrl)
+            }
+        }
+    }
+    
+    func showCameraPermissionError() {
+        self.showAlert(title: "Truy cập camera không thành công", message: "Vui lòng cho phép ứng dụng truy cập camera", actionTitles: ["Cancel", "OK"], actions: [{ cancel in
+            DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
+            }}, { [weak self] ok in
+                DispatchQueue.main.async {
+                    self?.gotoAppSetting()
+                }
+            }])
+    }
+    
+    func popToScanTicket() {
+        for vc in (self.navigationController?.viewControllers ?? []) {
+            if vc is ScanTicketViewController {
+                _ = self.navigationController?.popToViewController(vc, animated: true)
+                return
             }
         }
     }

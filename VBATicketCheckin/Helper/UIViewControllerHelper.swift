@@ -22,7 +22,7 @@ extension UIViewController {
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         for (index, title) in actionTitles.enumerated() {
-            let action = UIAlertAction(title: title, style: .default, handler: actions[index])
+            let action = UIAlertAction(title: title, style: .default, handler: (index < actions.count) ? actions[index] : nil)
             ac.addAction(action)
         }
         
@@ -37,11 +37,11 @@ extension UIViewController {
     }
     
     // Show Error Alert with Action
-    func showAlert(title: String, error: APIError, actionTitles:[String?], actions:[((UIAlertAction) -> Void)?]) {
+    func showAlert(title: String, error: APIError, actionTitles: [String?], actions: [((UIAlertAction) -> Void)?]) {
         let ac = UIAlertController(title: title, message: error.message, preferredStyle: .alert)
         
         for (index, title) in actionTitles.enumerated() {
-            let action = UIAlertAction(title: title, style: .default, handler: actions[index])
+            let action = UIAlertAction(title: title, style: .default, handler: (index < actions.count) ? actions[index] : nil)
             ac.addAction(action)
         }
         

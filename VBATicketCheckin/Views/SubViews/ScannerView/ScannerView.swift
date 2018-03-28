@@ -56,7 +56,7 @@ class ScannerView: BaseView {
     }
     
     // MARK: - Setup UI
-    func setBlurViewHole() {
+    func setupBlurScanningView() {
         let maskView = UIView(frame: self.blurView.bounds)
         maskView.clipsToBounds = true;
         maskView.backgroundColor = UIColor.clear
@@ -80,21 +80,10 @@ class ScannerView: BaseView {
     private func setupUI() {
         // Scanner
         scannerQueue.async {
+            self.requestDeviceAccess()
             self.scannerViewModel.startScanner()
             
             guard let session = self.scannerViewModel.initSession() else {
-                guard AVCaptureDevice.authorizationStatus(for: .video) == .authorized else {
-                    AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
-                        if granted {
-                            log("access allowed")
-                        } else {
-                            self.delegate?.didReceiveCameraPermissionWarning()
-                        }
-                    })
-                    
-                    return
-                }
-                
                 return
             }
             
@@ -106,7 +95,7 @@ class ScannerView: BaseView {
                 videoPreviewLayer.setCornerRadius(10.0, border: 2.0, color: UIColor.darkBlueGrey.cgColor)
                 self.vContainer.layer.addSublayer(videoPreviewLayer)
                 
-                self.setBlurViewHole()
+                self.setupBlurScanningView()
                 self.vContainer.bringSubview(toFront: self.blurView)
                 self.scannerViewModel.setCapturePreviewLayer(videoPreviewLayer, scanningFrame: self.vScannerImage.frame)
             }
@@ -114,6 +103,16 @@ class ScannerView: BaseView {
     }
     
     // MARK: - Process
+    private func requestDeviceAccess() {
+        self.scannerViewModel.requestAVCaptureDeviceAccess { [weak self] requestGranted in
+            if (!requestGranted) {
+                DispatchQueue.main.async {
+                    self?.delegate?.didReceiveCameraPermissionWarning()
+                }
+            }
+        }
+    }
+    
     func start() {
         self.scannerViewModel.startScanner()
     }

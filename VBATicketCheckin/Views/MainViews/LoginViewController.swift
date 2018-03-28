@@ -76,6 +76,7 @@ extension LoginViewController: GIDSignInUIDelegate, GIDSignInDelegate {
     // MARK: - GIDSignInDelegate
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         guard error == nil else {
+            self.setGoogleSignInButtonHidden(false)
             self.showAlert(title: "Đăng nhập tài khoản Google không thành công", message: error.localizedDescription, actionTitles: ["OK"], actions: [])
             return
         }

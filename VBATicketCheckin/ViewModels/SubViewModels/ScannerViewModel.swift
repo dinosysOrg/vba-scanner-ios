@@ -46,26 +46,23 @@ class ScannerViewModel: NSObject {
     }
     
     func initSession() -> AVCaptureSession? {
-        pSession = AVCaptureSession()
-        
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {
             log("Cannot create AVCaptureDevice")
             return nil
         }
         
+        pSession = AVCaptureSession()
+        
         do {
             let videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
-            
             guard pSession.canAddInput(videoInput) else {
-                log("Cannot addInput()")
                 return nil
             }
             
             pSession.addInput(videoInput)
-            let metadataOutput = AVCaptureMetadataOutput()
             
+            let metadataOutput = AVCaptureMetadataOutput()
             guard pSession.canAddOutput(metadataOutput) else {
-                log("Cannot addOutput()")
                 return nil
             }
             
@@ -95,6 +92,20 @@ class ScannerViewModel: NSObject {
     func stopScanner() {
         if self.pSession?.isRunning == true {
             self.pSession.stopRunning()
+        }
+    }
+    
+    func requestAVCaptureDeviceAccess(_ completion: ((_ requestGranted: Bool) -> Void)?) {
+        guard AVCaptureDevice.authorizationStatus(for: .video) == .authorized else {
+            AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
+                guard let complete = completion else {
+                    return
+                }
+                
+                complete(granted)
+            })
+            
+            return
         }
     }
 }

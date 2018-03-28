@@ -35,7 +35,7 @@ enum APIService  {
 }
 
 enum BaseUrlType: String {
-    case local = "http://192.168.4.76:3000/api"
+    case local = "http://192.168.4.87:3000/api"
     case debug = ""
     case staging = "https://vba-ticket-staging.herokuapp.com/api"
     case product = "https://vba-ticket-production.herokuapp.com/api"
@@ -82,10 +82,9 @@ extension APIService : TargetType {
         case .login(let token):
             return ["code": token]
         case .scanTicket(let matchId, let qrCodeContent):
-            return [ "match_id" : matchId,
-                     "id": qrCodeContent.id,
-                     "m_id": qrCodeContent.mId,
-                     "key": qrCodeContent.key]
+            return ["match_id" : matchId,
+                    "id": qrCodeContent.id,
+                    "hash_key": qrCodeContent.hashKey]
         case .purchaseTicket(let id, let paidValue):
             return ["id" : id,
                     "paid_value" : paidValue]
