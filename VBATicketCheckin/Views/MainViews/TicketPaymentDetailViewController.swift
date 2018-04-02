@@ -49,7 +49,6 @@ class TicketPaymentDetailViewController: BaseViewController {
         
         self.formatLabel(self.lblTitleOrder, title: "Thông tin đơn hàng", color: UIColor.black)
         self.formatMultipleLinesLabel(self.lblMatchInfo, title: matchInfo, color: UIColor.black)
-        
         self.vPriceInfo.layer.setBorder(2.0, color: UIColor.coolGrey.cgColor)
         self.formatLabel(self.lblTitleLeft, title: "Giá:", color: UIColor.black)
         self.formatExtraLargeBoldLabel(self.lblPrice, title: strPrice, color: UIColor.black)
@@ -60,9 +59,25 @@ class TicketPaymentDetailViewController: BaseViewController {
         
         self.formatButton(self.btnCashPayment, title: "THANH TOÁN\nTIỀN MẶT")
         self.formatButton(self.btnScanPayment, title: "QUÉT MÃ\nTHANH TOÁN")
+        
+        // Fit font's size of text to its width
+        let fontSize = self.adjustedFontSizeOf(label: self.lblPrice)
+        self.lblPrice.font = self.lblPrice.font.withSize(fontSize)
+        self.lblPoint.font = self.lblPoint.font.withSize(fontSize)
     }
     
     // MARK: - Process
+    private func adjustedFontSizeOf(label: UILabel) -> CGFloat {
+        guard let textSize = label.text?.size(withAttributes: [.font: label.font]), textSize.width > label.bounds.width else {
+            return label.font.pointSize
+        }
+        
+        let scale = label.bounds.width / textSize.width
+        let actualFontSize = scale * label.font.pointSize
+        
+        return actualFontSize
+    }
+    
     private func reloadData() {
         self.setupUI()
     }

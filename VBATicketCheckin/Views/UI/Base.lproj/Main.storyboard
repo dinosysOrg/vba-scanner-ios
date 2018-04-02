@@ -281,7 +281,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qo8-JJ-xVz" userLabel="View Order Info">
-                                <rect key="frame" x="20" y="50" width="335" height="247"/>
+                                <rect key="frame" x="20" y="50" width="335" height="111.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thông tin đơn hàng" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Emg-eB-88F" userLabel="Lbl Title Order">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="21"/>
@@ -299,6 +299,7 @@
                                 <constraints>
                                     <constraint firstItem="NYI-C4-n6m" firstAttribute="leading" secondItem="qo8-JJ-xVz" secondAttribute="leading" constant="20" id="AiZ-4h-lvq"/>
                                     <constraint firstItem="NYI-C4-n6m" firstAttribute="top" secondItem="Emg-eB-88F" secondAttribute="bottom" constant="60" id="XW4-77-6pZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="NYI-C4-n6m" secondAttribute="bottom" constant="10" id="cxZ-aY-k19"/>
                                     <constraint firstItem="Emg-eB-88F" firstAttribute="leading" secondItem="qo8-JJ-xVz" secondAttribute="leading" id="fUx-SN-XVm"/>
                                     <constraint firstAttribute="trailing" secondItem="Emg-eB-88F" secondAttribute="trailing" id="luB-45-gLZ"/>
                                     <constraint firstItem="Emg-eB-88F" firstAttribute="top" secondItem="qo8-JJ-xVz" secondAttribute="top" id="yzt-l3-cKg"/>
@@ -306,7 +307,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WAU-lM-ljP" userLabel="View Price Info">
-                                <rect key="frame" x="20" y="397" width="335" height="120"/>
+                                <rect key="frame" x="20" y="417" width="335" height="120"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P1d-qu-jIK" userLabel="View Price">
                                         <rect key="frame" x="10" y="10" width="146.5" height="100"/>
@@ -317,7 +318,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="280.000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VOr-oJ-tBM" userLabel="Lbl Price">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="280.000" textAlignment="natural" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VOr-oJ-tBM" userLabel="Lbl Price">
                                                 <rect key="frame" x="0.0" y="26" width="146.5" height="48"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                                 <nil key="textColor"/>
@@ -359,7 +360,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="140" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T3R-6r-uLh" userLabel="Lbl Point">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="140" textAlignment="natural" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T3R-6r-uLh" userLabel="Lbl Point">
                                                 <rect key="frame" x="0.0" y="26" width="146.5" height="48"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                                 <nil key="textColor"/>
@@ -402,7 +403,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZDA-px-day" userLabel="View Buttons">
-                                <rect key="frame" x="20" y="557" width="335" height="90"/>
+                                <rect key="frame" x="20" y="577" width="335" height="90"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tPt-8I-VJ9" userLabel="Btn Cash Payment">
                                         <rect key="frame" x="0.0" y="0.0" width="142.5" height="90"/>
@@ -434,7 +435,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Uxd-xt-RHT" firstAttribute="top" secondItem="ZDA-px-day" secondAttribute="bottom" constant="20" id="01I-Pc-ifO"/>
+                            <constraint firstItem="Uxd-xt-RHT" firstAttribute="top" secondItem="ZDA-px-day" secondAttribute="bottom" id="01I-Pc-ifO"/>
                             <constraint firstItem="WAU-lM-ljP" firstAttribute="leading" secondItem="zMo-Ts-xN4" secondAttribute="leading" constant="20" id="4a9-B3-rif"/>
                             <constraint firstItem="qo8-JJ-xVz" firstAttribute="leading" secondItem="zMo-Ts-xN4" secondAttribute="leading" constant="20" id="8NR-3i-nEf"/>
                             <constraint firstAttribute="trailing" secondItem="ZDA-px-day" secondAttribute="trailing" constant="20" id="Fee-od-ks2"/>
@@ -442,7 +443,6 @@
                             <constraint firstAttribute="trailing" secondItem="WAU-lM-ljP" secondAttribute="trailing" constant="20" id="Swz-GA-xvd"/>
                             <constraint firstAttribute="trailing" secondItem="qo8-JJ-xVz" secondAttribute="trailing" constant="20" id="XlI-5L-YHh"/>
                             <constraint firstItem="qo8-JJ-xVz" firstAttribute="top" secondItem="dPs-Wz-Gok" secondAttribute="bottom" constant="30" id="ovV-GR-nPM"/>
-                            <constraint firstItem="WAU-lM-ljP" firstAttribute="top" secondItem="qo8-JJ-xVz" secondAttribute="bottom" constant="100" id="vLv-Gh-Vsz"/>
                             <constraint firstItem="ZDA-px-day" firstAttribute="leading" secondItem="zMo-Ts-xN4" secondAttribute="leading" constant="20" id="zsc-9g-F1h"/>
                         </constraints>
                     </view>
