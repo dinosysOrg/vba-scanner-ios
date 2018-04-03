@@ -8,22 +8,23 @@
 
 import UIKit
 import AVFoundation
-import SwiftyJSON
 
 class ScanTicketViewController: BaseViewController {
     private let mainViewModel = MainViewModel.shared
     private var scanner: ScannerView?
+    var ticketScanningType = TicketScanningType.checkIn
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setViewBackgroundColor(by: .gunmetal)
-        self.setNavigationTitle("Quét vé")
         self.addScanner()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.setNavigationTitle((self.ticketScanningType == .checkIn) ? "Quét vé" : "Thanh toán vé")
         // Use scanner.start() for next time pop from other view controller
         self.scanner?.start()
     }
@@ -49,6 +50,17 @@ class ScanTicketViewController: BaseViewController {
     private func addScanner() {
         self.scanner = ScannerView.initWith(frame: self.view.bounds, delegate: self)
         self.view.addSubview(self.scanner!)
+    }
+    
+    private func handleScan(ticket: Ticket?, error: APIError?) {
+        self.hideLoading()
+        
+        guard error == nil else {
+            self.handleScanError(error!)
+            return
+        }
+        
+        self.handleScanTicket(ticket!)
     }
     
     private func handleScanTicket(_ ticket: Ticket) {
@@ -83,16 +95,9 @@ class ScanTicketViewController: BaseViewController {
         
         self.showLoading()
         
-        self.mainViewModel.scanTicket(content) { [weak self] (ticket, error) in
+        self.mainViewModel.scanTicket(content: content, type: self.ticketScanningType) { [weak self] (ticket, error) in
             DispatchQueue.main.async {
-                self?.hideLoading()
-                
-                guard error == nil else {
-                    self?.handleScanError(error!)
-                    return
-                }
-                
-                self?.handleScanTicket(ticket!)
+                self?.handleScan(ticket: ticket, error: error)
             }
         }
     }

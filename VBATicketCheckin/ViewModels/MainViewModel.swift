@@ -9,6 +9,11 @@
 import Foundation
 import SwiftyJSON
 
+enum TicketScanningType {
+    case checkIn
+    case payment
+}
+
 public class MainViewModel {
     static let shared = MainViewModel()
     private let service = RequestService.shared
@@ -50,14 +55,14 @@ public class MainViewModel {
         }
     }
     
-    func scanTicket(_ content: String, completion: ((_ ticket: Ticket?, _ error: APIError?) -> Void)?) {
+    func scanTicket(content: String, type: TicketScanningType, completion: ((_ ticket: Ticket?, _ error: APIError?) -> Void)?) {
         let matchId = self.currentMatch!.id
         let ticketJSON = JSON.init(parseJSON: content)
         let ticketQRCode = QRCodeContent(ticketJSON)
         let info: [String : Any] = ["match_id" : matchId, "ticket_qrcode" : ticketQRCode]
         self.currentQRCode = ticketQRCode
         
-        service.requestScanTicket(info) { (json, error) in
+        service.requestScanTicket(info: info, type: type) { (json, error) in
             guard let complete = completion else {
                 return
             }

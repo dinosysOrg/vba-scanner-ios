@@ -12,6 +12,8 @@ class PaymentViewController: BaseViewController {
     @IBOutlet weak var vContainer: UIView!
     @IBOutlet weak var btnMerchandise: UIButton!
     @IBOutlet weak var btnTicket: UIButton!
+    
+    private let mainViewModel = MainViewModel.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +24,7 @@ class PaymentViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.setNavigationTitle("Thanh toán")
         self.setTabBarHidden(false)
         self.setNavigationHidden(true)
     }
@@ -43,7 +46,7 @@ class PaymentViewController: BaseViewController {
     
     @IBAction func btnTicket_clicked(_ sender: UIButton) {
         let destination = Utils.viewController(withIdentifier: Constants.VIEWCONTROLLER_IDENTIFIER_MATCHES) as! MatchesViewController
-        destination.selectedType = .scanTicket
+        destination.ticketScanningType = .payment
         self.navigationController?.pushViewController(destination, animated: true)
     }
 }

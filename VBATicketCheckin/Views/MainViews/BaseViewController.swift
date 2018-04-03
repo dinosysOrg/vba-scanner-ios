@@ -48,7 +48,7 @@ class BaseViewController: UIViewController {
     
     // MARK: - Format
     func setNavigationHidden(_ isHidden: Bool) {
-        self.navigationController?.setNavigationBarHidden(isHidden, animated: false)
+        self.navigationController?.navigationBar.layer.zPosition = isHidden ? -1 : 0
     }
     
     func setTabBarHidden(_ isHidden: Bool) {
@@ -141,7 +141,7 @@ class BaseViewController: UIViewController {
     }
     
     func setNavigationTitle(_ title: String) {
-        self.title = title
+        self.navigationItem.title = title
     }
     
     func setRootViewController(withType type: RootViewControllerType) {

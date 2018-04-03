@@ -10,18 +10,12 @@ import UIKit
 import AVFoundation
 import SwiftyJSON
 
-enum MatchSelectedType {
-    case checkIn
-    case scanTicket
-}
-
 class MatchesViewController: BaseViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private let mainViewModel = MainViewModel.shared
-    
     private let refreshControl = UIRefreshControl()
-    var selectedType = MatchSelectedType.checkIn
+    var ticketScanningType = TicketScanningType.checkIn
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +27,8 @@ class MatchesViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.setTabBarHidden(self.selectedType != .checkIn)
+        self.setNavigationTitle("Danh sách trận đấu")
+        self.setTabBarHidden(self.ticketScanningType != .checkIn)
         self.setNavigationHidden(false)
     }
     
@@ -81,6 +76,7 @@ class MatchesViewController: BaseViewController {
     
     private func navigateToScanTicket() {
         let destination = Utils.viewController(withIdentifier: Constants.VIEWCONTROLLER_IDENTIFIER_SCAN_TICKET) as! ScanTicketViewController
+        destination.ticketScanningType = self.ticketScanningType
         self.navigationController?.pushViewController(destination, animated: true)
     }
     

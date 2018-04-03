@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Moya
+import Result
 import SwiftyJSON
 
 class RequestService {
@@ -50,11 +52,18 @@ class RequestService {
         }
     }
     
-    func requestScanTicket(_ info: [String : Any], completion: ((_ json: JSON?, _ error: APIError?) -> Void)?) {
+    
+    /// Scan ticket or order with type (checkIn | payment)
+    ///
+    /// - Parameters:
+    ///   - info: content of ticket includes a match_id and a QRCodeContent
+    ///   - type: type need requested: checkIn | payment
+    ///   - completion: return a json and an error of request
+    func requestScanTicket(info: [String : Any], type: TicketScanningType, completion: ((_ json: JSON?, _ error: APIError?) -> Void)?) {
         let matchId = info["match_id"] as! Int
         let ticketQRCode = info["ticket_qrcode"] as! QRCodeContent
         
-        provider.request(.scanTicket(matchId, ticketQRCode)) { result in
+        let callback = { (result: Result<Moya.Response, MoyaError>) in
             guard let complete = completion else {
                 return
             }
@@ -67,6 +76,18 @@ class RequestService {
             case let .failure(error):
                 let error = ServiceHelper.serviceError(from: error)
                 complete(nil, error)
+            }
+        }
+        
+        if type == .checkIn {
+            // Scan ticket for checkin or payment (if that order not paid)
+            provider.request(.scanTicket(matchId, ticketQRCode)) { result in
+                callback(result)
+            }
+        } else {
+            // Scan ticket for payment only when in Payment tab
+            provider.request(.scanTicketPayment(matchId, ticketQRCode)) { result in
+                callback(result)
             }
         }
     }

@@ -27,7 +27,8 @@ let provider = MoyaProvider<APIService>(endpointClosure: serviceEndpointClosure)
 enum APIService  {
     case login(String) // Signin with google access token
     case getUpcomingMatches() // Get upcoming matches
-    case scanTicket(Int, QRCodeContent) // Verify ticket
+    case scanTicket(Int, QRCodeContent) // Verify ticket (Could scan for payment and checkin)
+    case scanTicketPayment(Int, QRCodeContent) // Scan ticket payment (Only scan for payment)
     case purchaseTicket(String, Double) // Purchase unpaid ticket
     case getRateP2M() // Get conversion rate for changing order price --> loyalty point
     case purchaseTicketWithPoint(String, String) // Purchase ticket with loyalty point
@@ -42,7 +43,7 @@ enum BaseUrlType: String {
 }
 
 extension APIService : TargetType {
-    public var baseURL: URL { return URL(string: BaseUrlType.staging.rawValue)! }
+    public var baseURL: URL { return URL(string: BaseUrlType.local.rawValue)! }
     
     // Path for each API
     public var path: String {
@@ -51,8 +52,10 @@ extension APIService : TargetType {
             return "/admins/auth"
         case .getUpcomingMatches():
             return "/matches/upcoming"
-        case .scanTicket(_):
+        case .scanTicket(_,_):
             return "/qrcode/scan"
+        case .scanTicketPayment(_,_):
+            return "/qrcode_payment/scan"
         case .purchaseTicket(_,_):
             return "/purchase"
         case .getRateP2M():
@@ -67,9 +70,7 @@ extension APIService : TargetType {
     // HTTP Method for each API
     public var method: Moya.Method {
         switch self {
-        case .getUpcomingMatches():
-            return .get
-        case .getRateP2M():
+        case .getUpcomingMatches(), .getRateP2M():
             return .get
         default:
             return .post
@@ -82,6 +83,10 @@ extension APIService : TargetType {
         case .login(let token):
             return ["code": token]
         case .scanTicket(let matchId, let qrCodeContent):
+            return ["match_id" : matchId,
+                    "id": qrCodeContent.id,
+                    "hash_key": qrCodeContent.hashKey]
+        case .scanTicketPayment(let matchId, let qrCodeContent):
             return ["match_id" : matchId,
                     "id": qrCodeContent.id,
                     "hash_key": qrCodeContent.hashKey]
@@ -101,7 +106,7 @@ extension APIService : TargetType {
     
     public var parameterEncoding: ParameterEncoding {
         switch self {
-        case .scanTicket(_):
+        case .scanTicket(_,_), .scanTicketPayment(_,_):
             return JSONEncoding.default
         default:
             return URLEncoding.default

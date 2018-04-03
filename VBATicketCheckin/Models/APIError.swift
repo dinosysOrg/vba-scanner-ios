@@ -84,11 +84,19 @@ struct APIError {
         type = APIErrorType.unknown
     }
     
+    
+    /// Initialize an error from request with message. Request failed
+    ///
+    /// - Parameter errorMessage: message of failed request
     init(_ errorMessage: String?) {
         type = APIErrorType.internalServer
         message = errorMessage
     }
     
+    
+    /// Initialize an error from request with statusCode. Request succeeded but fail in meaning
+    ///
+    /// - Parameter statusCode: code of 'failed' request
     init(_ statusCode: Int) {
         if let errorType = APIErrorType(rawValue: statusCode) {
             type = errorType
@@ -97,6 +105,12 @@ struct APIError {
         }
     }
     
+    
+    /// Initialize an error from request with statusCode and error json data. Request succeeded but fail in meaning
+    ///
+    /// - Parameters:
+    ///   - statusCode: code of 'failed' request
+    ///   - errorData: json data of 'failed' request
     init(_ statusCode: Int, errorData: JSON) {
         if let errorType = APIErrorType(rawValue: statusCode) {
             type = errorType

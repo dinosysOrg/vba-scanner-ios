@@ -24,12 +24,13 @@ class UserQRCodeScanningViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setNavigationTitle("Quét mã QR")
         self.addScanner()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.setNavigationTitle("Quét mã QR")
         // Use scanner.start() for next time pop from other view controller
         self.scanner?.start()
     }

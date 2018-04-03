@@ -21,6 +21,12 @@ class MerchandiseViewController: BaseViewController {
         
         self.setupUI()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.setNavigationTitle("Merchandise")
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -33,6 +33,12 @@ class TicketPaymentDetailViewController: BaseViewController {
         self.setupUI()
         self.getConversionRate()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.setNavigationTitle("Thông tin đơn hàng")
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
