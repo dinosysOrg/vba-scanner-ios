@@ -18,6 +18,7 @@ import SwiftyJSON
 struct QRCodeContent {
     let customerId: String
     let id: Int
+    let orderId: Int
     let number: Int
     let hashKey: String
     
@@ -26,6 +27,7 @@ struct QRCodeContent {
         customerId = jsonData["customer_id"].stringValue
         // These variables used for ticket qrcode scanning
         id = jsonData["id"].intValue
+        orderId = jsonData["order_id"].intValue
         number = jsonData["number"].intValue
         hashKey = jsonData["hash_key"].stringValue
     }

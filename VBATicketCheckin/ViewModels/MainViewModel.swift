@@ -36,6 +36,10 @@ public class MainViewModel {
         self.currentQRCode = qrCode
     }
     
+    func setCurrentTicket(_ ticket: Ticket?) {
+        self.currentTicket = ticket
+    }
+    
     // MARK: - API
     func getUpcomingMatches(completion: ((_ matches: [Match]?, _ error: APIError?) -> Void)?) {
         service.requestGetUpcomingMatches { (array, error) in
@@ -88,6 +92,8 @@ public class MainViewModel {
                 return
             }
             
+            self.currentTicket = (error == nil) ? nil : self.currentTicket
+            
             complete(error)
         }
     }
@@ -104,6 +110,7 @@ public class MainViewModel {
                 let rate = ConversionRateP2M(json!)
                 let point = LoyaltyPoint(price: self.currentTicket?.orderPrice ?? Constants.DEFAULT_DOUBLE_VALUE, rate: rate)
                 self.currentTicket?.orderPoint = point
+                
                 complete(rate, nil)
             }
         }
@@ -118,6 +125,8 @@ public class MainViewModel {
             }
             
             self.purchaseSucceed = (error == nil)
+            self.currentTicket = (error == nil) ? nil : self.currentTicket
+            
             complete(error)
         }
     }

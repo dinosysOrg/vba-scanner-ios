@@ -9,8 +9,8 @@
 import Foundation
 import Moya
 
-let serviceEndpointClosure = { (target: APIService) -> Endpoint<APIService> in
-    let defaultEndpoint = MoyaProvider.defaultEndpointMapping(for: target)
+let serviceEndpointClosure = { (target: APIService) -> Endpoint in
+    let defaultEndpoint = MoyaProvider<APIService>.defaultEndpointMapping(for: target)
     
     if User.authorized {
         let token = User.current?.accessToken
@@ -42,8 +42,15 @@ enum BaseUrlType: String {
     case product = "https://vba-ticket-production.herokuapp.com/api"
 }
 
+// https://github.com/Moya/Moya/tree/master/docs/MigrationGuides
 extension APIService : TargetType {
-    public var baseURL: URL { return URL(string: BaseUrlType.local.rawValue)! }
+    var headers: [String : String]? {
+        return ["Content-Type" : "application/json"]
+    }
+    
+    public var baseURL: URL {
+        return URL(string: BaseUrlType.staging.rawValue)!
+    }
     
     // Path for each API
     public var path: String {
@@ -77,48 +84,36 @@ extension APIService : TargetType {
         }
     }
     
-    // Parameters for each API
-    public var parameters: [String: Any]? {
+    // Parameters & ParameterEncoding of request
+    public var task: Task {
         switch self {
         case .login(let token):
-            return ["code": token]
-        case .scanTicket(let matchId, let qrCodeContent):
-            return ["match_id" : matchId,
-                    "id": qrCodeContent.id,
-                    "hash_key": qrCodeContent.hashKey]
-        case .scanTicketPayment(let matchId, let qrCodeContent):
-            return ["match_id" : matchId,
-                    "id": qrCodeContent.id,
-                    "hash_key": qrCodeContent.hashKey]
+            let params = ["code": token]
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
+        case .scanTicket(let matchId, let qrCodeContent), .scanTicketPayment(let matchId, let qrCodeContent):
+            let params: [String : Any] = ["match_id" : matchId,
+                                          "id": qrCodeContent.id,
+                                          "hash_key": qrCodeContent.hashKey]
+            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         case .purchaseTicket(let id, let paidValue):
-            return ["id" : id,
-                    "paid_value" : paidValue]
+            let params: [String : Any] = ["id" : id,
+                                          "paid_value" : paidValue]
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         case .purchaseTicketWithPoint(let customerId, let orderId):
-            return ["customer_id" : customerId,
-                    "order_id" : orderId]
+            let params: [String : Any] = ["customer_id" : customerId,
+                                          "order_id" : orderId]
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         case .purchaseMerchandise(let points, let customerId):
-            return ["customer_id" : customerId,
-                    "points" : points]
+            let params: [String : Any] = ["customer_id" : customerId,
+                                          "points" : points]
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         default:
-            return nil
+            return .requestPlain
         }
     }
     
-    public var parameterEncoding: ParameterEncoding {
-        switch self {
-        case .scanTicket(_,_), .scanTicketPayment(_,_):
-            return JSONEncoding.default
-        default:
-            return URLEncoding.default
-        }
-    }
-    
-    public var task: Task {
-        return .request
-    }
-    
-    public var validate: Bool {
-        return false
+    public var validationType: ValidationType {
+        return .none
     }
     
     public var sampleData: Data {

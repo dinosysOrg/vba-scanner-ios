@@ -65,7 +65,7 @@ class ScanTicketViewController: BaseViewController {
     
     private func handleScanTicket(_ ticket: Ticket) {
         let title = ticket.paid ? "Checkin thành công" : "Vé chưa thanh toán"
-        let message = "Trận đấu: \(ticket.match)\n\nSố lượng vé: \(ticket.quantity)\n\nLoại vé: \(ticket.type)"
+        let message = "Trận đấu: \(ticket.match)\n\nSố lượng vé: \(ticket.quantity)\n\nLoại vé: \(ticket.type)\n\nOrder: \(ticket.orderId)"
         let popupType = ticket.paid ? PopupViewType.withoutButton : PopupViewType.normal
         let popupTitleType = ticket.paid ? PopupTitleType.green : PopupTitleType.red
         let popupButtonType = ticket.paid ? PopupButtonTitleType.ok : PopupButtonTitleType.payment
@@ -77,7 +77,14 @@ class ScanTicketViewController: BaseViewController {
     }
     
     private func handleScanError(_ error: APIError) {
-        self.showAlert(title: "Check in không thành công", error: error, actionTitles: ["OK"], actions: [{ [weak self] errorAction in
+        let title = self.ticketScanningType == .checkIn ? "Check in không thành công" : "Thanh toán không thành công"
+        var message = error.message
+        
+        if error.ticketErrorType == TicketErrorType.used {
+            message = "\(error.message!)\nOrder: \(self.mainViewModel.currentQRCode?.orderId ?? Constants.DEFAULT_INT_VALUE)"
+        }
+        
+        self.showAlert(title: title, message: message!, actionTitles: ["OK"], actions: [{ [weak self] errorAction in
             DispatchQueue.main.async {
                 if error.type == APIErrorType.tokenExpired {
                     self?.logOut()
@@ -118,6 +125,7 @@ extension ScanTicketViewController: ScannerViewDelegate, PopupViewDelegate {
         self.setNavigationSwipeEnable(true)
         
         guard let ticket = self.mainViewModel.currentTicket else {
+            self.scanner?.start()
             return
         }
         

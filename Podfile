@@ -6,15 +6,12 @@ target 'VBATicketCheckin' do
   use_frameworks!
   
   # Pods for VBATicketCheckin
-  pod 'Fabric', '1.6.12'
+  pod 'Fabric'
   pod 'Crashlytics'
   pod 'Alamofire'
   pod 'SwiftyJSON'
-  pod 'DateToolsSwift'
   pod 'Hue'  
   pod 'Moya'
   pod 'ReachabilitySwift'
   pod 'Google/SignIn'
-  pod 'Fabric', '1.6.12'
-  pod 'Crashlytics'
 end

@@ -89,7 +89,7 @@ class TicketPaymentDetailViewController: BaseViewController {
     }
     
     private func handleConversionRateError(_ error: APIError) {
-        self.showAlert(title: "Lấy mã chuyển đổi không thành công", error: error, actionTitles: ["OK"], actions: [{ [weak self] errorAction in
+        self.showAlert(title: "Lấy mã chuyển đổi không thành công", message: error.message!, actionTitles: ["OK"], actions: [{ [weak self] errorAction in
             DispatchQueue.main.async {
                 if error.type == APIErrorType.tokenExpired {
                     self?.logOut()
@@ -108,7 +108,7 @@ class TicketPaymentDetailViewController: BaseViewController {
     }
     
     private func handlePurchaseTicketError(_ error: APIError) {
-        self.showAlert(title: "Thanh toán vé không thành công", error: error, actionTitles: ["OK"], actions:[{ [weak self] errorAction in
+        self.showAlert(title: "Thanh toán vé không thành công", message: error.message!, actionTitles: ["OK"], actions:[{ [weak self] errorAction in
             DispatchQueue.main.async {
                 if error.type == APIErrorType.tokenExpired {
                     self?.logOut()

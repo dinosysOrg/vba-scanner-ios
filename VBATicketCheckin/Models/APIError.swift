@@ -33,17 +33,10 @@ enum APIErrorType: Int {
 //    }
 //}
 
-//▿ {
-//    "error" : {
-//        "message" : "invalid match",
-//        "code" : 3
-//    }
-//}
-
 struct APIError {
     private var _message: String? = "Lỗi không xác định."
     
-    private var ticketErrorType: TicketErrorType?
+    var ticketErrorType: TicketErrorType?
     let type: APIErrorType
     var message: String? {
         get {

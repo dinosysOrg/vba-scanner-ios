@@ -74,7 +74,7 @@ class UserQRCodeScanningViewController: BaseViewController {
             popup.show(in: (self.navigationController?.view ?? self.view), animated: true)
             self.setNavigationSwipeEnable(false)
         } else {
-            self.showAlert(title: "Thanh toán không thành công", error: error, actionTitles: ["OK"], actions: [{ [weak self] errorAction in
+            self.showAlert(title: "Thanh toán không thành công", message: error.message!, actionTitles: ["OK"], actions: [{ [weak self] errorAction in
                 DispatchQueue.main.async {
                     if error.type == APIErrorType.tokenExpired {
                         self?.logOut()

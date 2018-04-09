@@ -66,7 +66,7 @@ class MatchesViewController: BaseViewController {
     }
     
     private func handleMatchesGettingError(_ error: APIError) {
-        self.showAlert(title: "Lấy danh sách trận đấu không thành công", error: error, actionTitles: ["OK"], actions: [{ [weak self] errorAction in
+        self.showAlert(title: "Lấy danh sách trận đấu không thành công", message: error.message!, actionTitles: ["OK"], actions: [{ [weak self] errorAction in
             DispatchQueue.main.async {
                 if error.type == APIErrorType.tokenExpired {
                     self?.logOut()
