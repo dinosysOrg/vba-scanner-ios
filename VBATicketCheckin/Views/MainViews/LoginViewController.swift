@@ -53,7 +53,8 @@ class LoginViewController: BaseViewController {
             GGLContext.sharedInstance().configureWithError(&error)
             
             guard error == nil else {
-                self.showAlert(title: "Thiết lập Google không thành công", message: error!.localizedDescription, actionTitles: ["OK"], actions: [])
+                self.showAlert(title: "Thiết lập Google không thành công", message: error!.localizedDescription, actionTitles: ["OK"], actions: []
+                )
                 return
             }
             
@@ -77,7 +78,8 @@ extension LoginViewController: GIDSignInUIDelegate, GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         guard error == nil else {
             self.setGoogleSignInButtonHidden(false)
-            self.showAlert(title: "Đăng nhập tài khoản Google không thành công", message: error.localizedDescription, actionTitles: ["OK"], actions: [])
+            self.showAlert(title: "Đăng nhập tài khoản Google không thành công", message: error.localizedDescription, actionTitles: ["OK"], actions: []
+            )
             return
         }
         
@@ -88,7 +90,8 @@ extension LoginViewController: GIDSignInUIDelegate, GIDSignInDelegate {
                 guard error == nil else {
                     self?.setGoogleSignInButtonHidden(false)
                     self?.showAlert(title: "Đăng nhập không thành công", message: error!.message!, actionTitles: ["OK"], actions: [{ ok in
-                        }])
+                        }]
+                    )
                     return
                 }
                 

@@ -78,19 +78,25 @@ class ScanTicketViewController: BaseViewController {
     
     private func handleScanError(_ error: APIError) {
         let title = self.ticketScanningType == .checkIn ? "Check in không thành công" : "Thanh toán không thành công"
-        var message = error.message
+        var message = Constants.EMPTY_STRING
         
-        if error.ticketErrorType == TicketErrorType.used {
+        if error.ticketErrorType == .used {
             message = "\(error.message!)\nOrder: \(self.mainViewModel.currentQRCode?.orderId ?? Constants.DEFAULT_INT_VALUE)"
+        } else if error.ticketErrorType == .invalidMatch {
+            message = self.ticketScanningType == .checkIn ? "Check-in không đúng trận đấu." : "Thanh toán không đúng trận đấu."
+        } else {
+            message = error.message!
         }
         
-        self.showAlert(title: title, message: message!, actionTitles: ["OK"], actions: [{ [weak self] errorAction in
+        self.showAlert(title: title, message: message, actionTitles: ["OK"], actions: [{ [weak self] errorAction in
             DispatchQueue.main.async {
                 if error.type == APIErrorType.tokenExpired {
                     self?.logOut()
                 } else {
                     self?.scanner?.start()
-                }}}])
+                }
+            }}]
+        )
     }
     
     // MARK: - API

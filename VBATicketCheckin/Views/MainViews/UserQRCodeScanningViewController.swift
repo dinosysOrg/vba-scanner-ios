@@ -81,7 +81,8 @@ class UserQRCodeScanningViewController: BaseViewController {
                     } else {
                         self?.scanner?.start()
                     }
-                }}])
+                }}]
+            )
         }
     }
     

@@ -94,7 +94,8 @@ class TicketPaymentDetailViewController: BaseViewController {
                 if error.type == APIErrorType.tokenExpired {
                     self?.logOut()
                 }
-            }}])
+            }}]
+        )
     }
     
     private func handlePurchaseTicketSucceed() {
@@ -113,7 +114,8 @@ class TicketPaymentDetailViewController: BaseViewController {
                 if error.type == APIErrorType.tokenExpired {
                     self?.logOut()
                 }
-            }}])
+            }}]
+        )
     }
     
     // MARK: - Action

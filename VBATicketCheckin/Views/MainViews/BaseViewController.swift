@@ -190,7 +190,8 @@ class BaseViewController: UIViewController {
                 DispatchQueue.main.async {
                     self?.gotoAppSetting()
                 }
-            }])
+            }]
+        )
     }
     
     func popToScanTicket() {

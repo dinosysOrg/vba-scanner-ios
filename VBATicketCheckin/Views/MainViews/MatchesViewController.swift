@@ -70,8 +70,9 @@ class MatchesViewController: BaseViewController {
             DispatchQueue.main.async {
                 if error.type == APIErrorType.tokenExpired {
                     self?.logOut()
-                }
-            }}])
+                }   
+            }}]
+        )
     }
     
     private func navigateToScanTicket() {
