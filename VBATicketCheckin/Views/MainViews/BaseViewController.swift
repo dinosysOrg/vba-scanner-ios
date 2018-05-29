@@ -52,7 +52,7 @@ class BaseViewController: UIViewController {
     }
     
     func setTabBarHidden(_ isHidden: Bool) {
-        self.tabBarController?.tabBar.layer.zPosition = isHidden ? -1 : 0
+        self.tabBarController?.tabBar.isHidden = isHidden
     }
     
     func setViewBackgroundColor(by type: ViewBackgroundColorType) {

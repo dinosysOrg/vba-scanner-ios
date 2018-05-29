@@ -37,7 +37,6 @@ enum APIService  {
 
 enum BaseUrlType: String {
     case local = "http://192.168.4.87:3000/api"
-    case debug = ""
     case staging = "https://vba-ticket-staging.herokuapp.com/api"
     case product = "https://vba-ticket-production.herokuapp.com/api"
 }

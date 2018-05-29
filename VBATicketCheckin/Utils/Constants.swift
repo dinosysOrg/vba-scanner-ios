@@ -13,7 +13,8 @@ import UIKit
 func log(_ message: String?, file: String = #file, function: String = #function, line: Int = #line, column: Int = #column) {
     let fileName = file.components(separatedBy: Constants.SLASH).last
     let unknownFile = "Unknown file"
-    print("--log info [\(Date())]-- [\(fileName ?? unknownFile)], [\(function)], [\(line), \(column)]: \(message ?? Constants.EMPTY_STRING)")
+    let logTime = Utils.timeStringOfCurrentTimeZone(fromDate: Date(), format: "yyyy-MM-dd HH:mm:ss.SSS") ?? "Unknown time"
+    print("《《《\(logTime) 《\(fileName ?? unknownFile)》,《\(function)》,《\(line), \(column)》: 『\(message ?? Constants.EMPTY_STRING)』》》》")
 }
 
 struct Constants {

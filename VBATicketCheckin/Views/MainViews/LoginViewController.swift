@@ -40,6 +40,10 @@ class LoginViewController: BaseViewController {
         self.setGoogleSignInButtonHidden(true)
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     // MARK: - Format
     private func setGoogleSignInButtonHidden(_ isHidden: Bool) {
         self.googleSignInButton.isHidden = isHidden

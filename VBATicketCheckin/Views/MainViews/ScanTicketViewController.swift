@@ -46,6 +46,15 @@ class ScanTicketViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        if UIDevice.current.orientation.isLandscape {
+            log("isLandscape")
+        } else {
+            log("isPortrait")
+        }
+    }
+    
     // MARK: - Process
     private func addScanner() {
         self.scanner = ScannerView.initWith(frame: self.view.bounds, delegate: self)

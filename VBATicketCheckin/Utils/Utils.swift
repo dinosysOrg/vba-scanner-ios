@@ -162,5 +162,40 @@ struct Utils {
             }
         }
     }
+    
+    // MARK: - Date & Time
+    static func dateOfCurrentTimeZone(fromTimeString string: String, format: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.locale = .current
+        formatter.dateFormat = format
+        formatter.timeZone = .current
+        
+        return formatter.date(from: string)
+    }
+    
+    static func date(fromTimeString string: String, format: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.locale = .current
+        formatter.dateFormat = format
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        
+        return formatter.date(from: string)
+    }
+    
+    static func timeStringOfCurrentTimeZone(fromDate date: Date, format: String) -> String? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        formatter.timeZone = .current
+        
+        return formatter.string(from: date)
+    }
+    
+    static func timeString(fromDate date: Date, format: String) -> String? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        
+        return formatter.string(from: date)
+    }
 }
 
