@@ -74,11 +74,13 @@ extension MerchandiseViewController: UITextFieldDelegate, UIGestureRecognizerDel
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let sourceText = textField.text as NSString?
-        let text = sourceText?.replacingCharacters(in: range, with: string)
-        self.point = Utils.removeWhiteSpaces(of: text ?? Constants.EMPTY_STRING)
+        if Utils.isNumeric(string) || Utils.isBackSpace(string) {
+            let sourceText = textField.text as NSString?
+            let text = sourceText?.replacingCharacters(in: range, with: string)
+            self.point = Utils.removeWhiteSpaces(of: text ?? Constants.EMPTY_STRING)
+        }
         
-        return true
+        return Utils.isNumeric(string) || Utils.isBackSpace(string)
     }
     
     // MARK: - UIGestureRecognizerDelegate

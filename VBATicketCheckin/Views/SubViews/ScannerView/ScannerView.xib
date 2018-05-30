@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,7 +22,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D0e-p4-E0P" userLabel="View Scanner">
-                            <rect key="frame" x="40" y="185.5" width="295" height="295"/>
+                            <rect key="frame" x="41.5" y="187" width="292.5" height="292.5"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="D0e-p4-E0P" secondAttribute="height" multiplier="1:1" id="F37-L6-akZ"/>
                             </constraints>
@@ -37,8 +38,8 @@
                         <constraint firstAttribute="trailing" secondItem="oUV-9P-MOz" secondAttribute="trailing" id="Akr-UM-tWp"/>
                         <constraint firstItem="oUV-9P-MOz" firstAttribute="top" secondItem="OHw-yB-FAr" secondAttribute="top" id="T1X-FL-1yZ"/>
                         <constraint firstItem="oUV-9P-MOz" firstAttribute="leading" secondItem="OHw-yB-FAr" secondAttribute="leading" id="hvQ-7x-FwC"/>
-                        <constraint firstAttribute="trailing" secondItem="D0e-p4-E0P" secondAttribute="trailing" constant="40" id="saq-Oe-pMl"/>
-                        <constraint firstItem="D0e-p4-E0P" firstAttribute="leading" secondItem="OHw-yB-FAr" secondAttribute="leading" constant="40" id="uAd-45-3MD"/>
+                        <constraint firstItem="D0e-p4-E0P" firstAttribute="width" secondItem="OHw-yB-FAr" secondAttribute="width" multiplier="0.78" id="jfr-XS-v9a"/>
+                        <constraint firstItem="D0e-p4-E0P" firstAttribute="centerX" secondItem="OHw-yB-FAr" secondAttribute="centerX" id="ssm-Va-n4P"/>
                     </constraints>
                 </view>
             </subviews>
@@ -51,6 +52,7 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="blurView" destination="oUV-9P-MOz" id="xOc-CN-e23"/>
+                <outlet property="constraintVScannerImageWidth" destination="jfr-XS-v9a" id="iZy-F4-F1X"/>
                 <outlet property="vContainer" destination="OHw-yB-FAr" id="7oA-vO-hpV"/>
                 <outlet property="vScannerImage" destination="D0e-p4-E0P" id="xga-e9-f4A"/>
             </connections>

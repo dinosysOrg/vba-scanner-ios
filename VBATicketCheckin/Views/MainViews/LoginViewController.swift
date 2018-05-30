@@ -66,8 +66,13 @@ class LoginViewController: BaseViewController {
             GIDSignIn.sharedInstance().uiDelegate = self
             GIDSignIn.sharedInstance().delegate = self
             // Getting the signin button and adding it to view
-            self.googleSignInButton.center = CGPoint(x: view.center.x, y: (view.center.y + 120))
+            self.googleSignInButton.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview(self.googleSignInButton)
+            let xConstraint = NSLayoutConstraint(item: self.googleSignInButton, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0.0)
+            let yConstraint = NSLayoutConstraint(item: self.googleSignInButton, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1.0, constant: 120.0)
+            NSLayoutConstraint.activate([xConstraint, yConstraint])
+            self.view.addConstraint(xConstraint)
+            self.view.addConstraint(yConstraint)
             
             self.isGoogleButtonSetup = true
             self.setGoogleSignInButtonHidden(false)

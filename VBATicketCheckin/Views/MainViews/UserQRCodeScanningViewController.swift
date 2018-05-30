@@ -46,6 +46,12 @@ class UserQRCodeScanningViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        self.scanner?.updateUI()
+    }
+    
     // MARK: - Process
     private func addScanner() {
         self.scanner = ScannerView.initWith(frame: self.view.bounds, delegate: self)

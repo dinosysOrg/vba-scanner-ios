@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hq1-Fl-euV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hq1-Fl-euV">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photoBg" translatesAutoresizingMaskIntoConstraints="NO" id="eoJ-OE-zQs">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photoBg" translatesAutoresizingMaskIntoConstraints="NO" id="eoJ-OE-zQs">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="233.5"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vbaLogo" translatesAutoresizingMaskIntoConstraints="NO" id="oXi-wB-21K">
@@ -180,16 +180,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q33-lT-WnV" userLabel="View Container">
-                                <rect key="frame" x="50" y="114" width="275" height="251"/>
+                                <rect key="frame" x="50" y="114" width="275" height="271"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nhập số điểm cần để nhận vật phẩm" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jEB-Fo-Mca" userLabel="Lbl Title">
-                                        <rect key="frame" x="0.0" y="0.0" width="275" height="21"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="275" height="41"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="60" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wy8-zt-s55" userLabel="Tf Point">
-                                        <rect key="frame" x="38" y="51" width="200" height="90"/>
+                                        <rect key="frame" x="38" y="71" width="200" height="90"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="90" id="1Lg-h4-3YO"/>
                                             <constraint firstAttribute="width" constant="200" id="Iei-LI-Wgf"/>
@@ -199,14 +199,14 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xce-Pl-xqB" userLabel="Tf Point Bottom Line">
-                                        <rect key="frame" x="38" y="139" width="200" height="2"/>
+                                        <rect key="frame" x="38" y="159" width="200" height="2"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="KZa-gH-x7y"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YbQ-sV-eo4" userLabel="Btn Scan">
-                                        <rect key="frame" x="67.5" y="161" width="140" height="90"/>
+                                        <rect key="frame" x="67.5" y="181" width="140" height="90"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="140" id="ZcS-n6-cpF"/>
                                             <constraint firstAttribute="height" constant="90" id="eTM-r6-aQl"/>
@@ -281,16 +281,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qo8-JJ-xVz" userLabel="View Order Info">
-                                <rect key="frame" x="20" y="50" width="335" height="111.5"/>
+                                <rect key="frame" x="20" y="50" width="335" height="111"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thông tin đơn hàng" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Emg-eB-88F" userLabel="Lbl Title Order">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="21"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Trận đấu: TLW vs HCW" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NYI-C4-n6m" userLabel="Lbl Match Info">
-                                        <rect key="frame" x="20" y="81" width="295" height="20.5"/>
+                                        <rect key="frame" x="20" y="80.5" width="295" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>

@@ -48,11 +48,8 @@ class ScanTicketViewController: BaseViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        if UIDevice.current.orientation.isLandscape {
-            log("isLandscape")
-        } else {
-            log("isPortrait")
-        }
+        
+        self.scanner?.updateUI()
     }
     
     // MARK: - Process

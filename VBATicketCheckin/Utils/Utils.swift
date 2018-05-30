@@ -46,6 +46,20 @@ struct Utils {
         return str.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
+    static func isNumeric(_ string: String) -> Bool {
+        let scanner = Scanner(string: string)
+        var intNumber = 0
+        
+        return scanner.scanInt(&intNumber) && scanner.isAtEnd
+    }
+    
+    static func isBackSpace(_ str: String) -> Bool {
+        let char = str.cString(using: String.Encoding.utf8)!
+        let isBackSpace = strcmp(char, "\\b")
+        
+        return isBackSpace == -92
+    }
+    
     // MARK: - Number
     static func thousandedString(from number: Double) -> String {
         let formatter = NumberFormatter()

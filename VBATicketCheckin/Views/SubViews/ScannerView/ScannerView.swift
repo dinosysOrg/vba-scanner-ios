@@ -25,11 +25,14 @@ class ScannerView: BaseView {
     @IBOutlet weak var vContainer: UIView!
     @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var vScannerImage: UIView!
+    @IBOutlet weak var constraintVScannerImageWidth: NSLayoutConstraint!
     
     weak var delegate: ScannerViewDelegate?
     
     private lazy var scannerViewModel = ScannerViewModel(with: self)
     let scannerQueue = DispatchQueue(label: "ScannerQueue", attributes: .concurrent)
+    
+    private var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -57,12 +60,14 @@ class ScannerView: BaseView {
     
     // MARK: - Setup UI
     func setupBlurScanningView() {
-        let maskView = UIView(frame: self.blurView.bounds)
+        let containerRect = self.frame
+        let scanningFrame = self.getScanningFrame()
+        let maskView = UIView(frame: containerRect)
         maskView.clipsToBounds = true;
         maskView.backgroundColor = UIColor.clear
         
-        let outerbezierPath = UIBezierPath.init(roundedRect: self.blurView.bounds, cornerRadius: 0)
-        let rect = self.vScannerImage.frame
+        let outerbezierPath = UIBezierPath.init(roundedRect: containerRect, cornerRadius: 0)
+        let rect = scanningFrame
         let innerPath = UIBezierPath.init(roundedRect: rect, cornerRadius: 10)
         outerbezierPath.append(innerPath)
         outerbezierPath.usesEvenOddFillRule = true
@@ -88,16 +93,23 @@ class ScannerView: BaseView {
             }
             
             DispatchQueue.main.async {
-                let videoPreviewLayer = AVCaptureVideoPreviewLayer(session: session)
-                videoPreviewLayer.videoGravity = .resizeAspectFill
-                videoPreviewLayer.frame = self.vContainer.bounds
-                videoPreviewLayer.masksToBounds = false
-                videoPreviewLayer.setCornerRadius(10.0, border: 2.0, color: UIColor.darkBlueGrey.cgColor)
-                self.vContainer.layer.addSublayer(videoPreviewLayer)
+                if self.videoPreviewLayer == nil {
+                    self.videoPreviewLayer = AVCaptureVideoPreviewLayer(session: session)
+                    self.videoPreviewLayer!.videoGravity = .resizeAspectFill
+                    self.videoPreviewLayer!.masksToBounds = false
+                    self.videoPreviewLayer!.setCornerRadius(10.0, border: 2.0, color: UIColor.darkBlueGrey.cgColor)
+                    self.vContainer.layer.addSublayer(self.videoPreviewLayer!)
+                }
+                
+                self.videoPreviewLayer?.frame = self.frame
                 
                 self.setupBlurScanningView()
                 self.vContainer.bringSubview(toFront: self.blurView)
-                self.scannerViewModel.setCapturePreviewLayer(videoPreviewLayer, scanningFrame: self.vScannerImage.frame)
+                
+                if let videoPreviewLayer = self.videoPreviewLayer {
+                    let scanningFrame = self.getScanningFrame()
+                    self.scannerViewModel.setCapturePreviewLayer(videoPreviewLayer, scanningFrame: scanningFrame)
+                }
             }
         }
     }
@@ -109,6 +121,48 @@ class ScannerView: BaseView {
                 DispatchQueue.main.async {
                     self?.delegate?.didReceiveCameraPermissionWarning()
                 }
+            }
+        }
+    }
+    
+    private func getScanningFrame() -> CGRect {
+        if Utils.is_iPad {
+            let multiplier: CGFloat = Utils.is_iPad ? 0.45 : 0.78
+            let containerRect = self.frame
+            let containerCenter = self.center
+            var x: CGFloat = containerCenter.x
+            var y: CGFloat = containerCenter.y
+            var width: CGFloat = containerRect.width
+            var height: CGFloat = containerRect.height
+            
+            if width < height {
+                width = multiplier * width
+                height = width
+            } else {
+                width = multiplier * height
+                height = width
+            }
+            
+            x = x - width / 2
+            y = y - height / 2
+            
+            let scanningFrame = CGRect(x: x, y: y, width: width, height: height)
+            return scanningFrame
+        }
+        
+        return self.vScannerImage.frame
+    }
+    
+    func updateUI() {
+        DispatchQueue.main.async {
+            self.videoPreviewLayer?.frame = self.frame
+            
+            self.setupBlurScanningView()
+            self.vContainer.bringSubview(toFront: self.blurView)
+            
+            if let videoPreviewLayer = self.videoPreviewLayer {
+                let scanningFrame = self.getScanningFrame()
+                self.scannerViewModel.setCapturePreviewLayer(videoPreviewLayer, scanningFrame: scanningFrame)
             }
         }
     }
