@@ -101,6 +101,9 @@ extension LoginViewController: GIDSignInUIDelegate, GIDSignInDelegate {
                     self?.showAlert(title: "Đăng nhập không thành công", message: error!.message!, actionTitles: ["OK"], actions: [{ ok in
                         }]
                     )
+                    
+                    GIDSignIn.sharedInstance().signOut()
+                    
                     return
                 }
                 
