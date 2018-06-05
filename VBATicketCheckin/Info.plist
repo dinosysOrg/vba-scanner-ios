@@ -27,7 +27,7 @@
 			<string>REVERSED_CLIENT_ID</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.315316019170-qrndlh54sam4dc8ahgrpp9n33rl0bc8c</string>
+				<string>com.googleusercontent.apps.927524406419-5luh2e7pksprdrdunju2jvvnbtcs6gor</string>
 			</array>
 		</dict>
 		<dict>
@@ -37,12 +37,12 @@
 			<string>Bundle ID</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.dinosys.vba.checkin</string>
+				<string>vn.xle.vbastaffcheckin</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>14</string>
+	<string>15</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
