@@ -7,21 +7,21 @@
         <key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
         <string>ca-app-pub-3940256099942544/4411468910</string>
         <key>CLIENT_ID</key>
-        <string>927524406419-5luh2e7pksprdrdunju2jvvnbtcs6gor.apps.googleusercontent.com</string>
+        <string>114307144438-3ppgcvmmoirmg7k0eraii57c61fvo4iu.apps.googleusercontent.com</string>
         <key>REVERSED_CLIENT_ID</key>
-        <string>com.googleusercontent.apps.927524406419-5luh2e7pksprdrdunju2jvvnbtcs6gor</string>
+        <string>com.googleusercontent.apps.114307144438-3ppgcvmmoirmg7k0eraii57c61fvo4iu</string>
         <key>API_KEY</key>
-        <string>AIzaSyCeR31sNZIvQjqmvW_pzz-ZQocnatP2ik8</string>
+        <string>AIzaSyCDgv2XY34VsuTF1rcUaiOUvEEgs_wPS-4</string>
         <key>GCM_SENDER_ID</key>
-        <string>927524406419</string>
+        <string>114307144438</string>
         <key>PLIST_VERSION</key>
         <string>1</string>
         <key>BUNDLE_ID</key>
         <string>vn.xle.vbastaffcheckin</string>
         <key>PROJECT_ID</key>
-        <string>vba-projects-22f59</string>
+        <string>vba-checkin-projects</string>
         <key>STORAGE_BUCKET</key>
-        <string>vba-projects-22f59.appspot.com</string>
+        <string>vba-checkin-projects.appspot.com</string>
         <key>IS_ADS_ENABLED</key>
         <true></true>
         <key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
         <key>IS_SIGNIN_ENABLED</key>
         <true></true>
         <key>GOOGLE_APP_ID</key>
-        <string>1:927524406419:ios:e21bb48fd6c3d408</string>
+        <string>1:114307144438:ios:e21bb48fd6c3d408</string>
         <key>DATABASE_URL</key>
-        <string>https://vba-projects-22f59.firebaseio.com</string>
+        <string>https://vba-checkin-projects.firebaseio.com</string>
     </dict>
 </plist>
