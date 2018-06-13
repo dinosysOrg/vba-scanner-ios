@@ -27,7 +27,7 @@
 			<string>REVERSED_CLIENT_ID</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.114307144438-3ppgcvmmoirmg7k0eraii57c61fvo4iu</string>
+				<string>com.googleusercontent.apps.315316019170-qrndlh54sam4dc8ahgrpp9n33rl0bc8c</string>
 			</array>
 		</dict>
 		<dict>
@@ -37,7 +37,7 @@
 			<string>Bundle ID</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>vn.xle.vbastaffcheckin</string>
+				<string>com.dinosys.vba.checkin</string>
 			</array>
 		</dict>
 	</array>
@@ -71,10 +71,6 @@
 		<string>Lato-Black.ttf</string>
 		<string>Lato-Bold.ttf</string>
 		<string>Lato-Regular.ttf</string>
-	</array>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
