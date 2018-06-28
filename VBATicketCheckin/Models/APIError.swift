@@ -26,14 +26,8 @@ enum APIErrorType: Int {
     case unknown = 999
 }
 
-//▿ {
-//    "error" : {
-//        "message" : "invalid qr code",
-//        "code" : 2
-//    }
-//}
-
 struct APIError {
+    
     private var _message: String? = "Lỗi không xác định."
     
     var ticketErrorType: TicketErrorType?

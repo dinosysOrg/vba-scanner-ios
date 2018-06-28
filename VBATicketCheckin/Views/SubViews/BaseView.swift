@@ -9,11 +9,13 @@
 import UIKit
 
 class BaseView: UIView {
+    
     var parentView: UIView?
     var backgroundView: UIView?
     
+    //
     // MARK: - load UINib
-    
+    //
     class func loadNib(of owner: UIView) -> UIView {
         let bundle = Bundle(for: type(of: owner))
         let nib = UINib(nibName: String(describing: type(of: owner)), bundle: bundle)
@@ -30,7 +32,9 @@ class BaseView: UIView {
         return view
     }
     
+    //
     // MARK: - Format
+    //
     private func formatDefaultLabel(_ lbl: UILabel?) {
         lbl?.textColor = UIColor.black
         lbl?.font = UIFont.bold.S
@@ -61,16 +65,24 @@ class BaseView: UIView {
         btn?.setTitle(title, for: .normal)
     }
     
+    //
     // MARK: - Virtual
+    //
     func viewDidDismiss() {
         // Will be overrided in its derived classes
     }
     
+    //
     // MARK: - Process
+    //
+    func updatePopupViewRect(_ rect: CGRect) {
+        self.backgroundView?.frame = rect
+    }
+    
     // NOTE**: Show/dismiss popup view from its parent view. The following show(in:animated:) method ONLY USED for Popup View
     func show(in parent: UIView, animated: Bool) {
         self.parentView = parent
-        self.backgroundView = UIView(frame: UIScreen.main.bounds)
+        self.backgroundView = UIView(frame: Utils.Device.bounds)
         self.backgroundView!.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         self.parentView!.addSubview(self.backgroundView!)
         self.center = self.parentView!.center
@@ -122,7 +134,11 @@ class BaseView: UIView {
     }
 }
 
+//
+// MARK: - UIGestureRecognizerDelegate
+//
 extension BaseView: UIGestureRecognizerDelegate {
+    
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         guard let view = touch.view, view.isKind(of: UIButton.classForCoder()) else {
             return true

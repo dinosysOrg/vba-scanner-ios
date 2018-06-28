@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearace.shadowImage = nil
         navigationBarAppearace.isTranslucent = true
         navigationBarAppearace.backgroundColor = UIColor.clear
-        navigationBarAppearace.titleTextAttributes = [ NSAttributedStringKey.foregroundColor : UIColor.black ]
+        navigationBarAppearace.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black]
     
         return true
     }

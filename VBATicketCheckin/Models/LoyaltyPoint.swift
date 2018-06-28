@@ -9,6 +9,7 @@
 import Foundation
 
 struct LoyaltyPoint {
+    
     let value: Int
     var price: Double?
     var conversionRate: ConversionRateP2M?

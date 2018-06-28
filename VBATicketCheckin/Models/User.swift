@@ -11,6 +11,7 @@ import SwiftyJSON
 import GoogleSignIn
 
 class User: NSObject, NSCoding {
+    
     var name: String?
     var email: String?
     // App Access Token
@@ -32,7 +33,9 @@ class User: NSObject, NSCoding {
         coder.encode(googleAccessToken, forKey: "googleAccessToken")
     }
     
+    //
     // MARK: - Initialization
+    //
     /**
      * Init User from json data
      * {

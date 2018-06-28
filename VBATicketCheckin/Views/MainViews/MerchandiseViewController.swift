@@ -9,12 +9,13 @@
 import UIKit
 
 class MerchandiseViewController: BaseViewController {
+    
     @IBOutlet weak var vContainer: UIView!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var tfPoint: UITextField!
     @IBOutlet weak var btnScan: UIButton!
     
-    private var point: String?
+    private var _point: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +34,9 @@ class MerchandiseViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //
     // MARK: - Setup UI
+    //
     func setupUI() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.endEditing))
         tap.delegate = self
@@ -45,21 +48,41 @@ class MerchandiseViewController: BaseViewController {
         self.tfPoint.delegate = self
     }
     
-    // MARK: - Action
+    //
+    // MARK: - Actions
+    //
     @IBAction func btnScan_clicked(_ sender: UIButton) {
-        guard !Utils.isEmpty(self.point) else {
+        guard !Utils.isEmpty(self._point) else {
             return
         }
         
-        let destination = Utils.viewController(withIdentifier: Constants.VIEWCONTROLLER_IDENTIFIER_USER_QRCODE_SCANNING) as! UserQRCodeScanningViewController
-        destination.scanningType = .merchandise
-        destination.merchandisePoint = self.point
-        self.navigationController?.pushViewController(destination, animated: true)
+        if let destination = Utils.viewController(withIdentifier: Constants.VIEWCONTROLLER_IDENTIFIER_USER_QRCODE_SCANNING) as? UserQRCodeScanningViewController {
+            destination.scanningType = .merchandise
+            destination.merchandisePoint = self._point
+            self.navigationController?.pushViewController(destination, animated: true)
+        }
     }
 }
 
-extension MerchandiseViewController: UITextFieldDelegate, UIGestureRecognizerDelegate {
-    // MARK: - UITextFieldDelegate
+//
+// MARK: - UIGestureRecognizerDelegate
+//
+extension MerchandiseViewController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        guard let view = touch.view, view.isKind(of: UIButton.classForCoder()) else {
+            return true
+        }
+        
+        return false
+    }
+}
+
+//
+// MARK: - UITextFieldDelegate
+//
+extension MerchandiseViewController: UITextFieldDelegate {
+    
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         return true
     }
@@ -77,18 +100,9 @@ extension MerchandiseViewController: UITextFieldDelegate, UIGestureRecognizerDel
         if Utils.isNumeric(string) || Utils.isBackSpace(string) {
             let sourceText = textField.text as NSString?
             let text = sourceText?.replacingCharacters(in: range, with: string)
-            self.point = Utils.removeWhiteSpaces(of: text ?? Constants.EMPTY_STRING)
+            self._point = Utils.removeWhiteSpaces(of: text ?? Constants.EMPTY_STRING)
         }
         
         return Utils.isNumeric(string) || Utils.isBackSpace(string)
-    }
-    
-    // MARK: - UIGestureRecognizerDelegate
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        guard let view = touch.view, view.isKind(of: UIButton.classForCoder()) else {
-            return true
-        }
-        
-        return false
     }
 }

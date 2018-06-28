@@ -33,10 +33,12 @@ protocol PopupViewDelegate: class {
 }
 
 extension PopupViewDelegate {
+    
     func didPopupViewRemoveFromSuperview() {}
 }
 
 class PopupView: BaseView {
+    
     @IBOutlet weak var vContainer: UIView!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblMessage: UILabel!
@@ -75,7 +77,7 @@ class PopupView: BaseView {
     private func setAutoDismiss() {
         switch self.popupType {
         case .withoutButton:
-            Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.dismissWithAnimation), userInfo: nil, repeats: false)
+            Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.dismissWithAnimation), userInfo: nil, repeats: false)
         default:
             break
         }
@@ -90,7 +92,9 @@ class PopupView: BaseView {
         self.setAutoDismiss()
     }
     
+    //
     // MARK: - Setup UI
+    //
     private func setupUI() {
         self.constraintVContainerWidthRatio.constant = Constants.DEFAULT_POPUPVIEW_WIDTH_RATIO
         self.vContainer.layer.setCornerRadius(10.0, border: 0.0, color: nil)
@@ -129,7 +133,9 @@ class PopupView: BaseView {
         self.formatButton(self.btnComplete, title: title)
     }
     
-    // MARK: - Action
+    //
+    // MARK: - Actions
+    //
     override func viewDidDismiss() {
         self.delegate?.didPopupViewRemoveFromSuperview()
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -8,7 +8,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,25 +20,94 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OHw-yB-FAr" userLabel="Container View">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D0e-p4-E0P" userLabel="View Scanner">
-                            <rect key="frame" x="41.5" y="187" width="292.5" height="292.5"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oHC-wh-xH2" userLabel="View Scanner">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="417"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D0e-p4-E0P" userLabel="View Scanner Image">
+                                    <rect key="frame" x="75.5" y="96.5" width="225" height="225"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="D0e-p4-E0P" secondAttribute="height" multiplier="1:1" id="F37-L6-akZ"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oUV-9P-MOz" userLabel="View Blur">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="417"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
+                            </subviews>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="D0e-p4-E0P" secondAttribute="height" multiplier="1:1" id="F37-L6-akZ"/>
+                                <constraint firstAttribute="bottom" secondItem="oUV-9P-MOz" secondAttribute="bottom" id="1Et-J3-e8d"/>
+                                <constraint firstItem="D0e-p4-E0P" firstAttribute="width" secondItem="oHC-wh-xH2" secondAttribute="width" multiplier="0.6" id="D2a-qO-hZJ"/>
+                                <constraint firstItem="D0e-p4-E0P" firstAttribute="centerY" secondItem="oHC-wh-xH2" secondAttribute="centerY" id="GU3-ey-REe"/>
+                                <constraint firstAttribute="trailing" secondItem="oUV-9P-MOz" secondAttribute="trailing" id="Sov-RW-9p4"/>
+                                <constraint firstItem="oUV-9P-MOz" firstAttribute="top" secondItem="oHC-wh-xH2" secondAttribute="top" id="eU8-KF-EBQ"/>
+                                <constraint firstItem="oUV-9P-MOz" firstAttribute="leading" secondItem="oHC-wh-xH2" secondAttribute="leading" id="iPx-c8-WEl"/>
+                                <constraint firstItem="D0e-p4-E0P" firstAttribute="centerX" secondItem="oHC-wh-xH2" secondAttribute="centerX" id="iUd-DI-B2h"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oUV-9P-MOz" userLabel="View Blur">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zhO-FM-3An" userLabel="View Bottom Info">
+                            <rect key="frame" x="0.0" y="417" width="375" height="250"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4y0-Lv-BpW" userLabel="Btn Ticket Status">
+                                    <rect key="frame" x="0.0" y="0.0" width="70" height="250"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="70" id="4Zy-Ln-XBu"/>
+                                    </constraints>
+                                    <state key="normal" title="Status"/>
+                                    <connections>
+                                        <action selector="btnTicketStatus_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="8Fg-qV-RIa"/>
+                                    </connections>
+                                </button>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="42p-eq-bS4" userLabel="View Ticket Info">
+                                    <rect key="frame" x="85" y="15" width="275" height="220"/>
+                                    <subviews>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tfl-2R-eef" userLabel="TextView Ticket Info">
+                                            <rect key="frame" x="0.0" y="0.0" width="275" height="220"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="tfl-2R-eef" secondAttribute="trailing" id="GCL-kC-FHb"/>
+                                        <constraint firstAttribute="bottom" secondItem="tfl-2R-eef" secondAttribute="bottom" id="LOs-sb-WHz"/>
+                                        <constraint firstItem="tfl-2R-eef" firstAttribute="top" secondItem="42p-eq-bS4" secondAttribute="top" id="Sgg-fW-h0h"/>
+                                        <constraint firstItem="tfl-2R-eef" firstAttribute="leading" secondItem="42p-eq-bS4" secondAttribute="leading" id="lrX-Fo-v5E"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LhO-tS-Tia" userLabel="View Top Line">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="5Qp-zP-JiW"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="4y0-Lv-BpW" firstAttribute="leading" secondItem="zhO-FM-3An" secondAttribute="leading" id="5m2-y9-ywB"/>
+                                <constraint firstItem="LhO-tS-Tia" firstAttribute="top" secondItem="zhO-FM-3An" secondAttribute="top" id="8zU-8D-Wmc"/>
+                                <constraint firstAttribute="height" constant="250" id="94J-k4-xTb"/>
+                                <constraint firstAttribute="trailing" secondItem="LhO-tS-Tia" secondAttribute="trailing" id="Azs-9J-Hm4"/>
+                                <constraint firstAttribute="trailing" secondItem="42p-eq-bS4" secondAttribute="trailing" constant="15" id="C39-an-AS2"/>
+                                <constraint firstItem="4y0-Lv-BpW" firstAttribute="top" secondItem="zhO-FM-3An" secondAttribute="top" id="Vc9-jg-BP0"/>
+                                <constraint firstAttribute="bottom" secondItem="42p-eq-bS4" secondAttribute="bottom" constant="15" id="bhM-dD-esj"/>
+                                <constraint firstItem="42p-eq-bS4" firstAttribute="top" secondItem="zhO-FM-3An" secondAttribute="top" constant="15" id="tk1-2t-ecn"/>
+                                <constraint firstAttribute="bottom" secondItem="4y0-Lv-BpW" secondAttribute="bottom" id="uku-Dw-zs9"/>
+                                <constraint firstItem="LhO-tS-Tia" firstAttribute="leading" secondItem="zhO-FM-3An" secondAttribute="leading" id="uym-sU-Ll1"/>
+                                <constraint firstItem="42p-eq-bS4" firstAttribute="leading" secondItem="4y0-Lv-BpW" secondAttribute="trailing" constant="15" id="wYk-4Y-H4T"/>
+                            </constraints>
                         </view>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="D0e-p4-E0P" firstAttribute="centerY" secondItem="OHw-yB-FAr" secondAttribute="centerY" id="4G7-Fs-suT"/>
-                        <constraint firstAttribute="bottom" secondItem="oUV-9P-MOz" secondAttribute="bottom" id="6Cj-fE-zI8"/>
-                        <constraint firstAttribute="trailing" secondItem="oUV-9P-MOz" secondAttribute="trailing" id="Akr-UM-tWp"/>
-                        <constraint firstItem="oUV-9P-MOz" firstAttribute="top" secondItem="OHw-yB-FAr" secondAttribute="top" id="T1X-FL-1yZ"/>
-                        <constraint firstItem="oUV-9P-MOz" firstAttribute="leading" secondItem="OHw-yB-FAr" secondAttribute="leading" id="hvQ-7x-FwC"/>
-                        <constraint firstItem="D0e-p4-E0P" firstAttribute="width" secondItem="OHw-yB-FAr" secondAttribute="width" multiplier="0.78" id="jfr-XS-v9a"/>
-                        <constraint firstItem="D0e-p4-E0P" firstAttribute="centerX" secondItem="OHw-yB-FAr" secondAttribute="centerX" id="ssm-Va-n4P"/>
+                        <constraint firstAttribute="trailing" secondItem="zhO-FM-3An" secondAttribute="trailing" id="3xv-GC-FCk"/>
+                        <constraint firstAttribute="bottom" secondItem="zhO-FM-3An" secondAttribute="bottom" id="4v9-9H-cnM"/>
+                        <constraint firstItem="oHC-wh-xH2" firstAttribute="top" secondItem="OHw-yB-FAr" secondAttribute="top" id="5Zz-yo-3IP"/>
+                        <constraint firstAttribute="trailing" secondItem="oHC-wh-xH2" secondAttribute="trailing" id="Bp3-ex-I76"/>
+                        <constraint firstAttribute="bottom" secondItem="oHC-wh-xH2" secondAttribute="bottom" priority="250" id="KVN-wV-JWh"/>
+                        <constraint firstItem="zhO-FM-3An" firstAttribute="leading" secondItem="OHw-yB-FAr" secondAttribute="leading" id="chd-Cc-kFi"/>
+                        <constraint firstItem="zhO-FM-3An" firstAttribute="top" secondItem="oHC-wh-xH2" secondAttribute="bottom" id="dQ9-LQ-oFc"/>
+                        <constraint firstItem="oHC-wh-xH2" firstAttribute="leading" secondItem="OHw-yB-FAr" secondAttribute="leading" id="uE7-H7-5Fb"/>
                     </constraints>
                 </view>
             </subviews>
@@ -49,13 +117,16 @@
                 <constraint firstAttribute="trailing" secondItem="OHw-yB-FAr" secondAttribute="trailing" id="h59-Fd-Xfh"/>
                 <constraint firstAttribute="bottom" secondItem="OHw-yB-FAr" secondAttribute="bottom" id="tgS-NZ-Wrr"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="blurView" destination="oUV-9P-MOz" id="xOc-CN-e23"/>
-                <outlet property="constraintVScannerImageWidth" destination="jfr-XS-v9a" id="iZy-F4-F1X"/>
+                <outlet property="btnTicketStatus" destination="4y0-Lv-BpW" id="Ihl-CN-ya5"/>
+                <outlet property="txtTicketInfo" destination="tfl-2R-eef" id="MdJ-H0-1qk"/>
+                <outlet property="vBottomInfo" destination="zhO-FM-3An" id="mb5-5G-PsC"/>
                 <outlet property="vContainer" destination="OHw-yB-FAr" id="7oA-vO-hpV"/>
+                <outlet property="vScanner" destination="oHC-wh-xH2" id="FEA-Bd-NRB"/>
                 <outlet property="vScannerImage" destination="D0e-p4-E0P" id="xga-e9-f4A"/>
             </connections>
+            <point key="canvasLocation" x="33.5" y="79.5"/>
         </view>
     </objects>
 </document>

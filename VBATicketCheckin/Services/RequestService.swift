@@ -12,6 +12,7 @@ import Result
 import SwiftyJSON
 
 class RequestService {
+    
     static let shared = RequestService()
     
     func requestLogin(_ info: [String : Any], completion: ((_ json: JSON?, _ error: APIError?) -> Void)?) {

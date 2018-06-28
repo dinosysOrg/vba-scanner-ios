@@ -9,6 +9,7 @@
 import Foundation
 
 extension Formatter {
+    
     static let iso8601: DateFormatter = {
         let formatter = DateFormatter()
         formatter.calendar = Calendar(identifier: .iso8601)
@@ -20,12 +21,13 @@ extension Formatter {
 }
 
 extension Date {
-    //Converter
+    
+    // Converter
     var iso8601: String {
         return Formatter.iso8601.string(from: self)
     }
     
-    //Display
+    // Display
     var matchTime: String {
         let dateFormatter = DateFormatter()
         
@@ -36,6 +38,7 @@ extension Date {
 }
 
 extension String {
+    
     var dateFromISO8601: Date? {
         return Formatter.iso8601.date(from: self)   // "Mar 22, 2017, 10:22 AM"
     }

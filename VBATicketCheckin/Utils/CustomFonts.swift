@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 extension UIFont {
+    
     struct regular {
         static var XS: UIFont {
             get {

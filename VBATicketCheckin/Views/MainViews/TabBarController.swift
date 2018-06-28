@@ -9,12 +9,17 @@
 import UIKit
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
+    
     static var shared = TabBarController()
+    
+    private let _mainViewModel = MainViewModel.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.delegate = self
         self.setupTabBarItem()
+        self._mainViewModel.setTicketScanningType(.checkIn)
     }
     
     override func didReceiveMemoryWarning() {
@@ -22,7 +27,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    //
     // MARK: - Setup UI
+    //
     private func setupTabBarItem() {
         let defaultColor = UIColor.coolGrey
         let selectedColor = UIColor.black
@@ -37,7 +44,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         UITabBarItem.appearance().setTitleTextAttributes(normalAtt, for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes(selectedAtt, for: .selected)
         
-        guard Utils.is_iPad else {
+        guard Utils.Device.isPad else {
             UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0.0, vertical: -15.0)
             return
         }
@@ -52,6 +59,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 }
 
 class TransitioningObject: NSObject, UIViewControllerAnimatedTransitioning {
+    
     weak var tabBarController: TabBarController!
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -92,5 +100,18 @@ class TransitioningObject: NSObject, UIViewControllerAnimatedTransitioning {
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.25
+    }
+}
+
+//
+// MARK: - UITabBarDelegate
+//
+extension TabBarController {
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        // CHECKIN: 6772696775
+        // THANH TOÁN: 8472657872
+        let checkInTabSelected = item.tag == 6772696775
+        self._mainViewModel.setTicketScanningType(checkInTabSelected ? .checkIn : .payment)
     }
 }

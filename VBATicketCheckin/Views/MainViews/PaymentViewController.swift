@@ -9,11 +9,10 @@
 import UIKit
 
 class PaymentViewController: BaseViewController {
+    
     @IBOutlet weak var vContainer: UIView!
     @IBOutlet weak var btnMerchandise: UIButton!
     @IBOutlet weak var btnTicket: UIButton!
-    
-    private let mainViewModel = MainViewModel.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +23,8 @@ class PaymentViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.setNavigationTitle("Thanh toán")
         self.setTabBarHidden(false)
+        self.setNavigationTitle("Thanh toán")
         self.setNavigationHidden(true)
     }
 
@@ -34,19 +33,31 @@ class PaymentViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //
     // MARK: - Setup UI
+    //
     func setupUI() {
         self.formatButton(self.btnMerchandise, title: "MERCHANDISE")
         self.formatButton(self.btnTicket, title: "VÉ")
     }
     
-    // MARK: - Action
+    //
+    // MARK: - Actions
+    //
     @IBAction func btnMerchandise_clicked(_ sender: UIButton) {
     }
     
     @IBAction func btnTicket_clicked(_ sender: UIButton) {
-        let destination = Utils.viewController(withIdentifier: Constants.VIEWCONTROLLER_IDENTIFIER_MATCHES) as! MatchesViewController
-        destination.ticketScanningType = .payment
-        self.navigationController?.pushViewController(destination, animated: true)
+        guard !Utils.Device.isPad else {
+            if let destination = Utils.viewController(withIdentifier: Constants.VIEWCONTROLLER_IDENTIFIER_MATCHESMASTER) as? MatchesMasterViewController {
+                self.present(destination, animated: true)
+            }
+            
+            return
+        }
+        
+        if let destination = Utils.viewController(withIdentifier: Constants.VIEWCONTROLLER_IDENTIFIER_MATCHES) as? MatchesViewController {
+            self.navigationController?.pushViewController(destination, animated: true)
+        }
     }
 }

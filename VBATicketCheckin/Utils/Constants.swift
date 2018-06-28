@@ -9,7 +9,9 @@
 import Foundation
 import UIKit
 
+//
 // MARK: - Beautified print
+//
 func log(_ message: String?, file: String = #file, function: String = #function, line: Int = #line, column: Int = #column) {
     let fileName = file.components(separatedBy: Constants.SLASH).last
     let unknownFile = "Unknown file"
@@ -18,19 +20,23 @@ func log(_ message: String?, file: String = #file, function: String = #function,
 }
 
 struct Constants {
+    
     static let USER_DEFAULTS = UserDefaults.standard
-    static let DEVICE_SIZE = UIScreen.main.bounds.size
     static let CURRENT_DEVICE = UIDevice.current.userInterfaceIdiom
     static let APP_DELEGATE = UIApplication.shared.delegate as! AppDelegate
     static let STORYBOARD = UIStoryboard(name: "Main", bundle:nil)
     
+    //
     // MARK: - API components
+    //
     struct ResponseKey {
         static let DATA = "data"
         static let ERROR = "error"
     }
     
+    //
     // MARK: - String
+    //
     static let ZERO_STRING = "0"
     static let EMPTY_STRING = ""
     static let HASH = "#"
@@ -40,14 +46,20 @@ struct Constants {
     static let SLASH = "/"
     static let QUESTION_MARK = "?"
     static let EQUAL = "="
+    static let WHITE_SPACE = " "
     
+    //
     // MARK: - Default values
+    //
     static let DEFAULT_STRING_VALUE = "--"
     static let DEFAULT_INT_VALUE = 0
     static let DEFAULT_DOUBLE_VALUE = 0.0
     static let DEFAULT_POPUPVIEW_WIDTH_RATIO: CGFloat = 0.69
+    static let GOOGLE_CANCELED_SIGN_IN_FLOW = "The user canceled the sign-in flow."
     
+    //
     // MARK: - Font
+    //
     static let FONTNAME_REGULAR = "Lato-Regular"
     static let FONTNAME_BOLD = "Lato-Bold"
     static let FONTNAME_BLACK = "Lato-Black"
@@ -62,7 +74,9 @@ struct Constants {
     static let FONTSIZE_XXXXL: CGFloat = 36.0
     static let FONTSIZE_XXXXXL: CGFloat = 64.0
     
+    //
     // MARK: - Colors
+    //
     static let COLOR_MAIN = "#06A2E7"
     static let COLOR_VIEW_BACKGROUND = "#CDD7DE"
     static let COLOR_VIEW_BACKGROUND_TWO = "#F5F5F5"
@@ -110,9 +124,12 @@ struct Constants {
     static let COLOR_ALPHA_VIEW: CGFloat = 0.75
     static let COLOR_ALPHA_VIEW_SCAN: CGFloat = 0.65
     
+    //
     // MARK: - View Controller Identifiers
+    //
     static let VIEWCONTROLLER_IDENTIFIER_TAB_BAR = "TabBarController"
     static let VIEWCONTROLLER_IDENTIFIER_LOGIN = "LoginViewController"
+    static let VIEWCONTROLLER_IDENTIFIER_MATCHESMASTER = "MatchesMasterViewController"
     static let VIEWCONTROLLER_IDENTIFIER_MATCHES = "MatchesViewController"
     static let VIEWCONTROLLER_IDENTIFIER_PAYMENT = "PaymentViewController"
     static let VIEWCONTROLLER_IDENTIFIER_MERCHANDISE = "MerchandiseViewController"
@@ -120,5 +137,7 @@ struct Constants {
     static let VIEWCONTROLLER_IDENTIFIER_TICKET_PAYMENT = "TicketPaymentDetailViewController"
     static let VIEWCONTROLLER_IDENTIFIER_USER_QRCODE_SCANNING = "UserQRCodeScanningViewController"
     
+    //
     // MARK: - Date & Time
+    //
 }

@@ -9,20 +9,8 @@
 import Foundation
 import SwiftyJSON
 
-// {
-//   "data": {
-//       "id": 1,
-//       "code": "P2M",
-//       "description": "For each point , user can get 3k",
-//       "money": 3000,
-//       "point": 1,
-//       "active": true,
-//       "created_at": "2018-01-31T16:35:07+07:00",
-//       "updated_at": "2018-01-31T16:35:07+07:00"
-//   }
-// }
-
 struct ConversionRateP2M {
+    
     let money: Int
     let point: Int
     

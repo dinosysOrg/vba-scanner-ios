@@ -11,11 +11,12 @@ import Google
 import GoogleSignIn
 
 class LoginViewController: BaseViewController {
+    
     @IBOutlet weak var loginIndicator: UIActivityIndicatorView!
     
-    private let loginViewModel = LoginViewModel()
-    private let googleSignInButton = GIDSignInButton()
-    private var isGoogleButtonSetup = false
+    private let _loginViewModel = LoginViewModel()
+    private let _btnGoogle = GIDSignInButton()
+    private var _isBtnGoogleSetup = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,22 +38,26 @@ class LoginViewController: BaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        self.setGoogleSignInButtonHidden(true)
+        self.setBtnGoogleHidden(true)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
+    //
     // MARK: - Format
-    private func setGoogleSignInButtonHidden(_ isHidden: Bool) {
-        self.googleSignInButton.isHidden = isHidden
+    //
+    private func setBtnGoogleHidden(_ isHidden: Bool) {
+        self._btnGoogle.isHidden = isHidden
         self.loginIndicator.isHidden = !isHidden
     }
     
+    //
     // MARK: - Process
+    //
     private func setupGoogleSignIn() {
-        guard self.isGoogleButtonSetup else {
+        guard self._isBtnGoogleSetup else {
             var error: NSError?
             GGLContext.sharedInstance().configureWithError(&error)
             
@@ -66,38 +71,60 @@ class LoginViewController: BaseViewController {
             GIDSignIn.sharedInstance().uiDelegate = self
             GIDSignIn.sharedInstance().delegate = self
             // Getting the signin button and adding it to view
-            self.googleSignInButton.translatesAutoresizingMaskIntoConstraints = false
-            self.view.addSubview(self.googleSignInButton)
-            let xConstraint = NSLayoutConstraint(item: self.googleSignInButton, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0.0)
-            let yConstraint = NSLayoutConstraint(item: self.googleSignInButton, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1.0, constant: 120.0)
+            self._btnGoogle.translatesAutoresizingMaskIntoConstraints = false
+            self.view.addSubview(self._btnGoogle)
+            let xConstraint = NSLayoutConstraint(item: self._btnGoogle, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0.0)
+            let yConstraint = NSLayoutConstraint(item: self._btnGoogle, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1.0, constant: 120.0)
             NSLayoutConstraint.activate([xConstraint, yConstraint])
             self.view.addConstraint(xConstraint)
             self.view.addConstraint(yConstraint)
             
-            self.isGoogleButtonSetup = true
-            self.setGoogleSignInButtonHidden(false)
+            self._isBtnGoogleSetup = true
+            self.setBtnGoogleHidden(false)
             
             return
         }
     }
 }
 
+//
+// MARK: - GIDSignInUIDelegate, GIDSignInDelegate
+//
 extension LoginViewController: GIDSignInUIDelegate, GIDSignInDelegate {
-    // MARK: - GIDSignInDelegate
+    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         guard error == nil else {
-            self.setGoogleSignInButtonHidden(false)
-            self.showAlert(title: "Đăng nhập tài khoản Google không thành công", message: error.localizedDescription, actionTitles: ["OK"], actions: []
-            )
+            self.setBtnGoogleHidden(false)
+            
+            let message = error.localizedDescription
+            
+            if message != Constants.GOOGLE_CANCELED_SIGN_IN_FLOW {
+                self.showAlert(title: "Đăng nhập tài khoản Google không thành công", message: message, actionTitles: ["OK"], actions: []
+                )
+            }
+            
             return
         }
         
-        self.setGoogleSignInButtonHidden(true)
-        
-        loginViewModel.login(withGoogleUser: user) { [weak self] error in
+        self.setBtnGoogleHidden(true)
+        self.loginGoogleAccount(user)
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        User.current?.signOut()
+    }
+}
+
+//
+// MARK: - API Request
+//
+extension LoginViewController {
+    
+    private func loginGoogleAccount(_ account: GIDGoogleUser) {
+        self._loginViewModel.login(withGoogleUser: account) { [weak self] error in
             DispatchQueue.main.async {
                 guard error == nil else {
-                    self?.setGoogleSignInButtonHidden(false)
+                    self?.setBtnGoogleHidden(false)
                     self?.showAlert(title: "Đăng nhập không thành công", message: error!.message!, actionTitles: ["OK"], actions: [{ ok in
                         }]
                     )
@@ -110,9 +137,5 @@ extension LoginViewController: GIDSignInUIDelegate, GIDSignInDelegate {
                 self?.setRootViewController(withType: .tabBar)
             }
         }
-    }
-    
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        User.current?.signOut()
     }
 }

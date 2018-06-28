@@ -20,6 +20,7 @@ enum ViewBackgroundColorType {
 }
 
 class BaseViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,7 +47,9 @@ class BaseViewController: UIViewController {
         return .default
     }
     
+    //
     // MARK: - Format
+    //
     func setNavigationHidden(_ isHidden: Bool) {
         self.navigationController?.navigationBar.layer.zPosition = isHidden ? -1 : 0
     }
@@ -123,7 +126,9 @@ class BaseViewController: UIViewController {
         view.layer.setCornerRadius(10.0, border: 0.0, color: nil)
     }
     
+    //
     // MARK: - Process
+    //
     @objc func endEditing() {
         self.view.endEditing(true)
     }
@@ -208,7 +213,9 @@ class BaseViewController: UIViewController {
         self.setRootViewController(withType: .login)
     }
     
+    //
     // MARK: - Components initialization
+    //
     func initPopupView(frame: CGRect, type: PopupViewType, delegate: PopupViewDelegate?) -> PopupView {
         return PopupView.initWith(frame: frame, type: type, delegate: delegate)
     }

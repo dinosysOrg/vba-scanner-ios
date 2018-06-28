@@ -11,11 +11,11 @@ import AVFoundation
 import SwiftyJSON
 
 class MatchesViewController: BaseViewController {
+    
     @IBOutlet weak var tableView: UITableView!
     
-    private let mainViewModel = MainViewModel.shared
-    private let refreshControl = UIRefreshControl()
-    var ticketScanningType = TicketScanningType.checkIn
+    private let _mainViewModel = MainViewModel.shared
+    private let _refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ class MatchesViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         self.setNavigationTitle("Danh sách trận đấu")
-        self.setTabBarHidden(self.ticketScanningType != .checkIn)
+        self.setTabBarHidden(self._mainViewModel.ticketScanningType != .checkIn)
         self.setNavigationHidden(false)
     }
     
@@ -41,7 +41,12 @@ class MatchesViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //
+    // MARK: - Setup UI
+    //
     func setupUI() {
+        self.automaticallyAdjustsScrollViewInsets = false
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.backgroundColor = UIColor.clear
@@ -50,17 +55,19 @@ class MatchesViewController: BaseViewController {
         
         // Configure Refresh Control
         if #available(iOS 10.0, *) {
-            self.tableView.refreshControl = refreshControl
+            self.tableView.refreshControl = self._refreshControl
         } else {
-            self.tableView.addSubview(refreshControl)
+            self.tableView.addSubview(self._refreshControl)
         }
         
         let title = NSAttributedString(string: "Đang tải danh sách trận đấu...")
-        self.refreshControl.attributedTitle = title
-        self.refreshControl.addTarget(self, action: #selector(refreshMatchData(_:)), for: .valueChanged)
+        self._refreshControl.attributedTitle = title
+        self._refreshControl.addTarget(self, action: #selector(refreshMatchData(_:)), for: .valueChanged)
     }
     
+    //
     // MARK: - Process
+    //
     @objc private func refreshMatchData(_ sender: Any) {
         self.getMatches()
     }
@@ -75,51 +82,40 @@ class MatchesViewController: BaseViewController {
         )
     }
     
-    private func navigateToScanTicket() {
-        let destination = Utils.viewController(withIdentifier: Constants.VIEWCONTROLLER_IDENTIFIER_SCAN_TICKET) as! ScanTicketViewController
-        destination.ticketScanningType = self.ticketScanningType
-        self.navigationController?.pushViewController(destination, animated: true)
-    }
-    
-    // MARK: - API
-    private func getMatches() {
-        guard User.authorized else {
-            self.logOut()
-            return
-        }
-        
-        if !self.refreshControl.isRefreshing {
-            self.showLoading()
-        }
-        
-        self.mainViewModel.getUpcomingMatches { [weak self] (matches, error) in
-            DispatchQueue.main.async {
-                self?.hideLoading()
-                self?.refreshControl.endRefreshing()
-                
-                guard error == nil else {
-                    self?.handleMatchesGettingError(error!)
-                    return
-                }
-                
-                self?.tableView.reloadData()
+    private func pushScanTicketViewController() {
+        if let destination = Utils.viewController(withIdentifier: Constants.VIEWCONTROLLER_IDENTIFIER_SCAN_TICKET) as? ScanTicketViewController {
+            if Utils.Device.isPad {
+                self.splitViewController?.showDetailViewController(destination, sender: nil)
+            } else {
+                self.navigationController?.pushViewController(destination, animated: true)
             }
         }
     }
+    
+    private func pushScanTicketIfNeeded() {
+        guard !(Utils.Device.isPad && self._mainViewModel.cameraPermissionGranted) else {
+            return
+        }
+        
+        self.pushScanTicketViewController()
+    }
 }
 
-extension MatchesViewController : UITableViewDelegate, UITableViewDataSource {
-    // MARK: - UITableViewDataSource
+//
+// MARK: - UITableViewDelegate, UITableViewDataSource
+//
+extension MatchesViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.mainViewModel.upcomingMatches.count
+        return self._mainViewModel.upcomingMatches.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let matchCount = self.mainViewModel.upcomingMatches.count
+        let matchCount = self._mainViewModel.upcomingMatches.count
         
         guard matchCount > 0 && indexPath.row < matchCount else {
             return UITableViewCell()
@@ -127,22 +123,56 @@ extension MatchesViewController : UITableViewDelegate, UITableViewDataSource {
         
         let cellIdentifier = "MatchCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! MatchCell
-        let match = self.mainViewModel.upcomingMatches[indexPath.row]
+        let match = self._mainViewModel.upcomingMatches[indexPath.row]
         cell.setInfoWith(match)
         
         return cell
     }
     
-    // MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.tableView.deselectRow(at: indexPath, animated: false)
-        
         let matchIndex = indexPath.row
-        self.mainViewModel.setCurrentMatch(withIndex: matchIndex)
-        self.navigateToScanTicket()
+        self._mainViewModel.setCurrentMatch(withIndex: matchIndex)
+        self.pushScanTicketIfNeeded()
+    }
+}
+
+//
+// MARK: - API Request
+//
+extension MatchesViewController {
+    
+    private func getMatches() {
+        guard User.authorized else {
+            self.logOut()
+            return
+        }
+        
+        if !self._refreshControl.isRefreshing {
+            self.showLoading()
+        }
+        
+        self._mainViewModel.getUpcomingMatches { [weak self] (matches, error) in
+            DispatchQueue.main.async {
+                self?.hideLoading()
+                self?._refreshControl.endRefreshing()
+                
+                guard error == nil else {
+                    self?.handleMatchesGettingError(error!)
+                    return
+                }
+                
+                self?.tableView.reloadData()
+                
+                if Utils.Device.isPad, let _ = matches, matches!.count > 0 {
+                    self?._mainViewModel.setCurrentMatch(withIndex: 0)
+                    let indexPath = IndexPath(row: 0, section: 0)
+                    self?.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .top)
+                }
+            }
+        }
     }
 }

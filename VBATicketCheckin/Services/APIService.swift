@@ -22,7 +22,9 @@ let serviceEndpointClosure = { (target: APIService) -> Endpoint in
 
 let provider = MoyaProvider<APIService>(endpointClosure: serviceEndpointClosure)
 
+//
 // MARK: - Provider support
+//
 // Delcaration of Ticket Checkin APIs
 enum APIService  {
     case login(String) // Signin with google access token
@@ -36,19 +38,20 @@ enum APIService  {
 }
 
 enum BaseUrlType: String {
-    case local = "http://192.168.4.87:3000/api"
-    case staging = "https://vba-ticket-staging.herokuapp.com/api"
+    case local = "https://df7c9beb.ngrok.io/api"
+    case staging = "https://vba-staging.dinovative.com/api"
     case product = "https://vba-ticketing-production.vba.vn/api"
 }
 
 // https://github.com/Moya/Moya/tree/master/docs/MigrationGuides
 extension APIService : TargetType {
+    
     var headers: [String : String]? {
         return ["Content-Type" : "application/json"]
     }
     
     public var baseURL: URL {
-        return URL(string: BaseUrlType.product.rawValue)!
+        return URL(string: BaseUrlType.staging.rawValue)!
     }
     
     // Path for each API

@@ -9,6 +9,7 @@
 import UIKit
 
 class TicketPaymentDetailViewController: BaseViewController {
+    
     @IBOutlet weak var vOrderInfo: UIView!
     @IBOutlet weak var lblTitleOrder: UILabel!
     @IBOutlet weak var lblMatchInfo: UILabel!
@@ -25,7 +26,9 @@ class TicketPaymentDetailViewController: BaseViewController {
     @IBOutlet weak var btnCashPayment: UIButton!
     @IBOutlet weak var btnScanPayment: UIButton!
     
-    private let mainViewModel = MainViewModel.shared
+    private let _mainViewModel = MainViewModel.shared
+    private var _popUpAlertWindow: UIWindow?
+    private var _popUpAlert: PopupView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +41,10 @@ class TicketPaymentDetailViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         self.setNavigationTitle("Thông tin đơn hàng")
+        
+        if Utils.Device.isPad {
+            self.setTabBarHidden(self._mainViewModel.ticketScanningType != .checkIn)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,9 +52,17 @@ class TicketPaymentDetailViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        self._popUpAlert?.updatePopupViewRect(Utils.Device.bounds)
+    }
+    
+    //
     // MARK: - Setup UI
+    //
     func setupUI() {
-        let ticket = self.mainViewModel.currentTicket
+        let ticket = self._mainViewModel.currentTicket
         
         let matchInfo = "Trận đấu: \(ticket?.match ?? Constants.DEFAULT_STRING_VALUE)\n\nSố lượng vé: \(ticket?.quantity ?? Constants.DEFAULT_INT_VALUE)\n\nLoại vé: \(ticket?.type ?? Constants.DEFAULT_STRING_VALUE)"
         let strPrice = ticket?.displayedPrice ?? Constants.ZERO_STRING
@@ -72,7 +87,9 @@ class TicketPaymentDetailViewController: BaseViewController {
         self.lblPoint.font = self.lblPoint.font.withSize(fontSize)
     }
     
+    //
     // MARK: - Process
+    //
     private func adjustedFontSizeOf(label: UILabel) -> CGFloat {
         guard let textSize = label.text?.size(withAttributes: [.font: label.font]), textSize.width > label.bounds.width else {
             return label.font.pointSize
@@ -103,9 +120,11 @@ class TicketPaymentDetailViewController: BaseViewController {
         let message = "Thanh toán thành công"
         let popupType = PopupViewType.withoutButton
         
-        let popup = self.initPopupView(frame: self.view.bounds, type: popupType, delegate: self)
-        popup.loadingView(title: title, message: message, titleType: nil, buttonType: nil)
-        popup.show(in: (self.navigationController?.view ?? self.view), animated: true)
+        self._popUpAlertWindow = Utils.popUpAlertWindow()
+        
+        self._popUpAlert = self.initPopupView(frame: self._popUpAlertWindow!.bounds, type: popupType, delegate: self)
+        self._popUpAlert?.loadingView(title: title, message: message, titleType: nil, buttonType: nil)
+        self._popUpAlert?.show(in: (self._popUpAlertWindow!.rootViewController?.view ?? self.view), animated: true)
     }
     
     private func handlePurchaseTicketError(_ error: APIError) {
@@ -118,18 +137,37 @@ class TicketPaymentDetailViewController: BaseViewController {
         )
     }
     
-    // MARK: - Action
+    //
+    // MARK: - Actions
+    //
     @IBAction func btnCashPayment_clicked(_ sender: UIButton) {
         self.purchaseTicket()
     }
     
     @IBAction func btnScanPayment_clicked(_ sender: UIButton) {
-        let destination = Utils.viewController(withIdentifier: Constants.VIEWCONTROLLER_IDENTIFIER_USER_QRCODE_SCANNING) as! UserQRCodeScanningViewController
-        destination.scanningType = .ticket
-        self.navigationController?.pushViewController(destination, animated: true)
+        if let destination = Utils.viewController(withIdentifier: Constants.VIEWCONTROLLER_IDENTIFIER_USER_QRCODE_SCANNING) as? UserQRCodeScanningViewController {
+            destination.scanningType = .ticket
+            self.navigationController?.pushViewController(destination, animated: true)
+        }
     }
+}
+
+//
+// MARK: - PopupViewDelegate
+//
+extension TicketPaymentDetailViewController: PopupViewDelegate {
     
-    // MARK: - API
+    func didPopupViewRemoveFromSuperview() {
+        self._popUpAlertWindow = nil
+        self.navigationController?.popViewController(animated: true)
+    }
+}
+
+//
+// MARK: - API Request
+//
+extension TicketPaymentDetailViewController {
+    
     private func getConversionRate() {
         guard User.authorized else {
             self.logOut()
@@ -138,7 +176,7 @@ class TicketPaymentDetailViewController: BaseViewController {
         
         self.showLoading()
         
-        self.mainViewModel.getConversionRateP2M { [weak self] (rate, error) in
+        self._mainViewModel.getConversionRateP2M { [weak self] (rate, error) in
             DispatchQueue.main.async {
                 self?.hideLoading()
                 
@@ -160,7 +198,7 @@ class TicketPaymentDetailViewController: BaseViewController {
         
         self.showLoading()
         
-        self.mainViewModel.purchaseTicket { [weak self] error in
+        self._mainViewModel.purchaseTicket { [weak self] error in
             DispatchQueue.main.async {
                 self?.hideLoading()
                 
@@ -172,12 +210,5 @@ class TicketPaymentDetailViewController: BaseViewController {
                 self?.handlePurchaseTicketSucceed()
             }
         }
-    }
-}
-
-extension TicketPaymentDetailViewController: PopupViewDelegate {
-    // MARK: - PopupViewDelegate
-    func didPopupViewRemoveFromSuperview() {
-        self.navigationController?.popViewController(animated: true)
     }
 }

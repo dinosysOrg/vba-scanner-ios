@@ -9,22 +9,8 @@
 import Foundation
 import SwiftyJSON
 
-//{
-//    "away_team" : "Hanoi Buffaloes",
-//    "start_time" : 1512013260,
-//    "order_id" : 99,
-//    "use_status=" : "Unused",
-//    "kind" : "sell",
-//    "name" : "Chương Hồ",
-//    "phone" : null,
-//    "ticket_type" : "VIP B",
-//    "quantity" : 1,
-//    "order_price" : "500000.0",
-//    "paid" : false,
-//    "home_team" : "Saigon Heat"
-//}
-
 struct Ticket {
+    
     let orderId: Int
     let orderPrice: Double
     let displayedPrice: String

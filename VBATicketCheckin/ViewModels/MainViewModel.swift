@@ -15,14 +15,18 @@ enum TicketScanningType {
 }
 
 public class MainViewModel {
+    
+    private let _service = RequestService.shared
+    
     static let shared = MainViewModel()
-    private let service = RequestService.shared
     
     var upcomingMatches = [Match]()
     var currentMatch : Match?
     var currentQRCode : QRCodeContent?
     var currentTicket : Ticket?
     var purchaseSucceed = false
+    var ticketScanningType = TicketScanningType.checkIn
+    var cameraPermissionGranted = false
     
     private init() {}
     
@@ -40,9 +44,22 @@ public class MainViewModel {
         self.currentTicket = ticket
     }
     
-    // MARK: - API
+    func setTicketScanningType(_ type: TicketScanningType) {
+        self.ticketScanningType = type
+    }
+    
+    func setCameraPermissionGranted(_ granted: Bool) {
+        self.cameraPermissionGranted = granted
+    }
+}
+
+//
+// MARK: - API Request
+//
+extension MainViewModel {
+    
     func getUpcomingMatches(completion: ((_ matches: [Match]?, _ error: APIError?) -> Void)?) {
-        service.requestGetUpcomingMatches { (array, error) in
+        self._service.requestGetUpcomingMatches { (array, error) in
             guard let complete = completion else {
                 return
             }
@@ -66,7 +83,7 @@ public class MainViewModel {
         let info: [String : Any] = ["match_id" : matchId, "ticket_qrcode" : ticketQRCode]
         self.currentQRCode = ticketQRCode
         
-        service.requestScanTicket(info: info, type: type) { (json, error) in
+        self._service.requestScanTicket(info: info, type: type) { (json, error) in
             guard let complete = completion else {
                 return
             }
@@ -87,11 +104,12 @@ public class MainViewModel {
         let paidValue = self.currentTicket!.orderPrice
         let info: [String : Any] = ["id" : id, "paid_value" : paidValue]
         
-        service.requestPurchaseTicket(info) { error in
+        self._service.requestPurchaseTicket(info) { error in
             guard let complete = completion else {
                 return
             }
             
+            self.purchaseSucceed = (error == nil)
             self.currentTicket = (error == nil) ? nil : self.currentTicket
             
             complete(error)
@@ -99,7 +117,7 @@ public class MainViewModel {
     }
     
     func getConversionRateP2M(completion: ((_ rate: ConversionRateP2M?, _ error: APIError?) -> Void)?) {
-        service.requestGetConversionRateP2M { (json, error) in
+        self._service.requestGetConversionRateP2M { (json, error) in
             guard let complete = completion else {
                 return
             }
@@ -119,7 +137,7 @@ public class MainViewModel {
     func purchaseTicket(withCustomerId customerId: String, completion: ((_ error: APIError?) -> Void)?) {
         let info: [String : Any] = ["order_id" : String(self.currentTicket!.orderId), "customer_id" : customerId]
         
-        service.requestPurchaseTicketWithPoint(info) { error in
+        self._service.requestPurchaseTicketWithPoint(info) { error in
             guard let complete = completion else {
                 return
             }
@@ -134,7 +152,7 @@ public class MainViewModel {
     func purchaseMerchandise(withPoint point: Int, customerId: String, completion: ((_ error: APIError?) -> Void)?) {
         let info: [String : Any] = ["points" : point, "customer_id" : customerId]
         
-        service.requestPurchaseMerchandiseWithPoint(info) { error in
+        self._service.requestPurchaseMerchandiseWithPoint(info) { error in
             guard let complete = completion else {
                 return
             }

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ac-L5-fxD" userLabel="View Content">
-                    <rect key="frame" x="57.5" y="102" width="259" height="222"/>
+                    <rect key="frame" x="57.5" y="102.5" width="259" height="221.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vé chưa thanh toán" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gcq-Vc-djW" userLabel="Lbl Title">
                             <rect key="frame" x="15" y="35" width="229" height="21"/>
@@ -27,13 +26,13 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trận đấu: TLW vs HCW" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tab-Ih-uSq" userLabel="Lbl Message">
-                            <rect key="frame" x="15" y="96" width="229" height="21"/>
+                            <rect key="frame" x="15" y="96" width="229" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7NH-zP-xs2" userLabel="Btn Complete">
-                            <rect key="frame" x="15" y="157" width="229" height="40"/>
+                            <rect key="frame" x="15" y="156.5" width="229" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="OJm-cP-0qR"/>
                             </constraints>
@@ -60,12 +59,11 @@
                 </view>
             </subviews>
             <constraints>
-                <constraint firstItem="7ac-L5-fxD" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="03z-Fv-33e"/>
+                <constraint firstItem="7ac-L5-fxD" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="03z-Fv-33e"/>
                 <constraint firstItem="7ac-L5-fxD" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.69" id="aen-k0-JsP"/>
-                <constraint firstItem="7ac-L5-fxD" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="nma-98-HSE"/>
+                <constraint firstItem="7ac-L5-fxD" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="nma-98-HSE"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="btnComplete" destination="7NH-zP-xs2" id="gyD-cP-oHZ"/>
                 <outlet property="constraintLblTitleBottom" destination="aqm-we-jqD" id="HMX-o1-6ue"/>
@@ -81,7 +79,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aYF-rL-C1G" userLabel="View Content">
-                    <rect key="frame" x="58" y="133.5" width="259" height="157"/>
+                    <rect key="frame" x="58" y="134" width="259" height="156.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Checkin thành công" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AOC-AN-zVN" userLabel="Lbl Title">
                             <rect key="frame" x="15" y="35" width="229" height="21"/>
@@ -90,7 +88,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trận đấu: TLW vs HCW" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0U-9c-P5n" userLabel="Lbl Message">
-                            <rect key="frame" x="15" y="96" width="229" height="21"/>
+                            <rect key="frame" x="15" y="96" width="229" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -111,11 +109,10 @@
             </subviews>
             <constraints>
                 <constraint firstItem="aYF-rL-C1G" firstAttribute="width" secondItem="yUh-28-dkN" secondAttribute="width" multiplier="0.69" id="04d-eL-BjX"/>
-                <constraint firstItem="aYF-rL-C1G" firstAttribute="centerY" secondItem="7Cn-9N-NBp" secondAttribute="centerY" id="PWS-DS-jzc"/>
-                <constraint firstItem="aYF-rL-C1G" firstAttribute="centerX" secondItem="7Cn-9N-NBp" secondAttribute="centerX" id="RsZ-gQ-1M7"/>
+                <constraint firstItem="aYF-rL-C1G" firstAttribute="centerY" secondItem="yUh-28-dkN" secondAttribute="centerY" id="PWS-DS-jzc"/>
+                <constraint firstItem="aYF-rL-C1G" firstAttribute="centerX" secondItem="yUh-28-dkN" secondAttribute="centerX" id="RsZ-gQ-1M7"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="7Cn-9N-NBp"/>
             <connections>
                 <outlet property="constraintLblTitleBottom" destination="3Rk-YU-NEH" id="L0S-zX-iaO"/>
                 <outlet property="constraintVContainerWidthRatio" destination="04d-eL-BjX" id="IeY-7Q-Hq6"/>

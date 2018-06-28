@@ -12,12 +12,20 @@ import Google
 import GoogleSignIn
 
 public class LoginViewModel {
-    private let service = RequestService.shared
+    
+    private let _service = RequestService.shared
+}
+
+
+//
+// MARK: - API Request
+//
+extension LoginViewModel {
     
     func login(withGoogleUser user: GIDGoogleUser, completion: ((_ error: APIError?) -> Void)?) {
         let info: [String : Any] = ["gaccess_token" : user.authentication.idToken]
         
-        service.requestLogin(info) { (json, error) in
+        self._service.requestLogin(info) { (json, error) in
             guard let complete = completion else {
                 return
             }

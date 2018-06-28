@@ -53,6 +53,7 @@
 		C9FADB901FC537640002DD64 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FADB8F1FC537640002DD64 /* LoginViewModel.swift */; };
 		C9FADB921FC5376D0002DD64 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FADB911FC5376D0002DD64 /* MainViewModel.swift */; };
 		C9FADB981FC552790002DD64 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FADB971FC552790002DD64 /* APIError.swift */; };
+		DEC045BC20E375B100151A93 /* MatchesMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC045BB20E375B100151A93 /* MatchesMasterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -127,6 +128,7 @@
 		C9FADB8F1FC537640002DD64 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C9FADB911FC5376D0002DD64 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		C9FADB971FC552790002DD64 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		DEC045BB20E375B100151A93 /* MatchesMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesMasterViewController.swift; sourceTree = "<group>"; };
 		E633435CA857D216AB59BD49 /* Pods-VBATicketCheckin.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VBATicketCheckin.staging.xcconfig"; path = "Pods/Target Support Files/Pods-VBATicketCheckin/Pods-VBATicketCheckin.staging.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -334,6 +336,7 @@
 				C9B7AB0B1FC6A9B100B70D51 /* Cells */,
 				47D5E376204F8673008A0105 /* TabBarController.swift */,
 				47D0E4EA2050EE640017001F /* BaseViewController.swift */,
+				DEC045BB20E375B100151A93 /* MatchesMasterViewController.swift */,
 				C97D4B861FC3DBF0008A2ABB /* LoginViewController.swift */,
 				47D5DE7F205292BE00637642 /* MatchesViewController.swift */,
 				47D5E37A204F886A008A0105 /* PaymentViewController.swift */,
@@ -575,6 +578,7 @@
 				47D5E383204FDE4B008A0105 /* CustomLayer.swift in Sources */,
 				C9B7AB091FC6A98D00B70D51 /* MatchCell.swift in Sources */,
 				4707D1172055629100B4156E /* LoyaltyPoint.swift in Sources */,
+				DEC045BC20E375B100151A93 /* MatchesMasterViewController.swift in Sources */,
 				47113B83204E47AB0091A109 /* CustomColors.swift in Sources */,
 				47D0E4E72050DF5F0017001F /* PopupView.swift in Sources */,
 				47113B85204E47E90091A109 /* CustomFonts.swift in Sources */,

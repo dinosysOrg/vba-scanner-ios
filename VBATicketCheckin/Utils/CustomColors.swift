@@ -11,6 +11,7 @@ import UIKit
 import Hue
 
 extension UIColor {
+    
     static var main: UIColor {
         get {
             return UIColor(hex: Constants.COLOR_MAIN)
@@ -263,7 +264,9 @@ extension UIColor {
         }
     }
     
+    //
     // MARK: - Color with alpha
+    //
     static func color(_ color: UIColor, alpha: CGFloat) -> UIColor {
         return color.withAlphaComponent(alpha)
     }

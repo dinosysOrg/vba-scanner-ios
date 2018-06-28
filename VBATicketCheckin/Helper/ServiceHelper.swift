@@ -11,6 +11,7 @@ import Moya
 import SwiftyJSON
 
 struct ServiceHelper {
+    
     /// Handle Moya response with completion closure of a JSON and a APIError.
     ///
     /// - Parameters:

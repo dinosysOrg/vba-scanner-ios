@@ -9,13 +9,8 @@
 import Foundation
 import SwiftyJSON
 
-//{
-//    "id":2381,
-//    "number":1,
-//    "hash_key":"WqLi4BbgddIuduqD+s85Vw=="
-//}
-
 struct QRCodeContent {
+    
     let customerId: String
     let id: Int
     let orderId: Int

@@ -9,6 +9,7 @@
 import UIKit
 
 class MatchCell: UITableViewCell {
+    
     @IBOutlet weak var vContainer: UIView!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblTime: UILabel!
@@ -23,10 +24,12 @@ class MatchCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    //
     // MARK: - Setup UI
+    //
     private func setupUI() {
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = UIColor.gunmetal
+        let backgroundView = UIView(frame: self.vContainer.bounds)
+        backgroundView.backgroundColor = UIColor.seaweedGreen.alpha(0.15)
         self.selectedBackgroundView = backgroundView
         self.backgroundColor = UIColor.clear
         self.contentView.backgroundColor = UIColor.clear
@@ -43,7 +46,9 @@ class MatchCell: UITableViewCell {
         self.lblTime.font = UIFont.regular.L
     }
     
+    //
     // MARK: - Load Match data
+    //
     func setInfoWith(_ match: Match) {
         let matchRawTime = match.startTime
         let matchDate = matchRawTime.dateFromISO8601
