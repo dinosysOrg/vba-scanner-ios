@@ -77,7 +77,7 @@ class PopupView: BaseView {
     private func setAutoDismiss() {
         switch self.popupType {
         case .withoutButton:
-            Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.dismissWithAnimation), userInfo: nil, repeats: false)
+            Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.dismissAnimated), userInfo: nil, repeats: false)
         default:
             break
         }

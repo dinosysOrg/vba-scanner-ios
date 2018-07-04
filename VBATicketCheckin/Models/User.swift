@@ -36,15 +36,6 @@ class User: NSObject, NSCoding {
     //
     // MARK: - Initialization
     //
-    /**
-     * Init User from json data
-     * {
-     *      name: "abc",
-     *      email: "abc@bcd.com",
-     *      accessToken: "123456sfdfoisjd",
-     *      googleAccessToken: "sadflsodf7s98df79s8dfkj12lkjlwkj1lk3j123"
-     * }
-     */
     init(json: JSON) {
         name = json["name"].stringValue
         email = json["email"].stringValue

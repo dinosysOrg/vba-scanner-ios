@@ -187,10 +187,10 @@ class ScannerView: BaseView {
         self.btnTicketStatus.isEnabled = false
         
         let buttonRect = self.btnTicketStatus.bounds
-        self._lblTicketStatus.textAlignment = .center
-        self._lblTicketStatus.numberOfLines = 2
         self._lblTicketStatus.font = UIFont.bold.XL
-        self._lblTicketStatus.transform = CGAffineTransform(rotationAngle: -.pi / 2)
+        self._lblTicketStatus.numberOfLines = 0
+        self._lblTicketStatus.textAlignment = .center
+        self._lblTicketStatus.lineBreakMode = .byWordWrapping
         self._lblTicketStatus.textColor = .white
         self._lblTicketStatus.backgroundColor = .clear
         self._lblTicketStatus.frame = CGRect(x: 0.0, y: 10.0, width: buttonRect.width, height: buttonRect.height - 20.0)

@@ -15,7 +15,7 @@ struct ConversionRateP2M {
     let point: Int
     
     init(_ jsonData: JSON) {
-        money = jsonData["money"].intValue
-        point = jsonData["point"].intValue
+        money = (jsonData["money"].intValue != 0) ? jsonData["money"].intValue : 1
+        point = (jsonData["point"].intValue != 0) ? jsonData["point"].intValue : 1
     }
 }

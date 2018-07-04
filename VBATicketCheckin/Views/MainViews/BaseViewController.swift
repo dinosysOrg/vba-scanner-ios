@@ -113,8 +113,7 @@ class BaseViewController: UIViewController {
         tf.textColor = UIColor.white
         tf.tintColor = UIColor.white
         tf.keyboardType = keyboardType
-        tf.attributedPlaceholder = NSAttributedString(string: placeHolder,
-                                                      attributes: [ NSAttributedStringKey.foregroundColor: UIColor.white ])
+        tf.attributedPlaceholder = NSAttributedString(string: placeHolder, attributes: [ NSAttributedStringKey.foregroundColor: UIColor.white ])
         
         if active {
             tf.becomeFirstResponder()

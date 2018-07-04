@@ -28,7 +28,7 @@ class MerchandiseViewController: BaseViewController {
         
         self.setNavigationTitle("Merchandise")
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -44,18 +44,23 @@ class MerchandiseViewController: BaseViewController {
         
         self.formatLabel(self.lblTitle, title: "Nhập số điểm cần để nhận vật phẩm", color: UIColor.white)
         self.formatTextField(self.tfPoint, placeHolder: Constants.EMPTY_STRING, keyboardType: .numberPad, active: true)
-        self.formatButton(self.btnScan, title: "QUYÉT MÃ THANH TOÁN")
         self.tfPoint.delegate = self
+        
+        self.formatButton(self.btnScan, title: "QUYÉT MÃ THANH TOÁN")
+        self.setBtnScanEnabled(false)
+    }
+    
+    //
+    // MARK: - Format
+    //
+    private func setBtnScanEnabled(_ isEnabled: Bool) {
+        self.btnScan.isEnabled = isEnabled
     }
     
     //
     // MARK: - Actions
     //
     @IBAction func btnScan_clicked(_ sender: UIButton) {
-        guard !Utils.isEmpty(self._point) else {
-            return
-        }
-        
         if let destination = Utils.viewController(withIdentifier: Constants.VIEWCONTROLLER_IDENTIFIER_USER_QRCODE_SCANNING) as? UserQRCodeScanningViewController {
             destination.scanningType = .merchandise
             destination.merchandisePoint = self._point
@@ -97,12 +102,17 @@ extension MerchandiseViewController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if Utils.isNumeric(string) || Utils.isBackSpace(string) {
+        let isValidInput = !((range.location == 0) && (string == Constants.ZERO_STRING)) && (Utils.isNumeric(string) || Utils.isBackSpace(string))
+        let buttonEnabled = isValidInput || !Utils.isEmpty(self._point)
+        
+        self.setBtnScanEnabled(buttonEnabled)
+        
+        if isValidInput {
             let sourceText = textField.text as NSString?
             let text = sourceText?.replacingCharacters(in: range, with: string)
             self._point = Utils.removeWhiteSpaces(of: text ?? Constants.EMPTY_STRING)
         }
         
-        return Utils.isNumeric(string) || Utils.isBackSpace(string)
+        return isValidInput
     }
 }

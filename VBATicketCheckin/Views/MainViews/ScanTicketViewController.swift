@@ -142,7 +142,8 @@ class ScanTicketViewController: BaseViewController {
         
         self._popUpAlert = self.initPopupView(frame: self._popUpAlertWindow!.bounds, type: popupType, delegate: self)
         self._popUpAlert?.loadingView(title: title, message: message, titleType: popupTitleType, buttonType: popupButtonType)
-        self._popUpAlert?.show(in: (self._popUpAlertWindow!.rootViewController?.view ?? self.view), animated: true)
+        self._popUpAlert?.showAnimated(in: (self._popUpAlertWindow!.rootViewController?.view ?? self.view))
+        
         self.setNavigationSwipeEnable(false)
     }
     

@@ -71,10 +71,13 @@ class BaseView: UIView {
     func viewDidDismiss() {
         // Will be overrided in its derived classes
     }
+}
+
+//
+// MARK: - PopupView Actions
+//
+extension PopupView {
     
-    //
-    // MARK: - Process
-    //
     func updatePopupViewRect(_ rect: CGRect) {
         self.backgroundView?.frame = rect
     }
@@ -125,11 +128,11 @@ class BaseView: UIView {
         }
     }
     
-    @objc func showWithAnimation(in parent: UIView) {
+    @objc func showAnimated(in parent: UIView) {
         self.show(in: parent, animated: true)
     }
     
-    @objc func dismissWithAnimation() {
+    @objc func dismissAnimated() {
         self.dismiss(animated: true)
     }
 }
