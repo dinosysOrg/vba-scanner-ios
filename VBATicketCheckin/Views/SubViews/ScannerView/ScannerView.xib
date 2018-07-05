@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -54,7 +50,7 @@
                                     </constraints>
                                     <state key="normal" title="Status"/>
                                     <connections>
-                                        <action selector="btnTicketStatus_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="8Fg-qV-RIa"/>
+                                        <action selector="btnTicketStatus_Pressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="8Fg-qV-RIa"/>
                                     </connections>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="42p-eq-bS4" userLabel="View Ticket Info">

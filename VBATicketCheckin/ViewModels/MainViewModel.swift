@@ -16,8 +16,6 @@ enum TicketScanningType {
 
 public class MainViewModel {
     
-    private let _service = RequestService.shared
-    
     static let shared = MainViewModel()
     
     var upcomingMatches = [Match]()
@@ -27,6 +25,8 @@ public class MainViewModel {
     var purchaseSucceed = false
     var ticketScanningType = TicketScanningType.checkIn
     var cameraPermissionGranted = false
+    
+    private let _service = RequestService.shared
     
     private init() {}
     

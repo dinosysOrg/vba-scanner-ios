@@ -48,7 +48,8 @@ class PopupView: BaseView {
     @IBOutlet weak var constraintLblTitleBottom: NSLayoutConstraint!
     
     weak var delegate: PopupViewDelegate?
-    private var popupType = PopupViewType.normal
+    
+    private var _popupType = PopupViewType.normal
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -63,7 +64,7 @@ class PopupView: BaseView {
         view.frame = frame
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.backgroundColor = UIColor.clear
-        view.popupType = type
+        view._popupType = type
         view.delegate = delegate
         
         return view
@@ -75,7 +76,7 @@ class PopupView: BaseView {
     }
     
     private func setAutoDismiss() {
-        switch self.popupType {
+        switch self._popupType {
         case .withoutButton:
             Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.dismissAnimated), userInfo: nil, repeats: false)
         default:
@@ -140,7 +141,7 @@ class PopupView: BaseView {
         self.delegate?.didPopupViewRemoveFromSuperview()
     }
     
-    @IBAction func btnComplete_clicked(_ sender: UIButton) {
+    @IBAction func btnComplete_Pressed(_ sender: UIButton) {
         self.dismiss(animated: true)
     }
 }

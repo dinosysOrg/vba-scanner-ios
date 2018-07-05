@@ -23,14 +23,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="233.5"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vbaLogo" translatesAutoresizingMaskIntoConstraints="NO" id="oXi-wB-21K">
-                                <rect key="frame" x="112" y="258" width="150" height="150"/>
+                                <rect key="frame" x="112.5" y="258.5" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="2vQ-WZ-7RA"/>
                                     <constraint firstAttribute="height" constant="150" id="MJp-Ba-viU"/>
                                 </constraints>
                             </imageView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="NE9-98-eFg">
-                                <rect key="frame" x="167" y="433.5" width="40" height="40"/>
+                                <rect key="frame" x="167.5" y="433.5" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="4oM-fH-Z83"/>
                                     <constraint firstAttribute="height" constant="40" id="pBT-h5-wRE"/>
@@ -63,7 +63,7 @@
         <scene sceneID="gZh-5W-P7s">
             <objects>
                 <navigationController id="v7T-dJ-PhB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="6772696775" title="CHECKIN" id="HoG-VX-vCc">
+                    <tabBarItem key="tabBarItem" tag="67726967" title="CHECKIN" id="HoG-VX-vCc">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Q8a-VC-3iK">
@@ -82,7 +82,7 @@
         <scene sceneID="GSG-ss-Smk">
             <objects>
                 <navigationController id="i2F-t7-QRE" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="8472657872" title="THANH TOÁN" id="CDX-4j-Ebq">
+                    <tabBarItem key="tabBarItem" tag="84726578" title="THANH TOÁN" id="CDX-4j-Ebq">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MzO-T9-grI">
@@ -106,7 +106,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LZb-aD-TJj" userLabel="View Container">
-                                <rect key="frame" x="84" y="198.5" width="206" height="270"/>
+                                <rect key="frame" x="84.5" y="198.5" width="206" height="270"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qps-M3-o2d" userLabel="Btn Merchandise">
                                         <rect key="frame" x="0.0" y="0.0" width="206" height="90"/>
@@ -115,7 +115,7 @@
                                         </constraints>
                                         <state key="normal" title="MERCHANDISE"/>
                                         <connections>
-                                            <action selector="btnMerchandise_clicked:" destination="O71-jK-wjx" eventType="touchUpInside" id="t04-wj-CXG"/>
+                                            <action selector="btnMerchandise_Pressed:" destination="O71-jK-wjx" eventType="touchUpInside" id="t04-wj-CXG"/>
                                             <segue destination="0bR-wC-HWl" kind="show" identifier="showMerchandise_Segue" id="ftY-QW-h2J"/>
                                         </connections>
                                     </button>
@@ -123,7 +123,7 @@
                                         <rect key="frame" x="0.0" y="180" width="206" height="90"/>
                                         <state key="normal" title="VÉ"/>
                                         <connections>
-                                            <action selector="btnTicket_clicked:" destination="O71-jK-wjx" eventType="touchUpInside" id="hJT-mG-4iL"/>
+                                            <action selector="btnTicket_Pressed:" destination="O71-jK-wjx" eventType="touchUpInside" id="hJT-mG-4iL"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -204,7 +204,7 @@
                                         </constraints>
                                         <state key="normal" title="QUÉT MÃ THANH TOÁN"/>
                                         <connections>
-                                            <action selector="btnScan_clicked:" destination="0bR-wC-HWl" eventType="touchUpInside" id="LVo-CV-EGP"/>
+                                            <action selector="btnScan_Pressed:" destination="0bR-wC-HWl" eventType="touchUpInside" id="LVo-CV-EGP"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -439,14 +439,14 @@
                                         <rect key="frame" x="0.0" y="0.0" width="142.5" height="90"/>
                                         <state key="normal" title="THANH TOÁN TIỀN MẶT"/>
                                         <connections>
-                                            <action selector="btnCashPayment_clicked:" destination="0wI-J6-Wrw" eventType="touchUpInside" id="fh0-cf-Csb"/>
+                                            <action selector="btnCashPayment_Pressed:" destination="0wI-J6-Wrw" eventType="touchUpInside" id="fh0-cf-Csb"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A92-Td-5cQ" userLabel="Btn Scan Payment">
                                         <rect key="frame" x="192.5" y="0.0" width="142.5" height="90"/>
                                         <state key="normal" title="QUÉT MÃ THANH TOÁN"/>
                                         <connections>
-                                            <action selector="btnScanPayment_clicked:" destination="0wI-J6-Wrw" eventType="touchUpInside" id="TdH-PE-Jhe"/>
+                                            <action selector="btnScanPayment_Pressed:" destination="0wI-J6-Wrw" eventType="touchUpInside" id="TdH-PE-Jhe"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -525,7 +525,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MatchCell" rowHeight="90" id="uPh-va-fBw" customClass="MatchCell" customModule="VBATicketCheckin" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MatchCell" rowHeight="90" id="uPh-va-fBw" customClass="MatchCell" customModule="VBATicketCheckin" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uPh-va-fBw" id="ILE-eZ-bAq">

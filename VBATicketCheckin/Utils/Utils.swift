@@ -129,6 +129,7 @@ struct Utils {
     // MARK: - Device
     //
     struct Device {
+        
         static var bounds: CGRect {
             get {
                 return UIScreen.main.bounds

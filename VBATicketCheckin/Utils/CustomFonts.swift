@@ -12,6 +12,7 @@ import UIKit
 extension UIFont {
     
     struct regular {
+        
         static var XS: UIFont {
             get {
                 return UIFont(name: Constants.FONTNAME_REGULAR, size: Constants.FONTSIZE_XS)!
@@ -68,6 +69,7 @@ extension UIFont {
     }
     
     struct bold {
+        
         static var XS: UIFont {
             get {
                 return UIFont(name: Constants.FONTNAME_BOLD, size: Constants.FONTSIZE_XS)!
@@ -124,6 +126,7 @@ extension UIFont {
     }
     
     struct black {
+        
         static var XS: UIFont {
             get {
                 return UIFont(name: Constants.FONTNAME_BLACK, size: Constants.FONTSIZE_XS)!

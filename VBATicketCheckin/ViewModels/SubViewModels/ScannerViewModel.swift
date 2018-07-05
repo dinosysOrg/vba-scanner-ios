@@ -24,6 +24,14 @@ extension ScannerViewModelDelegate {
 
 class ScannerViewModel: NSObject {
     
+    weak var delegate: ScannerViewModelDelegate?
+    
+    var session: AVCaptureSession? {
+        get {
+            return _pSession
+        }
+    }
+    
     private let _mainViewModel = MainViewModel.shared
     
     private var _pSession: AVCaptureSession!
@@ -42,14 +50,6 @@ class ScannerViewModel: NSObject {
                                        AVMetadataObject.ObjectType.dataMatrix,
                                        AVMetadataObject.ObjectType.interleaved2of5,
                                        AVMetadataObject.ObjectType.qr]
-    
-    var session: AVCaptureSession? {
-        get {
-            return _pSession
-        }
-    }
-    
-    weak var delegate: ScannerViewModelDelegate?
     
     init(with delegate: ScannerViewModelDelegate) {
         super.init()

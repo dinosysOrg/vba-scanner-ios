@@ -44,10 +44,10 @@ class PaymentViewController: BaseViewController {
     //
     // MARK: - Actions
     //
-    @IBAction func btnMerchandise_clicked(_ sender: UIButton) {
+    @IBAction func btnMerchandise_Pressed(_ sender: UIButton) {
     }
     
-    @IBAction func btnTicket_clicked(_ sender: UIButton) {
+    @IBAction func btnTicket_Pressed(_ sender: UIButton) {
         guard !Utils.Device.isPad else {
             if let destination = Utils.viewController(withIdentifier: Constants.VIEWCONTROLLER_IDENTIFIER_MATCHESMASTER) as? MatchesMasterViewController {
                 self.present(destination, animated: true)

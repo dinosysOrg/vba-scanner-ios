@@ -60,7 +60,7 @@ class MerchandiseViewController: BaseViewController {
     //
     // MARK: - Actions
     //
-    @IBAction func btnScan_clicked(_ sender: UIButton) {
+    @IBAction func btnScan_Pressed(_ sender: UIButton) {
         if let destination = Utils.viewController(withIdentifier: Constants.VIEWCONTROLLER_IDENTIFIER_USER_QRCODE_SCANNING) as? UserQRCodeScanningViewController {
             destination.scanningType = .merchandise
             destination.merchandisePoint = self._point

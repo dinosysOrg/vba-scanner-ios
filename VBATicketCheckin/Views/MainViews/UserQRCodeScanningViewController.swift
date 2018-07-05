@@ -16,13 +16,13 @@ enum ScanningType {
 
 class UserQRCodeScanningViewController: BaseViewController {
     
+    var scanningType = ScanningType.merchandise
+    var merchandisePoint: String?
+    
     private let _mainViewModel = MainViewModel.shared
     private var _scanner: ScannerView?
     private var _popUpAlertWindow: UIWindow?
     private var _popUpAlert: PopupView?
-    
-    var scanningType = ScanningType.merchandise
-    var merchandisePoint: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()

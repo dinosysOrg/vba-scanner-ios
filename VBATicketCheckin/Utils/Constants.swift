@@ -30,6 +30,7 @@ struct Constants {
     // MARK: - API components
     //
     struct ResponseKey {
+        
         static let DATA = "data"
         static let ERROR = "error"
     }

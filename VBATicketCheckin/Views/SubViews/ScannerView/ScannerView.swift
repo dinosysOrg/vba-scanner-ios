@@ -280,7 +280,7 @@ class ScannerView: BaseView {
     //
     // MARK: - Actions
     //
-    @IBAction func btnTicketStatus_clicked(_ sender: UIButton) {
+    @IBAction func btnTicketStatus_Pressed(_ sender: UIButton) {
         self.setOpacityEffectForTicketStatus()
         self.delegate?.didSelectTicketStatus()
     }

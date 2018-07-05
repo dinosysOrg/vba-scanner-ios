@@ -140,11 +140,11 @@ class TicketPaymentDetailViewController: BaseViewController {
     //
     // MARK: - Actions
     //
-    @IBAction func btnCashPayment_clicked(_ sender: UIButton) {
+    @IBAction func btnCashPayment_Pressed(_ sender: UIButton) {
         self.purchaseTicket()
     }
     
-    @IBAction func btnScanPayment_clicked(_ sender: UIButton) {
+    @IBAction func btnScanPayment_Pressed(_ sender: UIButton) {
         if let destination = Utils.viewController(withIdentifier: Constants.VIEWCONTROLLER_IDENTIFIER_USER_QRCODE_SCANNING) as? UserQRCodeScanningViewController {
             destination.scanningType = .ticket
             self.navigationController?.pushViewController(destination, animated: true)

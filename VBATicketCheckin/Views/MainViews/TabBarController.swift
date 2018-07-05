@@ -109,9 +109,9 @@ class TransitioningObject: NSObject, UIViewControllerAnimatedTransitioning {
 extension TabBarController {
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        // CHECKIN: 6772696775
-        // THANH TOÁN: 8472657872
-        let checkInTabSelected = item.tag == 6772696775
+        // CHECKIN: 67726967
+        // THANH TOÁN: 84726578
+        let checkInTabSelected = item.tag == 67726967
         self._mainViewModel.setTicketScanningType(checkInTabSelected ? .checkIn : .payment)
     }
 }

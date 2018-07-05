@@ -28,8 +28,6 @@ enum APIErrorType: Int {
 
 struct APIError {
     
-    private var _message: String? = "Lỗi không xác định."
-    
     var ticketErrorType: TicketErrorType?
     let type: APIErrorType
     var message: String? {
@@ -66,6 +64,9 @@ struct APIError {
             _message = newValue
         }
     }
+    
+    private var _message: String? = "Lỗi không xác định."
+    
     
     init() {
         type = APIErrorType.unknown
