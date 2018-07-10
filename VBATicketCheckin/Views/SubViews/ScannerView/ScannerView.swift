@@ -148,19 +148,25 @@ class ScannerView: BaseView {
     
     func updateUIWithTicketInfo(_ ticket: Ticket? = nil) {
         let titleMatchName = "Trận đấu:"
-        let titleTicketsCount = "Số lượng vé:"
+        let titleCustomer = "Khách hàng:"
         let titleTicketType = "Loại vé:"
-        let titleOrder = "Order:"
+        let titleTicketsCount = "Số lượng vé:"
+        let titleOrder = "Order ID:"
+        let titlePromotion = "Mã giảm giá:"
         let pMatchName = (ticket != nil) ? titleMatchName + " " + ticket!.match : titleMatchName
-        let pTicketsCount = (ticket != nil) ? titleTicketsCount + " " + String(ticket!.quantity) : titleTicketsCount
+        let pCustomer = (ticket != nil) ? titleCustomer + " " + ticket!.name : titleCustomer
         let pTicketType = (ticket != nil) ? titleTicketType + " " + ticket!.type : titleTicketType
+        let pTicketsCount = (ticket != nil) ? titleTicketsCount + " " + String(ticket!.quantity) : titleTicketsCount
         let pOrder = (ticket != nil) ? titleOrder + " " + String(ticket!.orderId) : titleOrder
+        let pPromotion = (ticket != nil) ? titlePromotion + " " + ticket!.promotionCode : titlePromotion
         
         let matchName: NSAttributedString = Utils.attributedString(titleMatchName, in: pMatchName)
-        let ticketsCount: NSAttributedString = Utils.attributedString(titleTicketsCount, in: pTicketsCount)
+        let customer: NSAttributedString = Utils.attributedString(titleCustomer, in: pCustomer)
         let ticketType: NSAttributedString = Utils.attributedString(titleTicketType, in: pTicketType)
+        let ticketsCount: NSAttributedString = Utils.attributedString(titleTicketsCount, in: pTicketsCount)
         let order: NSAttributedString = Utils.attributedString(titleOrder, in: pOrder)
-        let attributedStrings: [NSAttributedString] = [matchName, ticketsCount, ticketType, order]
+        let promotion: NSAttributedString = Utils.attributedString(titlePromotion, in: pPromotion)
+        let attributedStrings: [NSAttributedString] = [matchName, customer, ticketType, ticketsCount, order, promotion]
         let ticketInfo = Utils.appendAttributedStrings(attributedStrings, separatedBy: "\n\n")
         
         let buttonTitle = (ticket != nil) ? (ticket!.paid ? "Check in thành công" : "Vé chưa thanh toán") : Constants.EMPTY_STRING

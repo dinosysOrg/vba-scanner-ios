@@ -22,6 +22,7 @@ struct Ticket {
     let used: Bool
     let match: String
     var orderPoint: LoyaltyPoint?
+    let promotionCode: String
     
     init(_ jsonData: JSON) {
         orderId = jsonData["order_id"].intValue
@@ -35,6 +36,7 @@ struct Ticket {
         let status = jsonData["use_status="].stringValue
         used = status == "Used" ? true : false
         match = jsonData["home_team"].stringValue + " vs " + jsonData["away_team"].stringValue
+        promotionCode = jsonData["promotion_code"].stringValue
     }
 }
 
