@@ -142,7 +142,7 @@ class ScannerView: BaseView {
         
         self.formatBtnTicketStatus()
         self.formatTicketInfoTextView()
-        
+
         self.updateUIWithTicketInfo()
     }
     
@@ -176,6 +176,7 @@ class ScannerView: BaseView {
         self._lblTicketStatus.text = buttonTitle.uppercased()
         
         self.txtTicketInfo.attributedText = ticketInfo
+        self.updateTicketViewLayout()
     }
     
     //
@@ -185,6 +186,23 @@ class ScannerView: BaseView {
         self.txtTicketInfo.textColor = UIColor.gunmetal
         self.txtTicketInfo.font = UIFont.regular.XL
         self.txtTicketInfo.text = Constants.EMPTY_STRING
+    }
+    
+    func updateTicketViewLayout() {
+        self.txtTicketInfo.isScrollEnabled = true
+        self.txtTicketInfo.bounces = true
+        self.txtTicketInfo.alwaysBounceVertical = true
+        
+        self.txtTicketInfo.textContainerInset = .zero
+        self.txtTicketInfo.textContainer.lineFragmentPadding = 0
+        self.txtTicketInfo.contentInset = .zero
+        
+        if #available(iOS 11.0, *) {
+            // Remove unwanted content inset of UITextView for iOS >= 11
+            self.txtTicketInfo.contentInsetAdjustmentBehavior = .never
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     private func formatBtnTicketStatus() {

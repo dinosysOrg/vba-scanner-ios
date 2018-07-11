@@ -103,9 +103,13 @@ struct Utils {
         let result = NSMutableAttributedString()
         let separatedString = NSAttributedString(string: separated)
         
-        for attributed in attributedStrings {
+        for idx in 0 ..< attributedStrings.count {
+            let attributed = attributedStrings[idx]
             result.append(attributed)
-            result.append(separatedString)
+            
+            if idx < attributedStrings.count - 1 {
+                result.append(separatedString)
+            }
         }
         
         return result

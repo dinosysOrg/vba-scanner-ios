@@ -57,24 +57,13 @@
                                         <action selector="btnTicketStatus_Pressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="8Fg-qV-RIa"/>
                                     </connections>
                                 </button>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="42p-eq-bS4" userLabel="View Ticket Info">
-                                    <rect key="frame" x="85" y="5" width="275" height="240"/>
-                                    <subviews>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tfl-2R-eef" userLabel="TextView Ticket Info">
-                                            <rect key="frame" x="0.0" y="0.0" width="275" height="240"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        </textView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="tfl-2R-eef" secondAttribute="trailing" id="GCL-kC-FHb"/>
-                                        <constraint firstAttribute="bottom" secondItem="tfl-2R-eef" secondAttribute="bottom" id="LOs-sb-WHz"/>
-                                        <constraint firstItem="tfl-2R-eef" firstAttribute="top" secondItem="42p-eq-bS4" secondAttribute="top" id="Sgg-fW-h0h"/>
-                                        <constraint firstItem="tfl-2R-eef" firstAttribute="leading" secondItem="42p-eq-bS4" secondAttribute="leading" id="lrX-Fo-v5E"/>
-                                    </constraints>
-                                </view>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tfl-2R-eef" userLabel="TextView Ticket Info">
+                                    <rect key="frame" x="85" y="11" width="275" height="229"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                </textView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LhO-tS-Tia" userLabel="View Top Line">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -89,13 +78,13 @@
                                 <constraint firstItem="LhO-tS-Tia" firstAttribute="top" secondItem="zhO-FM-3An" secondAttribute="top" id="8zU-8D-Wmc"/>
                                 <constraint firstAttribute="height" constant="250" id="94J-k4-xTb"/>
                                 <constraint firstAttribute="trailing" secondItem="LhO-tS-Tia" secondAttribute="trailing" id="Azs-9J-Hm4"/>
-                                <constraint firstAttribute="trailing" secondItem="42p-eq-bS4" secondAttribute="trailing" constant="15" id="C39-an-AS2"/>
+                                <constraint firstAttribute="trailing" secondItem="tfl-2R-eef" secondAttribute="trailing" constant="15" id="BAT-LV-pPF"/>
                                 <constraint firstItem="4y0-Lv-BpW" firstAttribute="top" secondItem="zhO-FM-3An" secondAttribute="top" id="Vc9-jg-BP0"/>
-                                <constraint firstAttribute="bottom" secondItem="42p-eq-bS4" secondAttribute="bottom" constant="5" id="bhM-dD-esj"/>
-                                <constraint firstItem="42p-eq-bS4" firstAttribute="top" secondItem="zhO-FM-3An" secondAttribute="top" constant="5" id="tk1-2t-ecn"/>
+                                <constraint firstItem="tfl-2R-eef" firstAttribute="top" secondItem="LhO-tS-Tia" secondAttribute="bottom" constant="10" id="nIE-Oi-qe1"/>
+                                <constraint firstItem="tfl-2R-eef" firstAttribute="leading" secondItem="4y0-Lv-BpW" secondAttribute="trailing" constant="15" id="nZc-Ba-rfP"/>
+                                <constraint firstAttribute="bottom" secondItem="tfl-2R-eef" secondAttribute="bottom" constant="10" id="ucZ-TC-moB"/>
                                 <constraint firstAttribute="bottom" secondItem="4y0-Lv-BpW" secondAttribute="bottom" id="uku-Dw-zs9"/>
                                 <constraint firstItem="LhO-tS-Tia" firstAttribute="leading" secondItem="zhO-FM-3An" secondAttribute="leading" id="uym-sU-Ll1"/>
-                                <constraint firstItem="42p-eq-bS4" firstAttribute="leading" secondItem="4y0-Lv-BpW" secondAttribute="trailing" constant="15" id="wYk-4Y-H4T"/>
                             </constraints>
                         </view>
                     </subviews>
