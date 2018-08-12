@@ -51,7 +51,7 @@ extension APIService : TargetType {
     }
     
     public var baseURL: URL {
-        return URL(string: BaseUrlType.staging.rawValue)!
+        return URL(string: BaseUrlType.product.rawValue)!
     }
     
     // Path for each API
